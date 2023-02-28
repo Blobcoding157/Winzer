@@ -1,3 +1,10 @@
+import './map.scss';
+import Map from './map';
+
 export default function Home() {
-  return <div>hello</div>;
+  return (
+    <div className="container">
+      <Map />
+    </div>
+  );
 }
