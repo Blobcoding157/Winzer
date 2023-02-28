@@ -1,7 +1,13 @@
 .map {
-  height: 400px;
+  height: 600px;
+  width: 90vw;
 }
 
 .container {
-  height: 100vh;
+  height: 600px;
+}
+
+.popup {
+  width: 100%;
+  border: red solid 5px;
 }

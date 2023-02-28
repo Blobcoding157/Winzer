@@ -1,0 +1,52 @@
+.banner-container {
+  display: flex;
+  position: sticky;
+  width: 100vw;
+  top: 0;
+  font-weight: 1000;
+  background-color: #133a3d;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  min-height: 4rem;
+  z-index: 1;
+}
+
+.headerLogo {
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0;
+  margin: 0.5rem;
+  padding: 0;
+  position: relative;
+  max-width: 3.5rem;
+  max-height: 3.5rem;
+}
+
+.headerTitle {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  align-items: center;
+}
+
+.bannerNavigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: static;
+}
+.navigationItem {
+  display: flex;
+  font-weight: 700;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.4rem;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+}
