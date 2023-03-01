@@ -1,6 +1,6 @@
 'use client';
 
-import './RegisterForm.scss';
+import '../../styles/RegisterForm.scss';
 
 export default function RegisterForm() {
   return (

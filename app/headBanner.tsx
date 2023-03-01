@@ -1,4 +1,4 @@
-import './headBanner.scss';
+import './styles/headBanner.scss';
 import Link from 'next/link';
 
 export default function HeadBanner() {
@@ -11,9 +11,9 @@ export default function HeadBanner() {
       <nav className="bannerNavigation">
         <div className="navigationItem">Host</div> /
         <div className="navigationItem">Log in</div> /
-        <Link href="/register" className="navigationItem">
+        <a href="/register" className="navigationItem">
           Sign in
-        </Link>
+        </a>
         /<div className="navigationItem">Profile</div>
       </nav>
     </div>

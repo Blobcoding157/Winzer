@@ -1,14 +1,16 @@
 .banner-container {
   display: flex;
   position: sticky;
-  width: 100vw;
+  flex-direction: row;
+  width: 99vw;
   top: 0;
   font-weight: 1000;
   background-color: #133a3d;
   justify-content: space-between;
   padding: 0 1.5rem;
   min-height: 4rem;
-  z-index: 1;
+  box-shadow: 20rem;
+  z-index: 9999;
 }
 
 .headerLogo {

@@ -1,4 +1,4 @@
-import './RegisterForm.scss';
+import '../../styles/RegisterForm.scss';
 import Image from 'next/image';
 import RegisterForm from './RegisterForm';
 
@@ -8,7 +8,7 @@ export default function Register() {
       <Image
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPkso6pBwACGgEie2Im0gAAAABJRU5ErkJggg=="
         placeholder="blur"
-        src="/background1.avif"
+        src="/background1.jpg"
         alt="Artistic Background Image"
         className="background-image"
         layout="fill"

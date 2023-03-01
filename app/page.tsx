@@ -1,8 +1,7 @@
-import './map.scss';
-import './globals.scss';
+import './styles/map.scss';
+import './styles/globals.scss';
 import Image from 'next/image';
-import Map from './map';
-import SearchBar from './SearchBar';
+import Map from './map/map';
 
 export default function Home() {
   return (
@@ -14,8 +13,6 @@ export default function Home() {
         height={732}
         layout="responsive"
       />
-
-      <SearchBar />
       <Map />
     </div>
   );
