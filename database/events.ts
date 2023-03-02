@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { sql } from './connect';
+import { sql } from './conect';
 
 // events database
 
@@ -13,6 +13,7 @@ import { sql } from './connect';
 //   img_url VARCHAR(100)
 // )`;
 
+// correct types for the database please!
 export type Event = {
   id: number;
   title: string;
