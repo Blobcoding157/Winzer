@@ -7,17 +7,24 @@
     "build": "next build",
     "start": "next start",
     "postinstall": "patch-package",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "dotenv ley"
   },
   "dependencies": {
+    "@apollo/server": "^4.4.0",
     "@types/node": "18.14.2",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "dotenv-cli": "^7.0.0",
+    "dotenv-safe": "^8.2.0",
+    "graphql": "^16.6.0",
     "leaflet": "^1.9.3",
     "leaflet-defaulticon-compatibility": "^0.1.1",
     "leaflet-geosearch": "^3.7.0",
+    "ley": "^0.8.1",
     "next": "13.2.1",
     "patch-package": "^6.5.1",
+    "postgres": "^3.3.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-leaflet": "^4.2.0",
@@ -28,6 +35,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.19.1",
     "@next/eslint-plugin-next": "13.2.1",
+    "@types/dotenv-safe": "^8.1.2",
     "@types/eslint": "8.21.1",
     "@types/leaflet": "^1.9.1",
     "@types/node": "18.14.1",
@@ -56,6 +64,7 @@
     "stylelint-config-css-modules": "4.2.0",
     "stylelint-config-recommended": "10.0.1",
     "stylelint-config-recommended-scss": "9.0.1",
+    "tsx": "^3.12.3",
     "typescript": "4.9.5"
   },
   "resolutions": {

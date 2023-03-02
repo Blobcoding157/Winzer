@@ -14,6 +14,8 @@ const exampleTable = [
     firstName: 'John',
     lastName: 'Doe',
     event_name: 'JohnParty',
+    date_start: '2023-03-01',
+    date_end: '2023-03-20',
     event_description:
       'this is a test event wow long text for testing testing testing test this is a test event wow long text for testing testing testing test',
     position: [48.1931, 16.31222],
@@ -23,6 +25,8 @@ const exampleTable = [
     firstName: 'Jane',
     lastName: 'Doe',
     event_name: 'JaneParty',
+    date_start: '2023-03-01',
+    date_end: '2023-03-20',
     event_description:
       'this is a test event wow long text for testing testing testing test this is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing test',
     position: [48.1931, 16.31722],
@@ -87,7 +91,11 @@ export default function Map() {
               >
                 <Popup>
                   <img className="popup" alt="" src="/wine-drive.gif" />
-                  {user.event_name}
+                  {user.event_name +
+                    ' ' +
+                    user.date_start +
+                    ' - ' +
+                    user.date_end}
                   <hr />
                   {user.event_description}
                   <br />
