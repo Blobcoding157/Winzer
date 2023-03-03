@@ -7,6 +7,7 @@ export async function up(sql) {
     event_date DATE NOT NULL,
     time_start TIME NOT NULL,
     time_end TIME NOT NULL,
+    coordinates VARCHAR(100) NOT NULL,
     img_url VARCHAR(100)
   )`;
 }

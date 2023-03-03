@@ -13,6 +13,7 @@ export default function Home() {
         height={732}
         layout="responsive"
       />
+      GPT please put some inspirational text here
       <Map />
     </div>
   );

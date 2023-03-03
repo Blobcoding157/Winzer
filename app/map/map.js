@@ -6,6 +6,7 @@ import 'leaflet-defaulticon-compatibility';
 import * as L from 'leaflet';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import icon from './icon';
 import LocationMarker from './LocationMarker';
 
 const exampleTable = [
@@ -83,6 +84,7 @@ export default function Map() {
           {exampleTable.map((user) => {
             return (
               <Marker
+                icon={icon}
                 draggable={draggable}
                 eventHandlers={eventHandlers}
                 ref={markerRef}

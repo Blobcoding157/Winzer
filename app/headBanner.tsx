@@ -10,10 +10,17 @@ export default function HeadBanner() {
       </Link>
       <nav className="bannerNavigation">
         <div className="navigationItem">Host</div> /
-        <div className="navigationItem">Log in</div> /
-        <a href="/register" className="navigationItem">
+        <Link href="/login" className="navigationItem">
+          Log in
+        </Link>
+        /
+        <Link href="/register" className="navigationItem">
           Sign in
-        </a>
+        </Link>{' '}
+        /
+        <Link href="/logout" className="navigationItem">
+          Log out
+        </Link>
         /<div className="navigationItem">Profile</div>
       </nav>
     </div>

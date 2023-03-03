@@ -21,6 +21,7 @@ export type Event = {
   event_date: Date;
   time_start: Date | null;
   time_end: Date | null;
+  coordinates: string;
   img_url: string | null;
 };
 
@@ -45,7 +46,6 @@ export const getEventsByUser = cache(async (id: number) => {
   return events;
 });
 
-// bitte noch event-location in die DB du bob!!!
 export const createEvent = cache(
   async (
     title: string,
@@ -53,25 +53,16 @@ export const createEvent = cache(
     event_date: Date,
     time_start: Date | null,
     time_end: Date | null,
+    coordinates: string,
     img_url: string | null,
   ) => {
     const [events] = await sql<Event[]>`
       INSERT INTO events
-        (title, description, event_date, time_start, time_end, img_url)
+        (title, description, event_date, time_start, time_end, img_url, coordinates)
       VALUES
-        (${title}, ${description}, ${event_date}, ${time_start}, ${time_end}, ${img_url})
+        (${title}, ${description}, ${event_date}, ${time_start}, ${time_end}, ${img_url}, ${coordinates})
       RETURNING *
     `;
     return events;
   },
 );
-
-// CREATE TABLE events (
-//   id integer  PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-//   title VARCHAR(50) NOT NULL,
-//   description VARCHAR(400) NOT NULL,
-//   event_date DATE NOT NULL,
-//   time_start TIME NOT NULL,
-//   time_end TIME NOT NULL,
-//   img_url VARCHAR(100)
-// )`;
