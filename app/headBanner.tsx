@@ -16,7 +16,7 @@ export default function HeadBanner() {
         /
         <Link href="/register" className="navigationItem">
           Sign in
-        </Link>{' '}
+        </Link>
         /
         <Link href="/logout" className="navigationItem">
           Log out
