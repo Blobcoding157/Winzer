@@ -1,4 +1,5 @@
 import './styles/globals.scss';
+import CookieBanner from './CookieBanner';
 import HeadBanner from './headBanner';
 
 export const metadata = {
@@ -17,6 +18,7 @@ export default function RootLayout({
         <HeadBanner />
         {children}
         <footer>
+          <CookieBanner />
           <br />
           @Patrik Productions
         </footer>

@@ -17,7 +17,7 @@
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background-color: cadetblue;
+  background: linear-gradient(319.94deg, #133a3d -16.43%, #2a818d 105.75%);
   border-radius: 3rem;
 }
 
@@ -57,7 +57,6 @@
   margin: 2rem;
   font-size: 2.2rem;
   padding: 0.8rem;
-  transition-duration: 0.4s;
   border: none;
 
   margin-left: 0;
@@ -99,12 +98,20 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: none;
   border-radius: 40px;
-  transition-duration: 0.4s;
   font-size: 2.5rem;
-  margin: 2rem;
+  margin-top: 2rem;
   padding: 1.5rem;
   &:hover {
+    transition-duration: 0.4s;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
   }
+}
+
+.bottom-redirect {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
 }

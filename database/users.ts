@@ -4,6 +4,12 @@ import { sql } from './conect';
 export type User = {
   id: number;
   username: string;
+  email: string;
+  role_id: number;
+  passwordHash: string;
+};
+
+type UserWithPasswordHash = User & {
   passwordHash: string;
 };
 
@@ -43,7 +49,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
 
 export const getUserByUsernameWithPasswordHash = cache(
   async (username: string) => {
-    const [user] = await sql<User[]>`
+    const [user] = await sql<UserWithPasswordHash[]>`
     SELECT
       *
     FROM
@@ -56,10 +62,12 @@ export const getUserByUsernameWithPasswordHash = cache(
 );
 
 export const getUserByUsername = cache(async (username: string) => {
-  const [user] = await sql<{ id: number; username: string }[]>`
+  const [user] = await sql<
+    { id: number; username: string; email: string; role_id: number }[]
+  >`
     SELECT
       id,
-      username
+      username, email, role_id, password_hash
     FROM
       users
     WHERE
@@ -69,15 +77,26 @@ export const getUserByUsername = cache(async (username: string) => {
 });
 
 export const createUser = cache(
-  async (username: string, passwordHash: string) => {
-    const [user] = await sql<{ id: number; username: string }[]>`
+  async (
+    username: string,
+    email: string,
+    role_id: number,
+    passwordHash: string,
+  ) => {
+    const [user] = await sql<
+      {
+        id: number;
+        email: any;
+        role_id: number;
+        username: string;
+      }[]
+    >`
       INSERT INTO users
-        (username, password_hash)
+        (username, email, role_id, password_hash)
       VALUES
-        (${username}, ${passwordHash})
+        (${username},${email}, ${role_id}, ${passwordHash})
       RETURNING
-        id,
-        username
+        id, username, email, role_id
     `;
     return user;
   },
