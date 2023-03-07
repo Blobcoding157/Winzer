@@ -2,17 +2,21 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { createSession } from '../../../../database/sessions';
 import { getUserByUsernameWithPasswordHash } from '../../../../database/users';
+import { createSerializedRegisterSessionTokenCookie } from '../../../../util/cookies';
+import { createCsrfSecret } from '../../../../util/csrf';
 
 const userSchema = z.object({
   username: z.string(),
   password: z.string(),
   email: z.string(),
+  role: z.number(),
 });
 
 export type LoginResponseBodyPost =
   | { error: { message: string }[] }
-  | { user: { username: string; email: string } };
+  | { user: { username: string; email: string; role: number } };
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
@@ -25,7 +29,12 @@ export const POST = async (request: NextRequest) => {
   }
 
   // check if the string is empty
-  if (!result.data.username || !result.data.password || !result.data.email) {
+  if (
+    !result.data.username ||
+    !result.data.password ||
+    !result.data.email ||
+    !result.data.role
+  ) {
     return NextResponse.json(
       { errors: [{ message: 'username or password is empty' }] },
       { status: 400 },
@@ -56,4 +65,41 @@ export const POST = async (request: NextRequest) => {
       { status: 401 },
     );
   }
+
+  // 4. create a session (in the next chapter)
+  // - create the token
+  const token = crypto.randomBytes(80).toString('base64');
+
+  const csrfSecret = createCsrfSecret();
+
+  // - create the session
+  const session = await createSession(
+    token,
+    userWithPasswordHash.id,
+    csrfSecret,
+  );
+
+  if (!session) {
+    return NextResponse.json(
+      { errors: [{ message: 'session creation failed' }] },
+      { status: 500 },
+    );
+  }
+
+  const serializedCookie = createSerializedRegisterSessionTokenCookie(
+    session.token,
+  );
+
+  // add the new header
+
+  return NextResponse.json(
+    {
+      user: { username: userWithPasswordHash.username },
+    },
+    {
+      status: 200,
+      // - Attach the new cookie serialized to the header of the response
+      headers: { 'Set-Cookie': serializedCookie },
+    },
+  );
 };

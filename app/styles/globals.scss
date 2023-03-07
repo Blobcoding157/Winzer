@@ -9,7 +9,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Crete Round', serif;
   font-size: 14px;
-  color: #fff;
   scroll-behavior: smooth;
   min-height: 100vh;
   line-height: 1.5;
@@ -32,5 +31,21 @@ a {
   align-items: center;
   justify-content: center;
   z-index: 9;
-  color: black;
+}
+
+.footer {
+  background-color: #000;
+  display: flex;
+  position: sticky;
+  bottom: 0;
+  color: #fff;
+  padding: 1rem;
+
+  text-align: center;
+
+  min-width: 99vw;
+  z-index: 9999;
+}
+.footer-elements {
+  font-weight: 700;
 }

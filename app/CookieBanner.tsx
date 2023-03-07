@@ -24,7 +24,7 @@ export default function CookieBanner() {
     <div />
   ) : (
     <>
-      <div>This is the cookie Police. Please accept terms and conditions</div>
+      <div>Please accept terms and conditions</div>
       <button
         onClick={() => {
           setAreCookiesTermsAccepted(true);

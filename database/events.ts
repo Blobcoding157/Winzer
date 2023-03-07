@@ -14,6 +14,7 @@ import { sql } from './conect';
 // )`;
 
 // correct types for the database please!
+
 export type Event = {
   id: number;
   title: string;
