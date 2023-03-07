@@ -73,7 +73,7 @@ export default function Map() {
         <MapContainer
           center={center}
           zoom={26}
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
           className="map"
         >
           <TileLayer

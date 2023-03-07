@@ -9,11 +9,14 @@ export default function Home() {
       <Image
         src="/hero-banner.jpg"
         alt="Artistic Background Image"
+        className="hero-banner"
         width={1920}
         height={732}
         layout="responsive"
       />
-      GPT please put some inspirational text here
+      <div className="hero-banner-text">
+        GPT please put some inspirational text here
+      </div>
       <Map />
     </div>
   );
