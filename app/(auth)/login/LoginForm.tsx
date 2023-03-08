@@ -17,12 +17,15 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
+
         const response = await fetch('/api/login', {
           method: 'POST',
           body: JSON.stringify({ username, password }),
         });
 
         const data: LoginResponseBodyPost = await response.json();
+
+        console.log(data);
 
         if ('errors' in data) {
           setErrors(data.errors);
@@ -35,6 +38,8 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
           router.push(returnTo);
           return;
         }
+
+        router.replace(`/profile/${data.user.username}`);
 
         router.refresh();
       }}

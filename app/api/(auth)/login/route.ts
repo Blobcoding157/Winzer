@@ -10,15 +10,15 @@ import { createCsrfSecret } from '../../../../util/csrf';
 const userSchema = z.object({
   username: z.string(),
   password: z.string(),
-  email: z.string(),
-  role: z.number(),
 });
 
 export type LoginResponseBodyPost =
   | { error: { message: string }[] }
-  | { user: { username: string; email: string; role: number } };
+  | { user: { username: string } };
 
-export const POST = async (request: NextRequest) => {
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<LoginResponseBodyPost>> {
   const body = await request.json();
 
   const result = userSchema.safeParse(body);
@@ -29,12 +29,7 @@ export const POST = async (request: NextRequest) => {
   }
 
   // check if the string is empty
-  if (
-    !result.data.username ||
-    !result.data.password ||
-    !result.data.email ||
-    !result.data.role
-  ) {
+  if (!result.data.username || !result.data.password) {
     return NextResponse.json(
       { errors: [{ message: 'username or password is empty' }] },
       { status: 400 },
@@ -94,7 +89,10 @@ export const POST = async (request: NextRequest) => {
 
   return NextResponse.json(
     {
-      user: { username: userWithPasswordHash.username },
+      user: {
+        username: userWithPasswordHash.username,
+        email: userWithPasswordHash.email,
+      },
     },
     {
       status: 200,
@@ -102,4 +100,4 @@ export const POST = async (request: NextRequest) => {
       headers: { 'Set-Cookie': serializedCookie },
     },
   );
-};
+}
