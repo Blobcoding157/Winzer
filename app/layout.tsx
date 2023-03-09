@@ -46,14 +46,15 @@ export default async function RootLayout(props: Props) {
           <nav className="bannerNavigation">
             {user ? (
               <>
-                <div className="navigationItem">Host</div>
+                <Link href="/host" prefetch={false} className="navigationItem">
+                  Host
+                </Link>
                 <Link
                   href={`/profile/${user.username}`}
                   className="navigationItem"
                 >
                   {user.username}
                 </Link>
-                {user.username}
                 <Link
                   prefetch={false}
                   href="/logout"

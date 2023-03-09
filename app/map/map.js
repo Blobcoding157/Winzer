@@ -1,13 +1,15 @@
 'use client';
+
 import '../styles/map.scss';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
 import 'leaflet-defaulticon-compatibility';
-import * as L from 'leaflet';
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
 import icon from './icon';
 import LocationMarker from './LocationMarker';
+import SearchControl from './SearchControl';
 
 const exampleTable = [
   {
@@ -40,6 +42,18 @@ export default function Map() {
   const [draggable, setDraggable] = useState(false);
   const [position, setPosition] = useState(center);
   const markerRef = useRef(null);
+  const [mapData, setMapData] = useState([]);
+
+  const prov = OpenStreetMapProvider();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('/api/events', { method: 'GET' });
+      const jsonData = await response.json();
+      setMapData(jsonData);
+    };
+    fetchData().catch((err) => console.log(err));
+  }, []);
 
   // draggable isn't working. next idea is to update the actual position in the database on eventhandler
 
@@ -80,26 +94,41 @@ export default function Map() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <SearchControl
+            provider={prov}
+            showMarker={true}
+            showPopup={false}
+            popupFormat={({ query, result }) => result.label}
+            maxMarkers={3}
+            retainZoomLevel={false}
+            animateZoom={true}
+            autoClose={false}
+            searchLabel={'Enter address, please'}
+            keepResult={true}
+          />
 
-          {exampleTable.map((user) => {
+          {mapData.map((user) => {
             return (
               <Marker
                 icon={icon}
                 draggable={draggable}
                 eventHandlers={eventHandlers}
                 ref={markerRef}
-                key={`user-${user.id}`}
-                position={[user.position[0], user.position[1]]}
+                key={`event-${user.id}`}
+                position={[user.coordinates[0], user.coordinates[1]]}
               >
                 <Popup>
+                  {user.img_url}
                   <img className="popup" alt="" src="/wine-drive.gif" />
-                  {user.event_name +
+                  {user.title +
                     ' ' +
-                    user.date_start +
+                    user.date +
+                    ' ' +
+                    user.time_start +
                     ' - ' +
-                    user.date_end}
+                    user.time_end}
                   <hr />
-                  {user.event_description}
+                  {user.description}
                   <br />
                   <button>Join</button>
                 </Popup>

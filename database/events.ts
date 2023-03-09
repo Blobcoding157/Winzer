@@ -22,7 +22,7 @@ export type Event = {
   event_date: Date;
   time_start: Date | null;
   time_end: Date | null;
-  coordinates: string;
+  coordinates: number[];
   img_url: string | null;
 };
 
@@ -54,7 +54,7 @@ export const createEvent = cache(
     event_date: Date,
     time_start: Date | null,
     time_end: Date | null,
-    coordinates: string,
+    coordinates: number[],
     img_url: string | null,
   ) => {
     const [events] = await sql<Event[]>`
