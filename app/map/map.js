@@ -81,7 +81,7 @@ export default function Map() {
           {draggable ? 'unlock' : 'lock'}
         </button>
 
-        <input className="search-bar" placeholder="Search..." />
+        {/* <input className="search-bar" placeholder="Search..." /> */}
       </div>
       <div className="container">
         <MapContainer

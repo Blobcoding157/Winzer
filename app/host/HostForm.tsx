@@ -25,6 +25,7 @@ export default function HostForm() {
   const [eventDate, setEventDate] = useState('');
   const [timeStart, setTimeStart] = useState('');
   const [timeEnd, setTimeEnd] = useState('');
+  const [marker, setMarker] = useState([]);
   const [coordinates, setCoordinates] = useState([]);
   const [imgUrl, setImgUrl] = useState('');
 
@@ -34,11 +35,12 @@ export default function HostForm() {
     const map = useMapEvents({
       click: (e) => {
         const { lat, lng } = e.latlng;
-        if (coordinates) {
-          map.removeLayer(coordinates);
+        setCoordinates([lat, lng]);
+        if (marker) {
+          map.removeLayer(marker);
         }
         const newMarker = L.marker([lat, lng], { icon }).addTo(map);
-        setCoordinates(newMarker);
+        setMarker(newMarker);
       },
     });
     return null;
@@ -49,7 +51,7 @@ export default function HostForm() {
       onSubmit={async (event) => {
         event.preventDefault();
 
-        const response = await fetch('/api/host', {
+        const response = await fetch('/api/events', {
           method: 'POST',
           body: JSON.stringify({
             title,
@@ -85,15 +87,18 @@ export default function HostForm() {
         <input
           placeholder="Event Date"
           value={eventDate}
+          type="date"
           onChange={(event) => setEventDate(event.currentTarget.value)}
         />
         <input
           placeholder="Time Start"
           value={timeStart}
+          type="time"
           onChange={(event) => setTimeStart(event.currentTarget.value)}
         />
         <input
           placeholder="Time End"
+          type="time"
           value={timeEnd}
           onChange={(event) => setTimeEnd(event.currentTarget.value)}
         />
@@ -117,7 +122,19 @@ export default function HostForm() {
 
         <SetPin />
       </MapContainer>
-      <button>Lets do it!</button>
+      <button
+        onClick={() => {
+          console.log('img url: ', imgUrl);
+          console.log('title: ', title);
+          console.log('description: ', description);
+          console.log('event date: ', eventDate);
+          console.log('time start: ', timeStart);
+          console.log('time end: ', timeEnd);
+          console.log('coordinates: ', coordinates);
+        }}
+      >
+        Lets do it!
+      </button>
     </form>
   );
 }

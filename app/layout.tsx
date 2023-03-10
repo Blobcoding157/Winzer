@@ -43,6 +43,7 @@ export default async function RootLayout(props: Props) {
             />
             <h2>Winzer</h2>
           </Link>
+
           <nav className="bannerNavigation">
             {user ? (
               <>

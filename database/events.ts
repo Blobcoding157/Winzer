@@ -22,7 +22,7 @@ export type Event = {
   event_date: Date;
   time_start: Date | null;
   time_end: Date | null;
-  coordinates: number[];
+  coordinates: [number, number];
   img_url: string | null;
 };
 

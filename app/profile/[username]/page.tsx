@@ -12,7 +12,7 @@ export default async function ProfilePage({ params }: Props) {
   return (
     <>
       <h1>{user.username}</h1>
-      <div>{user.id}</div>
+      <div>{user.email}</div>
     </>
   );
 }
