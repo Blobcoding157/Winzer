@@ -5,11 +5,12 @@ import { createEvent, getEvents } from '../../../database/events';
 const eventSchema = z.object({
   title: z.string(),
   description: z.string(),
-  event_date: z.date(),
-  time_start: z.date(),
-  time_end: z.date(),
-  coordinates: z.array(z.number()),
-  img_url: z.string(),
+  eventDate: z.string(),
+  eventStart: z.string(),
+  eventEnd: z.string(),
+  latitude: z.number(),
+  longitude: z.number(),
+  imgUrl: z.string(),
 });
 
 export type EventResponseBodyPost =
@@ -18,11 +19,12 @@ export type EventResponseBodyPost =
       event: {
         title: string;
         description: string;
-        event_date: Date;
-        time_start: Date;
-        time_end: Date;
-        coordinates: number[];
-        img_url: string;
+        eventDate: string;
+        eventStart: string;
+        eventEnd: string;
+        latitude: number;
+        longitude: number;
+        imgUrl: string;
       };
     };
 
@@ -33,18 +35,22 @@ export async function POST(
 
   const result = eventSchema.safeParse(body);
 
+  // console.log('body: ', typeof body, body);
+  // console.log('result: ', result);
+
   if (!result.success) {
-    return NextResponse.json({ error: result.error.issues }, { status: 400 });
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
   }
 
   if (
     !result.data.title ||
     !result.data.description ||
-    !result.data.event_date ||
-    !result.data.time_start ||
-    !result.data.time_end ||
-    !result.data.coordinates ||
-    !result.data.img_url
+    !result.data.eventDate ||
+    !result.data.eventStart ||
+    !result.data.eventEnd ||
+    !result.data.latitude ||
+    !result.data.longitude ||
+    !result.data.imgUrl
   ) {
     return NextResponse.json(
       { errors: [{ message: 'please fill all options' }] },
@@ -55,11 +61,12 @@ export async function POST(
   const newEvent = await createEvent(
     result.data.title,
     result.data.description,
-    result.data.event_date,
-    result.data.time_start,
-    result.data.time_end,
-    result.data.coordinates,
-    result.data.img_url,
+    result.data.eventDate,
+    result.data.eventStart,
+    result.data.eventEnd,
+    result.data.latitude,
+    result.data.longitude,
+    result.data.imgUrl,
   );
   if (!newEvent) {
     return NextResponse.json(
@@ -72,11 +79,12 @@ export async function POST(
     event: {
       title: newEvent.title,
       description: newEvent.description,
-      event_date: newEvent.event_date,
-      time_start: newEvent.time_start,
-      time_end: newEvent.time_end,
-      coordinates: newEvent.coordinates,
-      img_url: newEvent.img_url,
+      eventDate: newEvent.eventDate,
+      eventStart: newEvent.eventStart,
+      eventEnd: newEvent.eventEnd,
+      latitude: newEvent.latitude,
+      longitude: newEvent.longitude,
+      imgUrl: newEvent.imgUrl,
     },
   });
 }
@@ -84,6 +92,7 @@ export async function POST(
 export async function GET(request: NextRequest) {
   const events = await getEvents();
   const { searchParams } = new URL(request.url);
+  console.log(events);
   console.log(typeof searchParams.get('id'));
   return NextResponse.json(events);
 }

@@ -11,31 +11,6 @@ import icon from './icon';
 import LocationMarker from './LocationMarker';
 import SearchControl from './SearchControl';
 
-const exampleTable = [
-  {
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    event_name: 'JohnParty',
-    date_start: '2023-03-01',
-    date_end: '2023-03-20',
-    event_description:
-      'this is a test event wow long text for testing testing testing test this is a test event wow long text for testing testing testing test',
-    position: [48.1931, 16.31222],
-  },
-  {
-    id: 2,
-    firstName: 'Jane',
-    lastName: 'Doe',
-    event_name: 'JaneParty',
-    date_start: '2023-03-01',
-    date_end: '2023-03-20',
-    event_description:
-      'this is a test event wow long text for testing testing testing test this is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing testthis is a test event wow long text for testing testing testing test',
-    position: [48.1931, 16.31722],
-  },
-];
-
 const center = [48.1931, 16.31222];
 
 export default function Map() {
@@ -51,6 +26,7 @@ export default function Map() {
       const response = await fetch('/api/events', { method: 'GET' });
       const jsonData = await response.json();
       setMapData(jsonData);
+      // console.log(jsonData);
     };
     fetchData().catch((err) => console.log(err));
   }, []);
@@ -103,7 +79,7 @@ export default function Map() {
             retainZoomLevel={false}
             animateZoom={true}
             autoClose={false}
-            searchLabel={'Enter address, please'}
+            searchLabel={'Enter address'}
             keepResult={true}
           />
 
@@ -115,18 +91,18 @@ export default function Map() {
                 eventHandlers={eventHandlers}
                 ref={markerRef}
                 key={`event-${user.id}`}
-                position={[user.coordinates[0], user.coordinates[1]]}
+                position={[user.latitude, user.longitude]}
               >
                 <Popup>
                   {user.img_url}
                   <img className="popup" alt="" src="/wine-drive.gif" />
                   {user.title +
                     ' ' +
-                    user.date +
-                    ' ' +
-                    user.time_start +
+                    user.eventStart +
                     ' - ' +
-                    user.time_end}
+                    user.eventEnd +
+                    ' ' +
+                    user.eventDate}
                   <hr />
                   {user.description}
                   <br />

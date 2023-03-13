@@ -4,10 +4,11 @@ export async function up(sql) {
     id integer  PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(400) NOT NULL,
-    event_date DATE NOT NULL,
-    time_start TIME NOT NULL,
-    time_end TIME NOT NULL,
-    coordinates VARCHAR(100) NOT NULL,
+    event_date VARCHAR(50) NOT NULL,
+    event_start VARCHAR(50) NOT NULL,
+    event_end VARCHAR(50) NOT NULL,
+    latitude FLOAT NOT NULL,
+    longitude FLOAT NOT NULL,
     img_url VARCHAR(100)
   )`;
 }

@@ -1,29 +1,19 @@
+import { Point } from 'leaflet';
 import { cache } from 'react';
 import { sql } from './conect';
 
 // events database
 
-// CREATE TABLE events (
-//   id integer  PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-//   title VARCHAR(50) NOT NULL,
-//   description VARCHAR(400) NOT NULL,
-//   event_date DATE NOT NULL,
-//   time_start TIME NOT NULL,
-//   time_end TIME NOT NULL,
-//   img_url VARCHAR(100)
-// )`;
-
-// correct types for the database please!
-
 export type Event = {
   id: number;
   title: string;
   description: string;
-  event_date: Date;
-  time_start: Date | null;
-  time_end: Date | null;
-  coordinates: [number, number];
-  img_url: string | null;
+  eventDate: string;
+  eventStart: string;
+  eventEnd: string;
+  latitude: number;
+  longitude: number;
+  imgUrl: string;
 };
 
 export const getEvents = cache(async () => {
@@ -51,17 +41,18 @@ export const createEvent = cache(
   async (
     title: string,
     description: string,
-    event_date: Date,
-    time_start: Date | null,
-    time_end: Date | null,
-    coordinates: number[],
-    img_url: string | null,
+    eventDate: string,
+    eventStart: string,
+    eventEnd: string,
+    latitude: number,
+    longitude: number,
+    imgUrl: string,
   ) => {
     const [events] = await sql<Event[]>`
       INSERT INTO events
-        (title, description, event_date, time_start, time_end, img_url, coordinates)
+        (title, description, event_date, event_start, event_end, latitude, longitude, img_url)
       VALUES
-        (${title}, ${description}, ${event_date}, ${time_start}, ${time_end}, ${img_url}, ${coordinates})
+        (${title}, ${description}, ${eventDate} ${eventStart}, ${eventEnd}, ${latitude}, ${longitude}, ${imgUrl})
       RETURNING *
     `;
     return events;

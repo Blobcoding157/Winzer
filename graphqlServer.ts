@@ -38,7 +38,7 @@ async function startApolloServer() {
     listen: { port: 8000 },
   });
 
-  console.log(`server is running on port ${url}`);
+  // console.log(`server is running on port ${url}`);
 }
 
 startApolloServer().catch((err) => {
