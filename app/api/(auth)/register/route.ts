@@ -11,12 +11,20 @@ const userSchema = z.object({
   username: z.string(),
   password: z.string(),
   email: z.string(),
+  profilePicture: z.string(),
   role: z.number(),
 });
 
 export type RegisterResponseBodyPost =
   | { errors: { message: string }[] }
-  | { user: { username: string; email: string; role: number } };
+  | {
+      user: {
+        username: string;
+        email: string;
+        profilePicture: string;
+        role: number;
+      };
+    };
 
 export async function POST(
   request: NextRequest,
@@ -34,7 +42,8 @@ export async function POST(
     !result.data.username ||
     !result.data.password ||
     !result.data.email ||
-    !result.data.role
+    !result.data.role ||
+    !result.data.profilePicture
   ) {
     return NextResponse.json(
       { errors: [{ message: 'username or password is empty' }] },
@@ -61,6 +70,7 @@ export async function POST(
   const newUser = await createUser(
     result.data.username,
     result.data.email,
+    result.data.profilePicture,
     result.data.role,
     passwordHash,
   );
@@ -94,7 +104,13 @@ export async function POST(
 
   // 6. return the new username and email
   return NextResponse.json(
-    { user: { username: newUser.username, email: newUser.email } },
+    {
+      user: {
+        username: newUser.username,
+        email: newUser.email,
+        profilePicture: newUser.profilePicture,
+      },
+    },
     {
       status: 200,
       // - Attach the new cookie serialized to the header of the response

@@ -26,7 +26,6 @@ export default function Map() {
       const response = await fetch('/api/events', { method: 'GET' });
       const jsonData = await response.json();
       setMapData(jsonData);
-      // console.log(jsonData);
     };
     fetchData().catch((err) => console.log(err));
   }, []);

@@ -5,6 +5,7 @@ export type User = {
   id: number;
   username: string;
   email: string;
+  profilePicture: string;
   role_id: number;
   passwordHash: string;
 };
@@ -29,11 +30,17 @@ export const getUsersById = cache(async (id: number) => {
 
 export const getUserBySessionToken = cache(async (token: string) => {
   const [user] = await sql<
-    { id: number; username: string; csrfSecret: string }[]
+    {
+      id: number;
+      username: string;
+      profilePicture: string;
+      csrfSecret: string;
+    }[]
   >`
     SELECT
       users.id,
       users.username,
+      users.profile_picture,
       sessions.csrf_secret
     FROM
       users
@@ -63,11 +70,17 @@ export const getUserByUsernameWithPasswordHash = cache(
 
 export const getUserByUsername = cache(async (username: string) => {
   const [user] = await sql<
-    { id: number; username: string; email: string; role_id: number }[]
+    {
+      id: number;
+      username: string;
+      profilePicture: string;
+      email: string;
+      role_id: number;
+    }[]
   >`
     SELECT
       id,
-      username, email, role_id, password_hash
+      username, email, profile_picture, role_id, password_hash
     FROM
       users
     WHERE
@@ -80,23 +93,25 @@ export const createUser = cache(
   async (
     username: string,
     email: string,
+    profilePicture: string,
     role_id: number,
     passwordHash: string,
   ) => {
     const [user] = await sql<
       {
         id: number;
-        email: any;
-        role_id: number;
         username: string;
+        email: any;
+        profilePicture: string;
+        role_id: number;
       }[]
     >`
       INSERT INTO users
-        (username, email, role_id, password_hash)
+        (username, email, profile_picture, role_id, password_hash)
       VALUES
-        (${username},${email}, ${role_id}, ${passwordHash})
+        (${username}, ${email}, ${profilePicture}, ${role_id}, ${passwordHash})
       RETURNING
-        id, username, email, role_id
+        id, username, profile_picture, email, role_id
     `;
     return user;
   },

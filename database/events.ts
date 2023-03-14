@@ -1,4 +1,3 @@
-import { Point } from 'leaflet';
 import { cache } from 'react';
 import { sql } from './conect';
 
@@ -14,6 +13,7 @@ export type Event = {
   latitude: number;
   longitude: number;
   imgUrl: string;
+  userId: number;
 };
 
 export const getEvents = cache(async () => {
@@ -47,12 +47,13 @@ export const createEvent = cache(
     latitude: number,
     longitude: number,
     imgUrl: string,
+    userId: number,
   ) => {
     const [events] = await sql<Event[]>`
       INSERT INTO events
-        (title, description, event_date, event_start, event_end, latitude, longitude, img_url)
+        (title, description, event_date, event_start, event_end, latitude, longitude, img_url, user_id)
       VALUES
-        (${title}, ${description}, ${eventDate} ${eventStart}, ${eventEnd}, ${latitude}, ${longitude}, ${imgUrl})
+        (${title}, ${description}, ${eventDate}, ${eventStart}, ${eventEnd}, ${latitude}, ${longitude}, ${imgUrl}, ${userId})
       RETURNING *
     `;
     return events;

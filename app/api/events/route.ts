@@ -11,6 +11,7 @@ const eventSchema = z.object({
   latitude: z.number(),
   longitude: z.number(),
   imgUrl: z.string(),
+  userId: z.number(),
 });
 
 export type EventResponseBodyPost =
@@ -25,6 +26,7 @@ export type EventResponseBodyPost =
         latitude: number;
         longitude: number;
         imgUrl: string;
+        userId: number;
       };
     };
 
@@ -34,9 +36,6 @@ export async function POST(
   const body = await request.json();
 
   const result = eventSchema.safeParse(body);
-
-  // console.log('body: ', typeof body, body);
-  // console.log('result: ', result);
 
   if (!result.success) {
     return NextResponse.json({ errors: result.error.issues }, { status: 400 });
@@ -50,7 +49,8 @@ export async function POST(
     !result.data.eventEnd ||
     !result.data.latitude ||
     !result.data.longitude ||
-    !result.data.imgUrl
+    !result.data.imgUrl ||
+    !result.data.userId
   ) {
     return NextResponse.json(
       { errors: [{ message: 'please fill all options' }] },
@@ -67,6 +67,7 @@ export async function POST(
     result.data.latitude,
     result.data.longitude,
     result.data.imgUrl,
+    result.data.userId,
   );
   if (!newEvent) {
     return NextResponse.json(
@@ -85,6 +86,7 @@ export async function POST(
       latitude: newEvent.latitude,
       longitude: newEvent.longitude,
       imgUrl: newEvent.imgUrl,
+      userId: newEvent.userId,
     },
   });
 }

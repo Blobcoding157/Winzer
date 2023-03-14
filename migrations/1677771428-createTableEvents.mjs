@@ -9,7 +9,8 @@ export async function up(sql) {
     event_end VARCHAR(50) NOT NULL,
     latitude FLOAT NOT NULL,
     longitude FLOAT NOT NULL,
-    img_url VARCHAR(100)
+    img_url VARCHAR(100),
+    user_id INTEGER NOT NULL
   )`;
 }
 

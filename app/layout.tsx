@@ -55,6 +55,11 @@ export default async function RootLayout(props: Props) {
                   className="navigationItem"
                 >
                   {user.username}
+                  <img
+                    className="profile-picture"
+                    alt="User Profile"
+                    src={user.profilePicture}
+                  />
                 </Link>
                 <Link
                   prefetch={false}

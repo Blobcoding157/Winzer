@@ -14,6 +14,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
   const [role, setRole] = useState(0);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
+  const profilePicture = '/default-profile-picture.png';
 
   return (
     <form
@@ -22,7 +23,13 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
 
         const response = await fetch('/api/register', {
           method: 'POST',
-          body: JSON.stringify({ username, email, role, password }),
+          body: JSON.stringify({
+            username,
+            email,
+            profilePicture,
+            role,
+            password,
+          }),
         });
 
         const data: RegisterResponseBodyPost = await response.json();
