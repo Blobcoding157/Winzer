@@ -4,6 +4,7 @@ import { sql } from './conect';
 type Session = {
   id: number;
   token: string;
+  userId: number | null;
   csrfSecret: string;
 };
 
@@ -53,6 +54,7 @@ export const getValidSessionByToken = cache(async (token: string) => {
     SELECT
       sessions.id,
       sessions.token,
+      sessions.user_id,
       sessions.csrf_secret
      FROM
       sessions

@@ -5,9 +5,7 @@ import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByUsername } from '../../../database/users';
 import Profile from './Profile';
 
-type Props = { params: { username: string } };
-
-export default async function ProfilePage({ params }: Props) {
+export default async function ProfilePage(props) {
   // check if there is a valid session
   const sessionTokenCookie = cookies().get('sessionToken');
   const session =
@@ -19,21 +17,15 @@ export default async function ProfilePage({ params }: Props) {
   }
   // if not, render login form
 
-  const user = await getUserByUsername(params.username);
+  const user = await getUserByUsername(props.params.username);
 
   if (!user) {
-    notFound();
+    return notFound();
   }
+
   return (
-    <>
-      <img
-        className="profile-picture"
-        src={user.profilePicture}
-        alt="User Profile"
-      />
-      <Profile user={user} sessionUser={session.user} />
-      <h1>{user.username}</h1>
-      <div>{user.email}</div>
-    </>
+    <div>
+      <Profile user={user} sessionUser={session.userId} />
+    </div>
   );
 }

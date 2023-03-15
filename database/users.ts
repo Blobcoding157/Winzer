@@ -6,6 +6,7 @@ export type User = {
   username: string;
   email: string;
   profilePicture: string;
+  aboutMe: string | null;
   role_id: number;
   passwordHash: string;
 };
@@ -89,6 +90,28 @@ export const getUserByUsername = cache(async (username: string) => {
   return user;
 });
 
+export const updateUserPicture = cache(
+  async (userId: number, profilePicture: string) => {
+    const [user] = await sql<{ id: number; username: string }[]>`
+    UPDATE users
+    SET profile_picture = ${profilePicture}
+    WHERE id = ${userId}
+    RETURNING id, username;
+  `;
+    return user;
+  },
+);
+
+export const updateUser = cache(async (userId: number, aboutMe: string) => {
+  const [user] = await sql<{ id: number; username: string }[]>`
+    UPDATE users
+    SET about_me = ${aboutMe}
+    WHERE id = ${userId}
+    RETURNING id, username;
+    `;
+  return user;
+});
+
 export const createUser = cache(
   async (
     username: string,
@@ -111,7 +134,7 @@ export const createUser = cache(
       VALUES
         (${username}, ${email}, ${profilePicture}, ${role_id}, ${passwordHash})
       RETURNING
-        id, username, profile_picture, email, role_id
+        id, username
     `;
     return user;
   },
