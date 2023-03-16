@@ -52,9 +52,9 @@ export default function Map() {
   return (
     <>
       <div className="search-button-container">
-        <button className="drag-button" onClick={toggleDraggable}>
+        {/* <button className="drag-button" onClick={toggleDraggable}>
           {draggable ? 'unlock' : 'lock'}
-        </button>
+        </button> */}
 
         {/* <input className="search-bar" placeholder="Search..." /> */}
       </div>
@@ -69,7 +69,7 @@ export default function Map() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <SearchControl
+          {/* <SearchControl
             provider={prov}
             showMarker={true}
             showPopup={false}
@@ -80,7 +80,7 @@ export default function Map() {
             autoClose={false}
             searchLabel={'Enter address'}
             keepResult={true}
-          />
+          /> */}
 
           {mapData.map((user) => {
             return (

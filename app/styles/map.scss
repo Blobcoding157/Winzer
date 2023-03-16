@@ -1,10 +1,14 @@
 .map {
-  height: 600px;
-  width: 90vw;
+  display: flex;
+  min-height: 85vh;
+
+  border-radius: 0.5rem;
+  min-width: 85vw;
+  margin: 1rem;
+  z-index: 0;
 }
 
 .container {
-  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;

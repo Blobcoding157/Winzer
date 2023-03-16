@@ -14,11 +14,14 @@
 
 .register-container {
   display: flex;
+  color: white;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(319.94deg, #133a3d -16.43%, #2a818d 105.75%);
-  border-radius: 3rem;
+  backdrop-filter: blur(1rem);
+  // background: linear-gradient(319.94deg, #133a3d -16.43%, #2a818d 105.75%);
+  border-radius: 4rem;
 }
 
 .winzer-user-container {
@@ -31,12 +34,13 @@
 }
 .winzer {
   background: #dd4444;
-  border-radius: 30px 0px 0px 30px;
+  border-radius: 10rem 0px 0px 10rem;
   margin: 2rem;
   font-size: 2.2rem;
   color: #fff;
   padding: 0.8rem;
-  transition-duration: 0.4s;
+  font-weight: 700;
+
   border: none;
 
   margin-right: 0;
@@ -45,8 +49,8 @@
     background: #f48080;
   }
   &:active {
-    transition-duration: 0.1s;
-    box-shadow: inset 1px 1px 10px #333;
+    box-shadow: inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -54,6 +58,7 @@
   background: #dd4444;
   border-radius: 0px 30px 30px 0px;
   margin: 2rem;
+  font-weight: 700;
   font-size: 2.2rem;
   padding: 0.8rem;
   border: none;
@@ -65,8 +70,8 @@
     background: #f48080;
   }
   &:active {
-    transition-duration: 0.1s;
-    box-shadow: inset 1px 1px 10px #333;
+    box-shadow: inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -93,23 +98,39 @@
 }
 
 .sign-up-button {
-  background: linear-gradient(98.93deg, #194b4f 5.61%, #2d676f 93.46%);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border: none;
+  margin-top: 1rem;
+  font-size: 2rem;
+  justify-content: center;
+  width: 13rem;
+  height: 5rem;
   color: #fff;
-  border-radius: 40px;
-  font-size: 2.5rem;
-  margin-top: 2rem;
-  padding: 1.5rem;
-  &:hover {
-    transition-duration: 0.4s;
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20rem;
+  padding: 0;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px #2d676f, 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: linear-gradient(98.93deg, #194b4f 5.61%, #2d676f 93.46%);
+  border: none;
+  &:before {
+    height: 0%;
+    width: 2px;
+  }
+  &:active {
+    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
+      -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
+      inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
   }
 }
 
 .bottom-redirect {
   display: flex;
+  color: white;
   flex-direction: row;
   align-items: center;
   justify-content: center;
