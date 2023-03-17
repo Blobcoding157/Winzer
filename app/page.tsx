@@ -10,13 +10,12 @@ export default function Home() {
       <div className="hero-container">
         <div className="hero-image-container">
           <Image
-            src="/gathering.jpeg"
+            src="/hero-bg.jpg"
             alt="Artistic Background Image"
             className="hero-image"
-            width={600}
-            height={800}
+            width={4297}
+            height={2865}
             quality={100}
-            layout="responsive"
           />
         </div>
         <div className="hero-text-container">

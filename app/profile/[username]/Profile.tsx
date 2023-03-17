@@ -1,4 +1,5 @@
 'use client';
+import '../../styles/globals.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -24,6 +25,7 @@ export default function Profile({ user, sessionUser }) {
     router.refresh();
     setIsUpdating(!isUpdating);
   }
+
   async function handleOnSubmitPicture(event) {
     event.preventDefault();
 
@@ -86,38 +88,43 @@ export default function Profile({ user, sessionUser }) {
       </div>
     );
   }
-  if (profilePictureUpdate) {
-    <form
-      method="post"
-      onChange={handleOnChange}
-      onSubmit={handleOnSubmitPicture}
-    >
-      <input placeholder="upload here" type="file" name="file" />
-
-      <img alt="new Profile Selection" src={imageSrc} />
-
-      {imageSrc && !uploadData && (
-        <p>
-          <button>Upload File</button>
-        </p>
-      )}
-
-      {uploadData && (
-        <code>
-          <pre>{JSON.stringify(uploadData, null, 2)}</pre>
-        </code>
-      )}
-    </form>;
-  }
   return (
     <div>
-      <img alt="user" src={user.profilePicture} />
-      <button onClick={() => setProfilePictureUpdate(true)}>
-        edit profile Picture
-      </button>
-      <h1>{user.username}</h1>
-      <div>{user.aboutMe}</div>
-      <div>participating events: </div>
+      <form
+        method="post"
+        onChange={handleOnChange}
+        onSubmit={handleOnSubmitPicture}
+      >
+        <input placeholder="upload here" type="file" name="file" />
+        {imageSrc && (
+          <img
+            className="profile-picture"
+            alt="new Profile Selection"
+            src={imageSrc}
+          />
+        )}
+
+        {imageSrc && !uploadData && (
+          <p>
+            <button>Upload File</button>
+          </p>
+        )}
+
+        {uploadData && (
+          <code>
+            <pre>{JSON.stringify(uploadData, null, 2)}</pre>
+          </code>
+        )}
+      </form>
+      <div>
+        <img className="profile-picture" alt="user" src={user.profilePicture} />
+        <button onClick={() => setProfilePictureUpdate(true)}>
+          edit profile Picture
+        </button>
+        <h1>{user.username}</h1>
+        <div>{user.aboutMe}</div>
+        <div>participating events: </div>
+      </div>
     </div>
   );
 }

@@ -1,71 +1,47 @@
 .hero-background {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(#267f82, #630317);
+  background-color: #fff;
+}
 
-  background-size: 120% 120%;
-  animation: gradient-animation 3s ease infinite;
-}
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 .map-bg {
-  background: linear-gradient(182deg, #267f82, #630318);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-size: 120% 120%;
-  height: 60rem;
-  animation: gradient-animation 4s ease infinite;
 }
+
 .hero-container {
   display: flex;
-
+  position: relative;
   justify-content: center;
   align-items: center;
-  flex-direction: row-reverse;
-
-  padding-top: 2rem;
-  // padding-bottom: 1rem;
-
-  background: linear-gradient(0deg, #2d7075, #fff);
-
-  background-size: 100% 100%;
-  animation: gradient-animation 3s ease infinite;
+  flex-direction: row;
 }
 
 .hero-image-container {
-  margin: 0;
-  padding: 0;
-  width: 35rem;
-  height: 45em;
   display: flex;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 47rem;
+  top: 0;
 }
 
 .hero-image {
   display: flex;
+  width: 100vw;
+  height: 47rem;
   justify-content: center;
   align-items: center;
-  width: 35rem;
-  height: 45rem;
-
-  border-radius: 20rem 20rem 0 0;
-  margin: 0;
-  padding: 0;
 }
 
 .hero-text-container {
   font-weight: 700;
   max-width: 30rem;
-  margin: 1rem;
+  position: absolute;
+  margin-left: 10rem;
+  left: 0;
+
+  z-index: 1;
 }
 
 .hero-text-header {

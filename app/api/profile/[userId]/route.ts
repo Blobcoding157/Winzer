@@ -24,18 +24,14 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Record<string, string[]> },
 ) {
-  const userId = Number(params.userId);
+  const userId = Number(params.id);
   if (!userId) {
     return NextResponse.json({ error: 'No user id' }, { status: 400 });
   }
 
   const body = await request.json();
 
-  const newUser = await updateUser(
-    body.userId,
-    body.aboutMe,
-    body.profilePicture,
-  );
+  const newUser = await updateUser(body.id, body.aboutMe, body.profilePicture);
 
   return NextResponse.json({ user: newUser });
 }

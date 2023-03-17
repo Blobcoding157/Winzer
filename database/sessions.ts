@@ -9,12 +9,12 @@ type Session = {
 };
 
 export const createSession = cache(
-  async (token: string, userId: number, csrfSecret: string) => {
+  async (token: string, id: number, csrfSecret: string) => {
     const [session] = await sql<{ id: number; token: string }[]>`
       INSERT INTO sessions
         (token, user_id, csrf_secret)
       VALUES
-        (${token}, ${userId}, ${csrfSecret})
+        (${token}, ${id}, ${csrfSecret})
       RETURNING
         id,
         token

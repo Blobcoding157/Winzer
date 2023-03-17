@@ -1,9 +1,12 @@
 'use client';
 
 import '../styles/map.scss';
+import '../styles/globals.scss';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
 import 'leaflet-defaulticon-compatibility';
+import 'leaflet-geosearch/dist/geosearch.css';
+import 'leaflet-geosearch/dist/geosearch.umd.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
@@ -69,7 +72,7 @@ export default function Map() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/* <SearchControl
+          <SearchControl
             provider={prov}
             showMarker={true}
             showPopup={false}
@@ -80,7 +83,7 @@ export default function Map() {
             autoClose={false}
             searchLabel={'Enter address'}
             keepResult={true}
-          /> */}
+          />
 
           {mapData.map((user) => {
             return (
@@ -93,19 +96,28 @@ export default function Map() {
                 position={[user.latitude, user.longitude]}
               >
                 <Popup>
-                  {user.img_url}
-                  <img className="popup" alt="" src="/wine-drive.gif" />
-                  {user.title +
-                    ' ' +
-                    user.eventStart +
-                    ' - ' +
-                    user.eventEnd +
-                    ' ' +
-                    user.eventDate}
-                  <hr />
-                  {user.description}
-                  <br />
-                  <button>Join</button>
+                  <div className="popup-container">
+                    <img
+                      className="popup-image"
+                      alt="event-banner"
+                      src={user.imgUrl}
+                    />
+                    <h1 className="popup-title">{user.title}</h1>
+                    <div className="popup-date-time-container">
+                      <div className="popup-date">{user.eventDate}</div>
+                      <div className="popup-time">
+                        {user.eventStart} - {user.eventEnd}
+                      </div>
+                    </div>
+                    <div className="popup-description-container">
+                      <div className="popup-description">
+                        {user.description}
+                      </div>
+                    </div>
+                    <div className="popup-button-container">
+                      <button className="popup-join-button">Join</button>
+                    </div>
+                  </div>
                 </Popup>
               </Marker>
             );

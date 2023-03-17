@@ -1,11 +1,9 @@
 .map {
   display: flex;
   min-height: 85vh;
-
   border-radius: 0.5rem;
   min-width: 85vw;
   margin: 1rem;
-  z-index: 0;
 }
 
 .container {
@@ -52,4 +50,76 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.popup-image {
+  height: 6rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+.popup-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #194b4f;
+}
+
+.popup-date-time-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup-date {
+  font-size: 1.2rem;
+  color: #194b4f;
+}
+
+.popup-time {
+  font-size: 1.2rem;
+  color: #194b4f;
+}
+
+.popup-description-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.popup-description {
+  width: 15rem;
+  color: #194b4f;
+  margin: 1rem;
+}
+
+.popup-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup-button {
+  background: #194b4f;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+  border-radius: 30px;
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 2.2rem;
+  color: #ffffff;
+  text-align: center;
+  width: 80vw;
 }

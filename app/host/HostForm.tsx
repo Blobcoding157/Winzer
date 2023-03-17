@@ -1,18 +1,25 @@
 'use client';
 
+import '../styles/globals.scss';
 import '../styles/host.scss';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css';
 import 'leaflet-defaulticon-compatibility';
+import 'leaflet-geosearch/dist/geosearch.css';
+import 'leaflet-geosearch/dist/geosearch.umd.js';
 import { AdvancedImage } from '@cloudinary/react';
 import { CloudinaryImage } from '@cloudinary/url-gen';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import L from 'leaflet';
 import Image from 'next/image';
+import router from 'next/router';
 import { useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
+import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
 import { EventResponseBodyPost } from '../api/events/route';
 import icon from '../map/icon';
+import LocationMarker from '../map/LocationMarker';
+import SearchControl from '../map/SearchControl';
 
 export default function HostForm(props: any) {
   const [title, setTitle] = useState('');
@@ -20,12 +27,13 @@ export default function HostForm(props: any) {
   const [eventDate, setEventDate] = useState('');
   const [eventStart, setEventStart] = useState('');
   const [eventEnd, setEventEnd] = useState('');
-  const [marker, setMarker] = useState<Marker<any>>([]);
+  const [marker, setMarker] = useState<any>([]);
   const [coordinates, setCoordinates] = useState<number[]>([]);
-  const [imgUrl, setImgUrl] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
-  const center = [48.1931, 16.31222];
+  const center: any = [48.1931, 16.31222];
+
+  const prov = OpenStreetMapProvider();
 
   function SetPin() {
     const map = useMapEvents({
@@ -42,49 +50,74 @@ export default function HostForm(props: any) {
     return null;
   }
 
+  async function handleOnSubmitHeader(event) {
+    event.preventDefault();
+
+    const latitude = coordinates[0];
+    const longitude = coordinates[1];
+    const userId = props.user.id;
+
+    const form = event.currentTarget;
+    const fileInput = Array.from(form.elements).find(
+      ({ name }) => name === 'file',
+    );
+
+    const formData = new FormData();
+
+    for (const file of fileInput.files) {
+      formData.append('file', file);
+    }
+
+    formData.append('upload_preset', 'winzer-upload');
+
+    const data = await fetch(
+      'https://api.cloudinary.com/v1_1/winzer-images/image/upload',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then((r) => r.json());
+
+    const imgUrl = data.secure_url;
+
+    const response = await fetch('/api/events', {
+      method: 'POST',
+      body: JSON.stringify({
+        title,
+        description,
+        eventDate,
+        eventStart,
+        eventEnd,
+        latitude,
+        longitude,
+        imgUrl,
+        userId,
+      }),
+    });
+
+    const responseData: EventResponseBodyPost = await response.json();
+
+    if ('errors' in responseData) {
+      setErrors(responseData.errors);
+      return;
+    }
+    router.refresh();
+  }
+
   return (
     <div className="host-container">
       <Image
         src="/wine-scenery.gif"
-        alt="Artistic Background Image"
+        alt="Artistic Background"
         className="background-image"
-        layout="fill"
-        objectFit="cover"
-        quality={100}
+        fill
       />
       <div className="host-form-map-container">
         <div className="host-form-container">
           <form
             className="host-form"
-            onSubmit={async (event) => {
-              event.preventDefault();
-
-              const latitude = coordinates[0];
-              const longitude = coordinates[1];
-              const userId = props.user.id;
-
-              const response = await fetch('/api/events', {
-                method: 'POST',
-                body: JSON.stringify({
-                  title,
-                  description,
-                  eventDate,
-                  eventStart,
-                  eventEnd,
-                  latitude,
-                  longitude,
-                  imgUrl,
-                  userId,
-                }),
-              });
-
-              const data: EventResponseBodyPost = await response.json();
-
-              if ('errors' in data) {
-                setErrors(data.errors);
-                return;
-              }
-            }}
+            method="POST"
+            onSubmit={handleOnSubmitHeader}
           >
             <div className="host-form-contents">
               <h1>LETS START A PARTY</h1>
@@ -97,18 +130,19 @@ export default function HostForm(props: any) {
               <textarea
                 className="host-form-description"
                 placeholder="Description"
-                maxLength={200}
+                maxLength={300}
                 value={description}
                 onChange={(event) => setDescription(event.currentTarget.value)}
               />
               <div
-                data-text="banner upload"
+                data-text={'Choose a banner-picture'}
                 className="host-form-image-container"
               >
                 <input
                   className="host-form-image"
                   placeholder="Image URL"
                   type="file"
+                  name="file"
                 />
               </div>
               <div className="host-form-date-time-container">
@@ -147,7 +181,7 @@ export default function HostForm(props: any) {
         </div>
         <div className="map-container">
           <MapContainer
-            center={center}
+            center={[center[0], center[1]]}
             zoom={26}
             scrollWheelZoom={true}
             className="map"
@@ -156,6 +190,20 @@ export default function HostForm(props: any) {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            <SearchControl
+              provider={prov}
+              showMarker={true}
+              showPopup={false}
+              popupFormat={({ query, result }) => result.label}
+              maxMarkers={3}
+              retainZoomLevel={false}
+              animateZoom={true}
+              autoClose={false}
+              searchLabel={'Enter address'}
+              keepResult={true}
+            />
+
+            {/* <LocationMarker /> */}
             <SetPin />
           </MapContainer>
         </div>

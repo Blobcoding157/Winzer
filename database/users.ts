@@ -91,26 +91,28 @@ export const getUserByUsername = cache(async (username: string) => {
 });
 
 export const updateUserPicture = cache(
-  async (userId: number, profilePicture: string) => {
+  async (id: number, profilePicture: string) => {
     const [user] = await sql<{ id: number; username: string }[]>`
     UPDATE users
     SET profile_picture = ${profilePicture}
-    WHERE id = ${userId}
+    WHERE id = ${id}
     RETURNING id, username;
   `;
     return user;
   },
 );
 
-export const updateUser = cache(async (userId: number, aboutMe: string) => {
-  const [user] = await sql<{ id: number; username: string }[]>`
+export const updateUser = cache(
+  async (id: number, aboutMe: string, profilePicture: string) => {
+    const [user] = await sql<{ id: number; username: string }[]>`
     UPDATE users
-    SET about_me = ${aboutMe}
-    WHERE id = ${userId}
-    RETURNING id, username;
+    SET about_me = ${aboutMe}, profile_picture = ${profilePicture}
+    WHERE id = ${id}
+    RETURNING id, username, profile_picture;
     `;
-  return user;
-});
+    return user;
+  },
+);
 
 export const createUser = cache(
   async (

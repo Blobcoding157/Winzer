@@ -9,7 +9,7 @@ export async function PUT(
 
   const body = await request.json();
 
-  const newPicture = updateUserPicture(body.userId, body.profilePicture);
+  const newPicture = updateUserPicture(body.id, body.profilePicture);
 
   return NextResponse.json({ user: newPicture });
 }

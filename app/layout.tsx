@@ -61,11 +61,7 @@ export default async function RootLayout(props: Props) {
                     src={user.profilePicture}
                   />
                 </Link>
-                <Link
-                  prefetch={false}
-                  href="/logout"
-                  className="navigationItem"
-                >
+                <Link prefetch={false} href="/logout" className="logout">
                   Log out
                 </Link>
               </>

@@ -1,10 +1,10 @@
 .host-container {
   display: flex;
   flex-direction: row;
+  position: relative;
   justify-content: center;
   align-items: center;
   min-height: 91vh;
-  // background-image: url('/wine-scenery.gif');
 }
 
 .background-image {
@@ -13,39 +13,41 @@
   background-position: center;
   background-attachment: fixed;
   display: flex;
-  display: relative;
+  position: relative;
   flex-direction: row;
   justify-content: center;
   border: none;
   align-items: center;
-  z-index: -1;
+  z-index: 0;
 }
 
 .host-form-map-container {
   z-index: 1;
   display: flex;
+  position: relative;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 0.8rem;
+
   border-radius: 1.3rem;
+  opacity: 0.5rem;
 
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(200deg, #267f82, #630317);
-  // background-size: 120% 120%;
-  animation: gradient-animation 3s ease infinite;
-}
-
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  background-image: linear-gradient(
+    to right top,
+    #006c5d,
+    #15705d,
+    #23745d,
+    #2e775c,
+    #387b5c,
+    #417e5c,
+    #4a825d,
+    #53855d,
+    #5d885e,
+    #678c5f,
+    #718f61,
+    #7a9263
+  );
 }
 
 .host-form-container {
@@ -126,7 +128,7 @@
 }
 
 .host-form-image-container {
-  $defaultColor: #194b4f;
+  $defaultColor: #8ca674;
 
   position: relative;
   width: 100%;
@@ -147,13 +149,13 @@
     pointer-events: none;
     height: 2rem;
     line-height: 0.8rem;
-    color: #999;
+    color: black;
     border-radius: 5px 10px 10px 5px;
     font-weight: 300;
   }
 
   &:before {
-    content: 'Upload';
+    content: 'upload';
     position: absolute;
     top: 0;
     right: 0;
@@ -200,26 +202,26 @@
   justify-content: center;
   width: 130px;
   height: 40px;
-  color: #fff;
-  border-radius: 20rem;
+
+  color: rgb(40, 40, 40);
+  border-radius: 1rem;
   padding: 10px 25px;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px #2d676f, 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+  box-shadow: inset 2px 2px 2px 0px #829b6b, 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
     4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
-  background: linear-gradient(98.93deg, #194b4f 5.61%, #2d676f 93.46%);
+  background: #a2c185;
   border: none;
   &:before {
     height: 0%;
     width: 2px;
   }
   &:active {
-    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
-      -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
+    box-shadow: 4px 4px 6px 0 rgba(71, 71, 71, 0.5),
       inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
       inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
   }
