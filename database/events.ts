@@ -59,3 +59,10 @@ export const createEvent = cache(
     return events;
   },
 );
+
+export const deleteEvent = cache(async (id: number) => {
+  const [events] = await sql<Event[]>`
+      DELETE FROM events WHERE id = ${id}
+    `;
+  return events;
+});

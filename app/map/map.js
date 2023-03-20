@@ -33,6 +33,10 @@ export default function Map() {
     fetchData().catch((err) => console.log(err));
   }, []);
 
+  async function handleJoinEvent(event) {}
+
+  async function
+
   // draggable isn't working. next idea is to update the actual position in the database on eventhandler
 
   const eventHandlers = useMemo(
