@@ -2,12 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
   createParticipation,
+  getAttendingUserProfilePictures,
   getParticipations,
+  getParticipationsByUser,
 } from '../../../database/participations';
 
 const participationSchema = z.object({
   userId: z.number(),
   eventId: z.number(),
+});
+
+const participationSchemaGet = z.object({
+  id: z.number(),
+  query: z.string(),
 });
 
 export type ParticipationResponseBodyPost =
@@ -36,6 +43,20 @@ export async function POST(
       { status: 400 },
     );
   }
+  const existingParticipation = await getParticipations();
+  const alreadyHere = existingParticipation.find((participation) => {
+    return (
+      participation.userId === result.data.userId &&
+      participation.eventId === result.data.eventId
+    );
+  });
+
+  if (alreadyHere) {
+    return NextResponse.json(
+      { errors: [{ message: 'Participation already exists!' }] },
+      { status: 400 },
+    );
+  }
 
   const newParticipation = await createParticipation(
     result.data.userId,
@@ -58,16 +79,28 @@ export async function POST(
 }
 
 export async function GET(request: NextRequest) {
-  const participations = await getParticipations();
-  const { searchParams } = new URL(request.url);
+  let participations = null;
+  const body = await request.json();
+  const result = participationSchemaGet.safeParse(body);
 
+  if (!result.success) {
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
+  }
+
+  if (result.data.query === 'getParticipationsByUser') {
+    participations = await getParticipationsByUser(result.data.id);
+  }
+
+  if (result.data.query === 'getAttendingUserProfilePictures') {
+    participations = await getAttendingUserProfilePictures(result.data.id);
+  }
+
+  console.log('participations: ', participations);
   if (!participations) {
     return NextResponse.json(
       { errors: [{ message: 'Participation Failed!' }] },
       { status: 400 },
     );
   }
-  console.log(participations);
-  console.log(typeof searchParams.get('id'));
   return NextResponse.json(participations);
 }

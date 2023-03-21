@@ -2,7 +2,7 @@
 import '../../styles/globals.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Profile({ user, sessionUser }) {
   const [isUpdating, setIsUpdating] = useState(false);
@@ -10,7 +10,22 @@ export default function Profile({ user, sessionUser }) {
   const [profilePictureUpdate, setProfilePictureUpdate] = useState(false);
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
+  const [eventData, setEventData] = useState([]);
   const router = useRouter();
+
+  const id = user.id;
+  const query = 'getParticipationsByUser';
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('(api/participation)', {
+        method: 'GET',
+        body: JSON.stringify({ query, id }),
+      });
+      const jsonData = await response.json();
+      setEventData(jsonData);
+    };
+    fetchData().catch((err) => console.log(err));
+  }, []);
 
   async function handleOnSubmitInfo(event) {
     event.preventDefault();
@@ -85,6 +100,9 @@ export default function Profile({ user, sessionUser }) {
         <h1>{user.username}</h1>
         <div>{user.aboutMe}</div>
         <div>participating events: </div>
+        {eventData.map((event) => {
+          return <div key={`key-${event.id}`}>{event.title}</div>;
+        })}
       </div>
     );
   }

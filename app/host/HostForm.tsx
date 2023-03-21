@@ -12,7 +12,9 @@ import { CloudinaryImage } from '@cloudinary/url-gen';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import L from 'leaflet';
 import Image from 'next/image';
-import router from 'next/router';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import Router from 'next/router';
 import { useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
@@ -101,7 +103,6 @@ export default function HostForm(props: any) {
       setErrors(responseData.errors);
       return;
     }
-    router.refresh();
   }
 
   return (
@@ -173,8 +174,11 @@ export default function HostForm(props: any) {
                   onChange={(event) => setEventEnd(event.currentTarget.value)}
                 />
               </div>
-
-              <button className="host-form-confirm-button">Lets do it!</button>
+              <Link href="/">
+                <button className="host-form-confirm-button">
+                  Lets do it!
+                </button>
+              </Link>
               <div>{errors.toString()}</div>
             </div>
           </form>

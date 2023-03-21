@@ -58,6 +58,7 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
         />
         <input
           value={password}
+          type="password"
           onChange={(event) => setPassword(event.currentTarget.value)}
           className="register-input"
           placeholder="password"

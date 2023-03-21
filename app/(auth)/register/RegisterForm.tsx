@@ -81,16 +81,17 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
           placeholder="username"
         />
         <input
-          value={password}
-          onChange={(event) => setPassword(event.currentTarget.value)}
-          className="register-input"
-          placeholder="password"
-        />
-        <input
           value={email}
           onChange={(event) => setEmail(event.currentTarget.value)}
           className="register-input"
           placeholder="email"
+        />
+        <input
+          value={password}
+          type="password"
+          onChange={(event) => setPassword(event.currentTarget.value)}
+          className="register-input"
+          placeholder="password"
         />
       </div>
       <button className="sign-up-button">Sign up</button>

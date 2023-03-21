@@ -1,10 +1,19 @@
 import './styles/hero.scss';
 import './styles/globals.scss';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getUserBySessionToken } from '../database/users';
 import Map from './map/map';
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get('sessionToken');
+
+  const user = !sessionToken?.value
+    ? undefined
+    : await getUserBySessionToken(sessionToken.value);
+
   return (
     <div className="hero-background">
       <div className="hero-container">
@@ -35,7 +44,7 @@ export default function Home() {
         </div>
       </div>
       <div className="map-bg">
-        <Map />
+        <Map user={user} />
       </div>
       <h2 className="info-header">Your Wine Journey Starts here</h2>
       <div className="info-slogan">grow your Passion and Returns</div>

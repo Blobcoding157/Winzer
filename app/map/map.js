@@ -3,10 +3,11 @@
 import '../styles/map.scss';
 import '../styles/globals.scss';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-geosearch/dist/geosearch.css';
 import 'leaflet-geosearch/dist/geosearch.umd.js';
+import Router from 'next/router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
@@ -16,9 +17,10 @@ import SearchControl from './SearchControl';
 
 const center = [48.1931, 16.31222];
 
-export default function Map() {
+export default function Map(props) {
   const [draggable, setDraggable] = useState(false);
   const [position, setPosition] = useState(center);
+  const [errors, setErrors] = useState([]);
   const markerRef = useRef(null);
   const [mapData, setMapData] = useState([]);
 
@@ -32,10 +34,6 @@ export default function Map() {
     };
     fetchData().catch((err) => console.log(err));
   }, []);
-
-  async function handleJoinEvent(event) {}
-
-  async function
 
   // draggable isn't working. next idea is to update the actual position in the database on eventhandler
 
@@ -55,6 +53,19 @@ export default function Map() {
   const toggleDraggable = useCallback(() => {
     setDraggable((d) => !d);
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch('(api/participation)', {
+  //       method: 'GET',
+  //       body: JSON.stringify({ query, id }),
+  //     });
+  //     const jsonData = await response.json();
+
+  //     jsonData.map(() => {});
+  //   };
+  //   fetchData().catch((err) => console.log(err));
+  // }, []);
 
   return (
     <>
@@ -89,37 +100,88 @@ export default function Map() {
             keepResult={true}
           />
 
-          {mapData.map((user) => {
+          {mapData.map((eventMarker) => {
+            async function handleAttendingImages(event) {
+              event.preventDefault();
+
+              const id = eventMarker.id;
+              const query = 'getAttendingUserProfilePictures';
+
+              const attendingImages = await fetch('/api/participation', {
+                method: 'GET',
+                body: JSON.stringify({ query, id }),
+              });
+
+              const attendingImagesData = await attendingImages.json();
+              console.log(attendingImagesData);
+              attendingImagesData.map((image) => {
+                return (
+                  <img
+                    alt="Attendees"
+                    key={`key-${image.id}`}
+                    className="profile-picture"
+                    src={image.profilePicture}
+                  />
+                );
+              });
+            }
+
             return (
               <Marker
                 icon={icon}
                 draggable={draggable}
                 eventHandlers={eventHandlers}
                 ref={markerRef}
-                key={`event-${user.id}`}
-                position={[user.latitude, user.longitude]}
+                key={`event-${eventMarker.id}`}
+                position={[eventMarker.latitude, eventMarker.longitude]}
               >
                 <Popup>
                   <div className="popup-container">
                     <img
                       className="popup-image"
                       alt="event-banner"
-                      src={user.imgUrl}
+                      src={eventMarker.imgUrl}
                     />
-                    <h1 className="popup-title">{user.title}</h1>
+                    <h1 className="popup-title">{eventMarker.title}</h1>
                     <div className="popup-date-time-container">
-                      <div className="popup-date">{user.eventDate}</div>
+                      <div className="popup-date">{eventMarker.eventDate}</div>
                       <div className="popup-time">
-                        {user.eventStart} - {user.eventEnd}
+                        {eventMarker.eventStart} - {eventMarker.eventEnd}
                       </div>
                     </div>
                     <div className="popup-description-container">
                       <div className="popup-description">
-                        {user.description}
+                        {eventMarker.description}
                       </div>
                     </div>
                     <div className="popup-button-container">
-                      <button className="popup-join-button">Join</button>
+                      <div className="popup-attending-pictures">
+                        {handleAttendingImages}
+                      </div>
+                      <button
+                        onClick={async function handleJoinEvent(event) {
+                          event.preventDefault();
+
+                          const userId = props.user.id;
+                          const eventId = eventMarker.id;
+
+                          const response = await fetch('/api/participation', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                              userId,
+                              eventId,
+                            }),
+                          });
+                          const responseData = await response.json();
+                          if ('error' in responseData) {
+                            setErrors(responseData.error);
+                            return;
+                          }
+                        }}
+                        className="popup-join-button"
+                      >
+                        Join
+                      </button>
                     </div>
                   </div>
                 </Popup>
