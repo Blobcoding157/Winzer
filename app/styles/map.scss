@@ -60,7 +60,7 @@
   padding: 0;
 }
 
-.popup-image {
+.popup-header {
   height: 6rem;
   width: 100%;
   overflow: hidden;
@@ -109,6 +109,30 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.popup-attending-pictures {
+  display: flex;
+  display: inline-block;
+  transform: scale(-1, 1);
+}
+
+.popup-attending-picture {
+  position: relative;
+  display: inline-block;
+  border: 4px solid #fff;
+  border-radius: 20rem;
+  overflow: hidden;
+  width: 4rem;
+
+  &:not(:first-child) {
+    margin-left: -60px;
+  }
+
+  img {
+    display: block;
+    transform: scale(-1, 1);
+  }
 }
 
 .popup-button {

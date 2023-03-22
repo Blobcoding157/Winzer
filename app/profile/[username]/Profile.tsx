@@ -4,20 +4,23 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function Profile({ user, sessionUser }) {
+export default function Profile({ user, participations, sessionUser }) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [aboutMeUpdate, setAboutMeUpdate] = useState('');
   const [profilePictureUpdate, setProfilePictureUpdate] = useState(false);
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
   const [eventData, setEventData] = useState([]);
+  const [participationData, setParticipationData] = useState(participations);
   const router = useRouter();
+
+  console.log('participationData: ', participationData);
 
   const id = user.id;
   const query = 'getParticipationsByUser';
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('(api/participation)', {
+      const response = await fetch('api/participation', {
         method: 'GET',
         body: JSON.stringify({ query, id }),
       });
@@ -93,19 +96,6 @@ export default function Profile({ user, sessionUser }) {
     reader.readAsDataURL(changeEvent.target.files[0]);
   }
 
-  if (sessionUser !== user.id) {
-    return (
-      <div>
-        <img alt="user" src={user.profilePicture} />
-        <h1>{user.username}</h1>
-        <div>{user.aboutMe}</div>
-        <div>participating events: </div>
-        {eventData.map((event) => {
-          return <div key={`key-${event.id}`}>{event.title}</div>;
-        })}
-      </div>
-    );
-  }
   return (
     <div>
       <form
@@ -127,12 +117,6 @@ export default function Profile({ user, sessionUser }) {
             <button>Upload File</button>
           </p>
         )}
-
-        {uploadData && (
-          <code>
-            <pre>{JSON.stringify(uploadData, null, 2)}</pre>
-          </code>
-        )}
       </form>
       <div>
         <img className="profile-picture" alt="user" src={user.profilePicture} />
@@ -142,6 +126,15 @@ export default function Profile({ user, sessionUser }) {
         <h1>{user.username}</h1>
         <div>{user.aboutMe}</div>
         <div>participating events: </div>
+
+        {participationData.map((event) => {
+          return (
+            <div key={`key-${event.id}`}>
+              <div>{event.id}</div>
+              <div>{event.status}</div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

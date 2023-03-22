@@ -3,6 +3,8 @@ import './styles/globals.scss';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getEvents } from '../database/events';
+import { getAllAttendingUserProfilePictures } from '../database/participations';
 import { getUserBySessionToken } from '../database/users';
 import Map from './map/map';
 
@@ -14,12 +16,17 @@ export default async function Home() {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
+  const participations = await getAllAttendingUserProfilePictures();
+
+  const events = await getEvents();
+
   return (
     <div className="hero-background">
       <div className="hero-container">
         <div className="hero-image-container">
           <Image
-            src="/hero-bg.jpg"
+            priority
+            src="/wine-scenery.gif"
             alt="Artistic Background Image"
             className="hero-image"
             width={4297}
@@ -44,7 +51,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="map-bg">
-        <Map user={user} />
+        <Map user={user} participations={participations} events={events} />
       </div>
       <h2 className="info-header">Your Wine Journey Starts here</h2>
       <div className="info-slogan">grow your Passion and Returns</div>

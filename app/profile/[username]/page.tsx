@@ -1,6 +1,7 @@
 import '../../styles/globals.scss';
 import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
+import { getParticipationsByUser } from '../../../database/participations';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByUsername } from '../../../database/users';
 import Profile from './Profile';
@@ -19,13 +20,17 @@ export default async function ProfilePage(props) {
 
   const user = await getUserByUsername(props.params.username);
 
+  const participations = await getParticipationsByUser(user.id);
+
   if (!user) {
     return notFound();
   }
 
   return (
-    <div>
-      <Profile user={user} sessionUser={session.userId} />
-    </div>
+    <Profile
+      user={user}
+      participations={participations}
+      sessionUser={session}
+    />
   );
 }

@@ -26,6 +26,15 @@ export type ParticipationResponseBodyPost =
       };
     };
 
+export type ParticipationResponseBodyGet =
+  | { errors: { message: string }[] }
+  | {
+      participations: {
+        query: string;
+        id: number;
+      };
+    };
+
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<ParticipationResponseBodyPost>> {
@@ -44,6 +53,7 @@ export async function POST(
     );
   }
   const existingParticipation = await getParticipations();
+
   const alreadyHere = existingParticipation.find((participation) => {
     return (
       participation.userId === result.data.userId &&
@@ -78,7 +88,9 @@ export async function POST(
   });
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(
+  request: NextRequest,
+): Promise<NextResponse<ParticipationResponseBodyGet>> {
   let participations = null;
   const body = await request.json();
   const result = participationSchemaGet.safeParse(body);
@@ -89,13 +101,17 @@ export async function GET(request: NextRequest) {
 
   if (result.data.query === 'getParticipationsByUser') {
     participations = await getParticipationsByUser(result.data.id);
-  }
-
-  if (result.data.query === 'getAttendingUserProfilePictures') {
+  } else if (result.data.query === 'getAttendingUserProfilePictures') {
     participations = await getAttendingUserProfilePictures(result.data.id);
+  } else {
+    return NextResponse.json(
+      { errors: [{ message: 'Invalid query!' }] },
+      { status: 400 },
+    );
   }
 
   console.log('participations: ', participations);
+
   if (!participations) {
     return NextResponse.json(
       { errors: [{ message: 'Participation Failed!' }] },

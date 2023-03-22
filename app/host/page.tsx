@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { getUserBySessionToken } from '../../database/users';
-import HostComponents from './HostForm';
+import HostForm from './HostForm';
 
 export default async function HostPage() {
   const cookieStore = cookies();
@@ -9,9 +9,5 @@ export default async function HostPage() {
   const user = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
-  return (
-    <div>
-      <HostComponents user={user} />
-    </div>
-  );
+  return <HostForm user={user} />;
 }

@@ -7,14 +7,10 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-geosearch/dist/geosearch.css';
 import 'leaflet-geosearch/dist/geosearch.umd.js';
-import { AdvancedImage } from '@cloudinary/react';
-import { CloudinaryImage } from '@cloudinary/url-gen';
-import { fill } from '@cloudinary/url-gen/actions/resize';
 import L from 'leaflet';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
@@ -32,6 +28,7 @@ export default function HostForm(props: any) {
   const [marker, setMarker] = useState<any>([]);
   const [coordinates, setCoordinates] = useState<number[]>([]);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const router = useRouter();
 
   const center: any = [48.1931, 16.31222];
 
@@ -52,7 +49,7 @@ export default function HostForm(props: any) {
     return null;
   }
 
-  async function handleOnSubmitHeader(event) {
+  async function handleOnSubmitHeader(event: any) {
     event.preventDefault();
 
     const latitude = coordinates[0];
@@ -103,11 +100,15 @@ export default function HostForm(props: any) {
       setErrors(responseData.errors);
       return;
     }
+
+    router.replace(`/`);
+    router.refresh();
   }
 
   return (
     <div className="host-container">
       <Image
+        priority
         src="/wine-scenery.gif"
         alt="Artistic Background"
         className="background-image"
@@ -174,11 +175,10 @@ export default function HostForm(props: any) {
                   onChange={(event) => setEventEnd(event.currentTarget.value)}
                 />
               </div>
-              <Link href="/">
-                <button className="host-form-confirm-button">
-                  Lets do it!
-                </button>
-              </Link>
+
+              <button type="submit" className="host-form-confirm-button">
+                Lets do it!
+              </button>
               <div>{errors.toString()}</div>
             </div>
           </form>
