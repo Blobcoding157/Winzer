@@ -47,9 +47,18 @@ export default async function RootLayout(props: Props) {
           <nav className="bannerNavigation">
             {user ? (
               <>
-                <Link href="/host" prefetch={false} className="navigationItem">
-                  Host
-                </Link>
+                {user.roleId > 1 ? (
+                  <Link
+                    href="/host"
+                    prefetch={false}
+                    className="navigationItem"
+                  >
+                    Host
+                  </Link>
+                ) : (
+                  <div></div>
+                )}
+
                 <Link
                   href={`/profile/${user.username}`}
                   className="navigationItem"

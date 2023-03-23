@@ -3,7 +3,7 @@ import './styles/globals.scss';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getEvents } from '../database/events';
+import { getEvents, getEventsWithHostData } from '../database/events';
 import { getAllAttendingUserProfilePictures } from '../database/participations';
 import { getUserBySessionToken } from '../database/users';
 import Map from './map/map';
@@ -18,7 +18,7 @@ export default async function Home() {
 
   const participations = await getAllAttendingUserProfilePictures();
 
-  const events = await getEvents();
+  const events = await getEventsWithHostData();
 
   return (
     <div className="hero-background">

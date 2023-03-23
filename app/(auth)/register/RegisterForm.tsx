@@ -58,7 +58,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         <button
           value={role}
           onClick={() => {
-            setRole(1); // 1 = winzer
+            setRole(2); // 1 = winzer
           }}
           className="winzer"
         >
@@ -66,7 +66,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         </button>
         <button
           onClick={() => {
-            setRole(0); // 0 = user
+            setRole(1); // 0 = user
           }}
           className="user"
         >

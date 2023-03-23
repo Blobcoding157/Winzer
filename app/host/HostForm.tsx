@@ -116,72 +116,91 @@ export default function HostForm(props: any) {
       />
       <div className="host-form-map-container">
         <div className="host-form-container">
-          <form
-            className="host-form"
-            method="POST"
-            onSubmit={handleOnSubmitHeader}
-          >
-            <div className="host-form-contents">
-              <h1>LETS START A PARTY</h1>
-              <input
-                className="host-form-title"
-                placeholder="Title"
-                value={title}
-                onChange={(event) => setTitle(event.currentTarget.value)}
-              />
-              <textarea
-                className="host-form-description"
-                placeholder="Description"
-                maxLength={300}
-                value={description}
-                onChange={(event) => setDescription(event.currentTarget.value)}
-              />
-              <div
-                data-text={'Choose a banner-picture'}
-                className="host-form-image-container"
-              >
-                <input
-                  className="host-form-image"
-                  placeholder="Image URL"
-                  type="file"
-                  name="file"
-                />
-              </div>
-              <div className="host-form-date-time-container">
-                <input
-                  className="host-form-date"
-                  placeholder="Event Date"
-                  value={eventDate}
-                  type="date"
-                  min={new Date().toISOString().split('T')[0]}
-                  onChange={(event) =>
-                    setEventDate(event.currentTarget.value.toString())
-                  }
-                />
-                <input
-                  className="host-form-time"
-                  placeholder="Time Start"
-                  value={eventStart}
-                  type="time"
-                  onChange={(event) =>
-                    setEventStart(event.currentTarget.value.toString())
-                  }
-                />
-                <input
-                  className="host-form-time-with-radius"
-                  placeholder="Time End"
-                  type="time"
-                  value={eventEnd}
-                  onChange={(event) => setEventEnd(event.currentTarget.value)}
-                />
-              </div>
-
-              <button type="submit" className="host-form-confirm-button">
-                Lets do it!
-              </button>
-              <div>{errors.toString()}</div>
+          {props.user.roleId < 2 ? (
+            <div className="wrong-login-container">
+              {'You are not allowed to host a party. Please login with a host account.'
+                .split(' ')
+                .map((char, index) => {
+                  return (
+                    <div
+                      key={`indexkey-${(index, char)}`}
+                      className="wrong-login"
+                    >
+                      {char}
+                    </div>
+                  );
+                }, [])}
             </div>
-          </form>
+          ) : (
+            <form
+              className="host-form"
+              method="POST"
+              onSubmit={handleOnSubmitHeader}
+            >
+              <div className="host-form-contents">
+                <h1>LETS START A PARTY</h1>
+                <input
+                  className="host-form-title"
+                  placeholder="Title"
+                  value={title}
+                  onChange={(event) => setTitle(event.currentTarget.value)}
+                />
+                <textarea
+                  className="host-form-description"
+                  placeholder="Description"
+                  maxLength={300}
+                  value={description}
+                  onChange={(event) =>
+                    setDescription(event.currentTarget.value)
+                  }
+                />
+                <div
+                  data-text={'Choose a banner-picture'}
+                  className="host-form-image-container"
+                >
+                  <input
+                    className="host-form-image"
+                    placeholder="Image URL"
+                    type="file"
+                    name="file"
+                  />
+                </div>
+                <div className="host-form-date-time-container">
+                  <input
+                    className="host-form-date"
+                    placeholder="Event Date"
+                    value={eventDate}
+                    type="date"
+                    min={new Date().toISOString().split('T')[0]}
+                    onChange={(event) =>
+                      setEventDate(event.currentTarget.value.toString())
+                    }
+                  />
+                  <input
+                    className="host-form-time"
+                    placeholder="Time Start"
+                    value={eventStart}
+                    type="time"
+                    onChange={(event) =>
+                      setEventStart(event.currentTarget.value.toString())
+                    }
+                  />
+                  <input
+                    className="host-form-time-with-radius"
+                    placeholder="Time End"
+                    type="time"
+                    value={eventEnd}
+                    onChange={(event) => setEventEnd(event.currentTarget.value)}
+                  />
+                </div>
+
+                <button type="submit" className="host-form-confirm-button">
+                  Lets do it!
+                </button>
+                <div>{errors.toString()}</div>
+              </div>
+            </form>
+          )}
         </div>
         <div className="map-container">
           <MapContainer

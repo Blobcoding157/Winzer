@@ -23,6 +23,14 @@ export const getEvents = cache(async () => {
   return events;
 });
 
+export const getEventsWithHostData = cache(async () => {
+  const events = await sql<Event[]>`
+      SELECT events.*, users.profile_picture, users.username
+FROM events
+JOIN users ON events.user_id = users.id;`;
+  return events;
+});
+
 export const getEventsById = cache(async (id: number) => {
   const event = await sql<Event[]>`
       SELECT * FROM events WHERE id = ${id}

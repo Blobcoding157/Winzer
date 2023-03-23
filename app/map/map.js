@@ -7,6 +7,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-geosearch/dist/geosearch.css';
 import 'leaflet-geosearch/dist/geosearch.umd.js';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
@@ -23,6 +24,7 @@ export default function Map({ user, participations, events }) {
   const [errors, setErrors] = useState([]);
   const markerRef = useRef(null);
   const [mapData, setMapData] = useState(events);
+  const [mapParticipations, setMapParticipations] = useState(participations);
   const router = useRouter();
 
   const prov = OpenStreetMapProvider();
@@ -77,69 +79,93 @@ export default function Map({ user, participations, events }) {
               key={`event-${eventMarker.id}`}
               position={[eventMarker.latitude, eventMarker.longitude]}
             >
-              <Popup>
-                <div className="popup-container">
+              <Popup className="popup-container">
+                <div className="popup-content-container">
                   <img
                     className="popup-header"
                     alt="event-banner"
                     src={eventMarker.imgUrl}
                   />
-                  <h1 className="popup-title">{eventMarker.title}</h1>
-                  <div className="popup-date-time-container">
-                    <div className="popup-date">{eventMarker.eventDate}</div>
-                    <div className="popup-time">
-                      {eventMarker.eventStart} - {eventMarker.eventEnd}
+                  <div className="popup-creator-container">
+                    <img
+                      className="popup-creator-picture"
+                      alt="event-creator"
+                      src={eventMarker.profilePicture}
+                    />
+                    <div className="popup-creator-name">
+                      <Link href={`/profile/${eventMarker.username}`}>
+                        @{eventMarker.username}
+                      </Link>
+                    </div>
+
+                    <div>
+                      {user.id === eventMarker.userId && user.roleId >= 2 ? (
+                        <button className="event-delete-button">delete</button>
+                      ) : (
+                        <div />
+                      )}
                     </div>
                   </div>
-                  <div className="popup-description-container">
-                    <div className="popup-description">
-                      {eventMarker.description}
+                  <div className="popup-info-container">
+                    <h1 className="popup-title">{eventMarker.title}</h1>
+                    <div className="popup-date-time-container">
+                      <div className="popup-date">{eventMarker.eventDate}</div>
+                      <div className="popup-time">
+                        {eventMarker.eventStart} - {eventMarker.eventEnd}
+                      </div>
+                    </div>
+                    <div className="popup-description-container">
+                      <div className="popup-description">
+                        {eventMarker.description}
+                      </div>
                     </div>
                   </div>
-                  <div className="popup-button-container">
-                    <div className="popup-attending-pictures">
-                      {participations.map((participation) => {
-                        if (participation.eventId === eventMarker.id) {
-                          return (
-                            <div
-                              className="popup-attending-picture"
-                              key={`user-${participation.id}`}
-                            >
-                              <img
+                  <div className="popup-attending-container">
+                    <div className="popup-button-container">
+                      <div className="popup-attending-pictures">
+                        {mapParticipations.map((participation) => {
+                          if (participation.eventId === eventMarker.id) {
+                            return (
+                              <div
                                 className="popup-attending-picture"
-                                alt="attending user"
-                                src={participation.profilePicture}
-                              />
-                            </div>
-                          );
-                        }
-                      })}
+                                key={`user-${participation.id}`}
+                              >
+                                <img
+                                  className="popup-attending-picture"
+                                  alt="attending user"
+                                  src={participation.profilePicture}
+                                />
+                              </div>
+                            );
+                          }
+                        })}
+                      </div>
+                      <button
+                        onClick={async function handleJoinEvent(event) {
+                          event.preventDefault();
+
+                          const userId = user.id;
+                          const eventId = eventMarker.id;
+
+                          const response = await fetch('/api/participation', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                              userId,
+                              eventId,
+                            }),
+                          });
+                          const responseData = await response.json();
+                          if ('error' in responseData) {
+                            setErrors(responseData.error);
+                            return;
+                          }
+                          router.refresh();
+                        }}
+                        className="popup-join-button"
+                      >
+                        Join
+                      </button>
                     </div>
-                    <button
-                      onClick={async function handleJoinEvent(event) {
-                        event.preventDefault();
-
-                        const userId = user.id;
-                        const eventId = eventMarker.id;
-
-                        const response = await fetch('/api/participation', {
-                          method: 'POST',
-                          body: JSON.stringify({
-                            userId,
-                            eventId,
-                          }),
-                        });
-                        const responseData = await response.json();
-                        if ('error' in responseData) {
-                          setErrors(responseData.error);
-                          return;
-                        }
-                        router.reload();
-                      }}
-                      className="popup-join-button"
-                    >
-                      Join
-                    </button>
                   </div>
                 </div>
               </Popup>

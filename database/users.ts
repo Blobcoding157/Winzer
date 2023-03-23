@@ -34,6 +34,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
     {
       id: number;
       username: string;
+      roleId: number;
       profilePicture: string;
       csrfSecret: string;
     }[]
@@ -41,6 +42,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
     SELECT
       users.id,
       users.username,
+      users.role_id,
       users.profile_picture,
       sessions.csrf_secret
     FROM

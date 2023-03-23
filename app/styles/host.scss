@@ -21,6 +21,45 @@
   z-index: 0;
 }
 
+.wrong-login-container {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  margin: 1rem;
+
+  text-align: center;
+}
+
+.wrong-login {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-right: 1rem;
+  color: white;
+  text-align: center;
+
+  animation: 1;
+  animation-name: missingAnimation;
+  animation-duration: 1s;
+}
+
+@keyframes missingAnimation {
+  0% {
+    transform: translatey(550px);
+  }
+  50% {
+    transform: translatey(0px);
+    rotate: 360deg;
+  }
+  100% {
+    transform: translatey(0px);
+    rotate: 720deg;
+  }
+}
+
 .host-form-map-container {
   z-index: 1;
   display: flex;
@@ -31,7 +70,6 @@
   padding: 0.8rem;
 
   border-radius: 1.3rem;
-  opacity: 0.5rem;
 
   background-image: linear-gradient(
     to right top,
@@ -175,7 +213,7 @@
 
   &:hover {
     &:before {
-      background: darken($defaultColor, 10%);
+      background: #23745d;
     }
   }
 }
@@ -235,8 +273,6 @@
 .map {
   max-height: 40rem;
   min-height: 40rem;
-  min-width: 50rem;
-  max-width: 55rem;
-  opacity: none;
-  border-radius: 0.2rem;
+  width: 60vw;
+  border-radius: 0.3rem;
 }
