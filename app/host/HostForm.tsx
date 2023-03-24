@@ -116,22 +116,8 @@ export default function HostForm(props: any) {
       />
       <div className="host-form-map-container">
         <div className="host-form-container">
-          {props.user.roleId < 2 ? (
-            <div className="wrong-login-container">
-              {'You are not allowed to host a party. Please login with a host account.'
-                .split(' ')
-                .map((char, index) => {
-                  return (
-                    <div
-                      key={`indexkey-${(index, char)}`}
-                      className="wrong-login"
-                    >
-                      {char}
-                    </div>
-                  );
-                }, [])}
-            </div>
-          ) : (
+          {props.user &&
+          (props.user.roleId === 2 || props.user.roleId === 3) ? (
             <form
               className="host-form"
               method="POST"
@@ -200,6 +186,21 @@ export default function HostForm(props: any) {
                 <div>{errors.toString()}</div>
               </div>
             </form>
+          ) : (
+            <div className="wrong-login-container">
+              {'You are not allowed to host a party. Please login with a host account.'
+                .split(' ')
+                .map((char, index) => {
+                  return (
+                    <div
+                      key={`indexkey-${(index, char)}`}
+                      className="wrong-login"
+                    >
+                      {char}
+                    </div>
+                  );
+                }, [])}
+            </div>
           )}
         </div>
         <div className="map-container">

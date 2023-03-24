@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createEvent, getEvents } from '../../../database/events';
+import { createEvent, deleteEvent, getEvents } from '../../../database/events';
 
 const eventSchema = z.object({
   title: z.string(),
@@ -12,6 +12,10 @@ const eventSchema = z.object({
   longitude: z.number(),
   imgUrl: z.string(),
   userId: z.number(),
+});
+
+const eventSchemaDelete = z.object({
+  id: z.number(),
 });
 
 export type EventResponseBodyPost =
@@ -94,7 +98,23 @@ export async function POST(
 export async function GET(request: NextRequest) {
   const events = await getEvents();
   const { searchParams } = new URL(request.url);
-  // console.log(events);
-  // console.log(typeof searchParams.get('id'));
   return NextResponse.json(events);
+}
+
+export type EventResponseBodyDelete =
+  | { errors: { message: string }[] }
+  | { event: { id: number } };
+
+export async function DELETE(
+  request: NextRequest,
+): Promise<NextResponse<EventResponseBodyDelete>> {
+  const body = await request.json();
+
+  const result = eventSchemaDelete.safeParse(body);
+
+  if (!result.success) {
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
+  }
+
+  await deleteEvent(result.data.id);
 }

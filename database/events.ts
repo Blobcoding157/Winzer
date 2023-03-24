@@ -40,7 +40,7 @@ export const getEventsById = cache(async (id: number) => {
 
 export const getEventsByUser = cache(async (id: number) => {
   const events = await sql<Event[]>`
-      FROM events INNER jOIN users ON events.id = users.id
+  SELECT events.*, users.username, users.profile_picture FROM events INNER jOIN users ON events.user_id = users.id WHERE events.user_id = ${id};
     `;
   return events;
 });

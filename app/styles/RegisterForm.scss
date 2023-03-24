@@ -19,8 +19,21 @@
   align-items: center;
   padding: 1rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(1rem);
-  // background: linear-gradient(319.94deg, #133a3d -16.43%, #2a818d 105.75%);
+  background-image: linear-gradient(
+    to right top,
+    #006c5d,
+    #15705d,
+    #23745d,
+    #2e775c,
+    #387b5c,
+    #417e5c,
+    #4a825d,
+    #53855d,
+    #5d885e,
+    #678c5f,
+    #718f61,
+    #7a9263
+  );
   border-radius: 4rem;
 }
 
@@ -100,29 +113,28 @@
 .sign-up-button {
   margin-top: 1rem;
   font-size: 2rem;
-  justify-content: center;
   width: 13rem;
   height: 5rem;
-  color: #fff;
-  border-radius: 20rem;
-  padding: 0;
+  justify-content: center;
+  color: white;
+  border-radius: 10rem;
+  padding: 10px 25px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px #2d676f, 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+  box-shadow: inset 2px 2px 2px 0px #829b6b, 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
     4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
-  background: linear-gradient(98.93deg, #194b4f 5.61%, #2d676f 93.46%);
+  background: #a2c185;
   border: none;
   &:before {
     height: 0%;
     width: 2px;
   }
   &:active {
-    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
-      -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
+    box-shadow: 4px 4px 6px 0 rgba(71, 71, 71, 0.5),
       inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
       inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
   }

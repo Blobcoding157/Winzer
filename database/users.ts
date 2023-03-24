@@ -78,12 +78,13 @@ export const getUserByUsername = cache(async (username: string) => {
       username: string;
       profilePicture: string;
       email: string;
+      about_me: string | null;
       role_id: number;
     }[]
   >`
     SELECT
       id,
-      username, email, profile_picture, role_id, password_hash
+      username, email, profile_picture, about_me, role_id, password_hash
     FROM
       users
     WHERE
@@ -104,17 +105,15 @@ export const updateUserPicture = cache(
   },
 );
 
-export const updateUser = cache(
-  async (id: number, aboutMe: string, profilePicture: string) => {
-    const [user] = await sql<{ id: number; username: string }[]>`
+export const updateUser = cache(async (id: number, aboutMe: string) => {
+  const [user] = await sql<{ id: number; username: string }[]>`
     UPDATE users
-    SET about_me = ${aboutMe}, profile_picture = ${profilePicture}
+    SET about_me = ${aboutMe}
     WHERE id = ${id}
-    RETURNING id, username, profile_picture;
+    RETURNING id, username;
     `;
-    return user;
-  },
-);
+  return user;
+});
 
 export const createUser = cache(
   async (

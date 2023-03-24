@@ -24,9 +24,7 @@ export default async function RegisterPage(props: Props) {
   return (
     <>
       <Image
-        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPkso6pBwACGgEie2Im0gAAAABJRU5ErkJggg=="
-        placeholder="blur"
-        src="/background1.jpg"
+        src="/wine-scenery.gif"
         alt="Artistic Background Image"
         className="background-image"
         layout="fill"

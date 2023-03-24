@@ -26,6 +26,7 @@ export default function Map({ user, participations, events }) {
   const [mapData, setMapData] = useState(events);
   const [mapParticipations, setMapParticipations] = useState(participations);
   const router = useRouter();
+  const [error, setError] = useState(null);
 
   const prov = OpenStreetMapProvider();
 
@@ -49,7 +50,7 @@ export default function Map({ user, participations, events }) {
       <MapContainer
         center={center}
         zoom={26}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
         className="map"
       >
         <TileLayer
@@ -99,8 +100,34 @@ export default function Map({ user, participations, events }) {
                     </div>
 
                     <div>
-                      {user.id === eventMarker.userId && user.roleId >= 2 ? (
-                        <button className="event-delete-button">delete</button>
+                      {user &&
+                      user.id === eventMarker.userId &&
+                      (user.roleId === 2 || user.roleId === 3) ? (
+                        <button
+                          onClick={async () => {
+                            const id = eventMarker.id;
+
+                            const response = await fetch('/api/events', {
+                              method: 'DELETE',
+                              body: JSON.stringify({
+                                id,
+                              }),
+                            });
+
+                            const data = await response.json();
+
+                            if (data.error) {
+                              setError(data.error);
+                              return;
+                            }
+                            setMapData(
+                              mapData.filter((map) => map.id !== data.event.id),
+                            );
+                          }}
+                          className="event-delete-button"
+                        >
+                          delete
+                        </button>
                       ) : (
                         <div />
                       )}
@@ -154,6 +181,7 @@ export default function Map({ user, participations, events }) {
                               eventId,
                             }),
                           });
+
                           const responseData = await response.json();
                           if ('error' in responseData) {
                             setErrors(responseData.error);

@@ -1,6 +1,7 @@
 import '../../styles/globals.scss';
 import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
+import { getEventsByUser } from '../../../database/events';
 import { getParticipationsByUser } from '../../../database/participations';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByUsername } from '../../../database/users';
@@ -22,6 +23,8 @@ export default async function ProfilePage(props) {
 
   const participations = await getParticipationsByUser(user.id);
 
+  const hosting = await getEventsByUser(user.id);
+
   if (!user) {
     return notFound();
   }
@@ -29,6 +32,7 @@ export default async function ProfilePage(props) {
   return (
     <Profile
       user={user}
+      hosting={hosting}
       participations={participations}
       sessionUser={session}
     />

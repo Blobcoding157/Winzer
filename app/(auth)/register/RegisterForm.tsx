@@ -56,6 +56,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
       ))}
       <div className="winzer-user-container">
         <button
+          type="button"
           value={role}
           onClick={() => {
             setRole(2); // 1 = winzer
@@ -65,6 +66,8 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
           Winzer
         </button>
         <button
+          type="button"
+          value={role}
           onClick={() => {
             setRole(1); // 0 = user
           }}
