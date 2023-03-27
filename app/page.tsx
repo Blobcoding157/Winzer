@@ -3,7 +3,7 @@ import './styles/globals.scss';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getEvents, getEventsWithHostData } from '../database/events';
+import { getEventsWithHostData } from '../database/events';
 import { getAllAttendingUserProfilePictures } from '../database/participations';
 import { getUserBySessionToken } from '../database/users';
 import Map from './map/map';
@@ -35,19 +35,28 @@ export default async function Home() {
           />
         </div>
         <div className="hero-text-container">
-          <h1 className="hero-text-header">Winzer</h1>
+          <h1 className="hero-text-header">
+            Win<div className="hero-text-header2">zer</div>
+          </h1>
           <h2 className="hero-text-slogan">
             Find your next wine tasting event
           </h2>
-          <p className="hero-text">
-            From intimate tastings to grand wine festivals, our platform
-            connects like-minded enthusiasts and knowledgeable experts to
-            explore the best wines from around the world. Join us today and
-            uncork your passion for wine with Winzer!
-          </p>
-          <Link href="/register">
-            <button className="get-started-button">Get Started</button>
-          </Link>
+          <div className="hero-text-button-container">
+            <div className="hero-text">
+              From intimate tastings to grand wine festivals, our platform
+              connects like-minded enthusiasts and knowledgeable experts to
+              explore the best wines from around the world. Join us today and
+              uncork your passion for wine with Winzer!
+            </div>
+            <div className="hero-button-container">
+              <Link href="/register">
+                <button className="get-started-button">
+                  <div className="button-text">Get Started</div>
+                  <div className="fill-container" />
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       <div className="map-bg">

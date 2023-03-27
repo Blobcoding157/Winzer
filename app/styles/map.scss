@@ -4,6 +4,11 @@
   border-radius: 0.5rem;
   min-width: 85vw;
   margin: 1rem;
+
+  @media screen and (max-width: 768px) {
+    min-height: 80vh;
+    min-width: 97vw;
+  }
 }
 
 .container {
@@ -13,31 +18,6 @@
   justify-content: space-between;
   margin: 0;
   padding: 0;
-}
-
-.drag-button {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border: none;
-  border-radius: 40px;
-  font-size: 2.5rem;
-  margin: 1rem;
-  padding: 1rem;
-  margin-top: 0;
-  top: 0;
-}
-
-.search-bar {
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border: none;
-  border-radius: 30px;
-  margin: 1rem;
-  margin-top: 0;
-  padding: 1rem;
-  font-size: 2.2rem;
-  color: #194b4f;
-  text-align: center;
-  width: 80vw;
 }
 
 .search-button-container {
@@ -74,16 +54,120 @@
   border-radius: 0.5rem;
 }
 .popup-header {
-  height: 6.5rem;
+  height: 8rem;
   width: 100%;
+  object-fit: cover;
 
-  overflow: hidden;
   margin-left: 2rem auto;
   border-radius: 0.5rem 0.5rem 0 0;
-  .img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
+}
+:root {
+  --size: 0.1rem;
+  --bgr-color: #e91e63;
+  --ico-color: #4e0a21;
+}
+
+.event-delete-button {
+  width: calc(var(--size) * 20);
+  height: calc(var(--size) * 20);
+  margin-top: -0.2rem;
+  margin-right: 0.1rem;
+  border: 0;
+  border-radius: calc(var(--size) * 1);
+  outline: none;
+
+  background: var(--bgr-color);
+  cursor: pointer;
+  position: relative;
+
+  &:before {
+    background: linear-gradient(
+        0deg,
+        var(--ico-color) 0 calc(var(--size) * 1),
+        #fff0 0 calc(100% - calc(var(--size) * 1)),
+        var(--ico-color) 0 100%
+      ),
+      linear-gradient(
+        90deg,
+        var(--ico-color) 0 calc(var(--size) * 1),
+        #fff0 0 calc(100% - calc(var(--size) * 6)),
+        var(--ico-color) 0 100%
+      ),
+      linear-gradient(
+        45deg,
+        var(--ico-color) 0 calc(var(--size) * 2.35),
+        #fff0 0 100%
+      );
+    width: calc(var(--size) * 12);
+    height: calc(var(--size) * 6);
+    position: absolute;
+    content: '';
+    border-radius: calc(var(--size) * 1);
+    transform: rotate(-45deg);
+    top: calc(var(--size) * 6.5);
+    left: calc(var(--size) * 2);
+    transition: all 0.5s ease 0s;
+  }
+
+  &:after {
+    left: calc(var(--size) * 2);
+    top: calc(var(--size) * 14.5);
+    width: calc(var(--size) * 16);
+    height: calc(var(--size) * 0.9);
+    position: absolute;
+    background: linear-gradient(
+        90deg,
+        var(--bgr-color) 0 45%,
+        #fff0 0 50%,
+        var(--ico-color) 0 100%
+      ),
+      repeating-linear-gradient(
+        90deg,
+        var(--bgr-color) 0 3%,
+        var(--ico-color) 0 6%
+      );
+    background-position: 86% 0;
+    background-size: 200%;
+    transition: all 0.5s ease 0s;
+    border-radius: 1px;
+    content: '';
+    border-top: calc(var(--size) * 1) solid var(--bgr-color);
+    border-bottom: calc(var(--size) * 1) solid var(--bgr-color);
+
+    font-family: Arial, Helvetica, serif;
+    font-size: calc(var(--size) * 4);
+    text-align: center;
+    line-height: calc(var(--size) * 16);
+    color: var(--bgr-color);
+    text-shadow: -1px -1px 1px var(--ico-color), 1px 1px 1px var(--ico-color);
+  }
+
+  &:hover {
+    --ico-color: #18222c;
+    transition: all 0.5s ease 0s;
+  }
+
+  &:hover:before {
+    left: calc(var(--size) * 4);
+  }
+
+  &:hover:after {
+    background-position: 73% 0;
+  }
+
+  &:active {
+    --ico-color: #fff;
+    transition: all 0.5s ease 0s;
+  }
+
+  &:active:before {
+    left: calc(var(--size) * 6);
+  }
+
+  &:active:after {
+    background-position: 60% 0;
+
+    color: #fff;
   }
 }
 
@@ -94,17 +178,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  .event-delete-button {
-    margin-right: 1.1rem;
-
-    border: none;
-    color: white;
-
-    box-shadow: inset 2px 2px 2px 0px #880c25,
-      7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-    outline: none;
-    background: #630317;
-  }
 }
 
 .popup-creator-picture {
@@ -114,7 +187,7 @@
   align-items: center;
   left: 0;
   top: 0;
-  margin-top: 4.5rem;
+  margin-top: 6rem;
   margin-left: 1rem;
 
   border-radius: 50%;

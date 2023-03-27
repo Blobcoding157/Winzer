@@ -33,6 +33,9 @@ export default async function RootLayout(props: Props) {
 
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body>
         <header className="banner-container">
           <Link href="/" className="headerTitle">
@@ -79,6 +82,7 @@ export default async function RootLayout(props: Props) {
                 <Link href="/login" className="navigationItem">
                   Log in
                 </Link>
+
                 <Link href="/register" className="navigationItem">
                   Sign in
                 </Link>

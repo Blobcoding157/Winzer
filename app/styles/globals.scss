@@ -1,3 +1,8 @@
+// font-family: 'Courgette', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+
+// font-family: 'Alata', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
 *,
 *::before,
 *::after {
@@ -7,7 +12,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Crete Round', serif;
+  font-family: 'Alata', sans-serif;
   font-size: 14px;
   scroll-behavior: smooth;
   min-height: 100vh;

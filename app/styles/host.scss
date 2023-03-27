@@ -1,3 +1,19 @@
+// @media (max-width: 576px) {
+//   display: none;
+// }
+
+// /* Medium devices (tablets, 768px and up) */
+// @media (min-width: 768px) {
+// }
+
+// /* Large devices (desktops, 992px and up) */
+// @media (min-width: 992px) {
+// }
+
+// /* Extra large devices (large desktops, 1200px and up) */
+// @media (min-width: 1200px) {
+// }
+
 .host-container {
   display: flex;
   flex-direction: row;
@@ -5,6 +21,24 @@
   justify-content: center;
   align-items: center;
   min-height: 91vh;
+
+  @media (max-width: 1100px) {
+    background-image: linear-gradient(
+      to right top,
+      #006c5d,
+      #15705d,
+      #23745d,
+      #2e775c,
+      #387b5c,
+      #417e5c,
+      #4a825d,
+      #53855d,
+      #5d885e,
+      #678c5f,
+      #718f61,
+      #7a9263
+    );
+  }
 }
 
 .background-image {
@@ -19,6 +53,9 @@
   border: none;
   align-items: center;
   z-index: 0;
+  @media (max-width: 1100px) {
+    display: none;
+  }
 }
 
 .wrong-login-container {
@@ -86,6 +123,13 @@
     #718f61,
     #7a9263
   );
+  @media (max-width: 1100px) {
+    flex-direction: column-reverse;
+    background-image: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
 }
 
 .host-form-container {
@@ -99,6 +143,14 @@
   flex-direction: column;
 
   justify-content: center;
+  @media (max-width: 1200px) {
+    display: grid;
+    padding: 0;
+    margin-bottom: 3rem;
+    border-radius: 0;
+    min-height: 50%;
+    min-width: none;
+  }
 }
 
 .host-form-contents {
@@ -109,6 +161,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 1100px) {
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
 }
 
 .host-form-title {
@@ -275,4 +332,9 @@
   min-height: 40rem;
   width: 60vw;
   border-radius: 0.3rem;
+  @media (max-width: 1100px) {
+    max-height: 50vh;
+    min-height: 50vh;
+    width: 90vw;
+  }
 }

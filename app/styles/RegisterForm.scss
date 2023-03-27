@@ -1,15 +1,50 @@
+// /* Medium devices (tablets, 768px and up) */
+// @media (min-width: 768px) {
+// }
+
+// /* Large devices (desktops, 992px and up) */
+// @media (min-width: 992px) {
+// }
+
+// /* Extra large devices (large desktops, 1200px and up) */
+// @media (min-width: 1200px) {
+// }
+
 .background-image {
   z-index: -1;
   overflow: 'hidden';
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
+
 .page-container {
   display: flex;
-
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 90vh;
   z-index: 1;
+  position: relative;
+
+  @media (max-width: 768px) {
+    background-image: linear-gradient(
+      to right top,
+      #006c5d,
+      #15705d,
+      #23745d,
+      #2e775c,
+      #387b5c,
+      #417e5c,
+      #4a825d,
+      #53855d,
+      #5d885e,
+      #678c5f,
+      #718f61,
+      #7a9263
+    );
+  }
 }
 
 .register-container {
@@ -35,6 +70,17 @@
     #7a9263
   );
   border-radius: 4rem;
+
+  /* Small devices (landscape phones, 576px and up) */
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    max-width: 576px;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
 }
 
 .winzer-user-container {
@@ -44,6 +90,14 @@
   justify-content: center;
   font-style: normal;
   font-weight: 400;
+
+  @media (max-width: 576px) {
+    font-size: 1.5;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    height: 100%;
+  }
 }
 .winzer {
   background: #dd4444;
@@ -64,6 +118,17 @@
   &:active {
     box-shadow: inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
       inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  @media (max-width: 576px) {
+    font-size: 1.5;
+    min-width: 90%;
+    margin: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -86,6 +151,17 @@
     box-shadow: inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
       inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
   }
+
+  @media (max-width: 576px) {
+    font-size: 1.5;
+    min-width: 90%;
+    margin: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .input-container {
@@ -96,6 +172,15 @@
   text-align: center;
 
   color: #fff;
+  @media (max-width: 576px) {
+    max-width: 100%;
+    font-size: 1.5;
+    margin: 0;
+    font-weight: 400;
+    padding-left: 0;
+    padding-right: 0;
+    height: 100%;
+  }
 }
 
 .register-input {
@@ -108,6 +193,9 @@
   font-size: 2.2rem;
   color: #194b4f;
   text-align: center;
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
 }
 
 .sign-up-button {

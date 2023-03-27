@@ -27,6 +27,8 @@ export default function Map({ user, participations, events }) {
   const [mapParticipations, setMapParticipations] = useState(participations);
   const router = useRouter();
   const [error, setError] = useState(null);
+  const [atendingCount, setAtendingCount] = useState(0);
+  let count = 0;
 
   const prov = OpenStreetMapProvider();
 
@@ -125,9 +127,7 @@ export default function Map({ user, participations, events }) {
                             );
                           }}
                           className="event-delete-button"
-                        >
-                          delete
-                        </button>
+                        />
                       ) : (
                         <div />
                       )}
@@ -152,6 +152,7 @@ export default function Map({ user, participations, events }) {
                       <div className="popup-attending-pictures">
                         {mapParticipations.map((participation) => {
                           if (participation.eventId === eventMarker.id) {
+                            count = count + 1;
                             return (
                               <div
                                 className="popup-attending-picture"
@@ -162,8 +163,14 @@ export default function Map({ user, participations, events }) {
                                   alt="attending user"
                                   src={participation.profilePicture}
                                 />
+
+                                <div className="popup-attending-count">
+                                  {count}
+                                </div>
                               </div>
                             );
+                          } else {
+                            return null;
                           }
                         })}
                       </div>
@@ -187,6 +194,15 @@ export default function Map({ user, participations, events }) {
                             setErrors(responseData.error);
                             return;
                           }
+
+                          setMapParticipations([
+                            ...mapParticipations,
+                            {
+                              eventId: eventId,
+                              profilePicture: user.profilePicture,
+                            },
+                          ]);
+
                           router.refresh();
                         }}
                         className="popup-join-button"

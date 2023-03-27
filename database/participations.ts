@@ -24,10 +24,13 @@ export const getParticipationsById = cache(async (id: number) => {
 // returns all data from all attending events of a specific user
 export const getParticipationsByUser = cache(async (id: number) => {
   const participations = await sql<Participation[]>`
-  SELECT events.*, users.profile_picture, users.username FROM participations INNER jOIN users ON participations.user_id = users.id
-      INNER jOIN events ON participations.event_id = events.id
-      WHERE participations.user_id = ${id};
-  `;
+  SELECT events.*, u.username AS host_username,
+       u.profile_picture AS host_profile_picture
+FROM events
+JOIN users u ON events.user_id = u.id
+JOIN participations p ON events.id = p.event_id
+JOIN users up ON events.user_id = up.id
+WHERE p.user_id = ${id};`;
   return participations;
 });
 

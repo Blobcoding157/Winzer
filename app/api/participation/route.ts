@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
   createParticipation,
-  getAttendingUserProfilePictures,
+  getAllAttendingUserProfilePictures,
   getParticipations,
   getParticipationsByUser,
 } from '../../../database/participations';
@@ -102,7 +102,7 @@ export async function GET(
   if (result.data.query === 'getParticipationsByUser') {
     participations = await getParticipationsByUser(result.data.id);
   } else if (result.data.query === 'getAttendingUserProfilePictures') {
-    participations = await getAttendingUserProfilePictures(result.data.id);
+    participations = await getAllAttendingUserProfilePictures();
   } else {
     return NextResponse.json(
       { errors: [{ message: 'Invalid query!' }] },

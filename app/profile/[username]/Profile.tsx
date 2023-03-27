@@ -187,13 +187,13 @@ export default function Profile({
                   </div>
                   <div className="profile-event-host-picture-name-container">
                     <div className="profile-event-host-picture">
-                      <img alt="" src={event.profilePicture} />
+                      <img alt="" src={event.hostProfilePicture} />
                     </div>
                     <Link
-                      href={`/profile/${event.username}`}
+                      href={`/profile/${event.hostUsername}`}
                       className="profile-event-host-name"
                     >
-                      @{event.username}
+                      @{event.hostUsername}
                     </Link>
                   </div>
                   <div className="profile-event-info-container">
