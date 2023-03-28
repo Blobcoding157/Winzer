@@ -1,17 +1,59 @@
-.page-container-container {
+.profile-page-container-container {
   background-color: #e1e1e1;
 }
-.page-container {
+
+.profile-page-container {
   margin-left: 10vw;
   margin-right: 10vw;
   background-color: #fff;
 }
 
+.header-image-upload > input {
+  display: none;
+}
+
+.header-image-upload img {
+  width: 2.5rem;
+  display: flex;
+  position: fixed;
+  right: 0;
+
+  margin-right: 14vw;
+  margin-top: -3.5rem;
+  opacity: 60%;
+  cursor: pointer;
+}
+
+.header-file-button {
+  position: absolute;
+  right: 0;
+  margin-right: 13vw;
+}
+
+.profile-image-upload > input {
+  display: none;
+}
+
+.profile-image-upload img {
+  width: 2.5rem;
+  display: flex;
+  position: fixed;
+  margin-left: 13em;
+  margin-top: -4rem;
+  opacity: 60%;
+  cursor: pointer;
+}
+
+.profile-image-file-button {
+  position: absolute;
+  left: 0;
+  margin-left: 13rem;
+}
+
 .owner-profile-header {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
+
   width: 100%;
   height: 15rem;
   object-fit: cover;

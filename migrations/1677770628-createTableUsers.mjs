@@ -7,6 +7,7 @@ export async function up(sql) {
     password_hash VARCHAR(110) NOT NULL UNIQUE,
     about_me VARCHAR(500),
     profile_picture TEXT NOT NULL,
+    profile_header TEXT NOT NULL,
     role_id INTEGER NOT NULL
   )`;
 }

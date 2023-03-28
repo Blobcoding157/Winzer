@@ -12,6 +12,7 @@ const userSchema = z.object({
   password: z.string(),
   email: z.string(),
   profilePicture: z.string(),
+  profileHeader: z.string(),
   role: z.number(),
 });
 
@@ -22,6 +23,7 @@ export type RegisterResponseBodyPost =
         username: string;
         email: string;
         profilePicture: string;
+        profileHeader: string;
         role: number;
       };
     };
@@ -43,6 +45,7 @@ export async function POST(
     !result.data.password ||
     !result.data.email ||
     !result.data.role ||
+    !result.data.profilePicture ||
     !result.data.profilePicture
   ) {
     return NextResponse.json(
@@ -71,6 +74,7 @@ export async function POST(
     result.data.username,
     result.data.email,
     result.data.profilePicture,
+    result.data.profileHeader,
     result.data.role,
     passwordHash,
   );
@@ -109,6 +113,7 @@ export async function POST(
         username: newUser.username,
         email: newUser.email,
         profilePicture: newUser.profilePicture,
+        profileHeader: newUser.profileHeader,
       },
     },
     {

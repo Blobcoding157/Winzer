@@ -6,6 +6,7 @@ export type User = {
   username: string;
   email: string;
   profilePicture: string;
+  profileHeader: string;
   aboutMe: string | null;
   role_id: number;
   passwordHash: string;
@@ -77,6 +78,7 @@ export const getUserByUsername = cache(async (username: string) => {
       id: number;
       username: string;
       profilePicture: string;
+      profileHeader: string;
       email: string;
       about_me: string | null;
       role_id: number;
@@ -84,7 +86,7 @@ export const getUserByUsername = cache(async (username: string) => {
   >`
     SELECT
       id,
-      username, email, profile_picture, about_me, role_id, password_hash
+      username, email, profile_picture, profile_header, about_me, role_id, password_hash
     FROM
       users
     WHERE
@@ -98,6 +100,18 @@ export const updateUserPicture = cache(
     const [user] = await sql<{ id: number; username: string }[]>`
     UPDATE users
     SET profile_picture = ${profilePicture}
+    WHERE id = ${id}
+    RETURNING id, username;
+  `;
+    return user;
+  },
+);
+
+export const updateUserHeader = cache(
+  async (id: number, profileHeader: string) => {
+    const [user] = await sql<{ id: number; username: string }[]>`
+    UPDATE users
+    SET profile_header = ${profileHeader}
     WHERE id = ${id}
     RETURNING id, username;
   `;
@@ -120,6 +134,7 @@ export const createUser = cache(
     username: string,
     email: string,
     profilePicture: string,
+    profileHeader: string,
     role_id: number,
     passwordHash: string,
   ) => {
@@ -129,13 +144,14 @@ export const createUser = cache(
         username: string;
         email: any;
         profilePicture: string;
+        profileHeader: string;
         role_id: number;
       }[]
     >`
       INSERT INTO users
-        (username, email, profile_picture, role_id, password_hash)
+        (username, email, profile_picture, profile_header, role_id, password_hash)
       VALUES
-        (${username}, ${email}, ${profilePicture}, ${role_id}, ${passwordHash})
+        (${username}, ${email}, ${profilePicture}, ${profileHeader}, ${role_id}, ${passwordHash})
       RETURNING
         id, username
     `;

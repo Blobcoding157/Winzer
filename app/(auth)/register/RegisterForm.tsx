@@ -1,6 +1,7 @@
 'use client';
 
 import '../../styles/RegisterForm.scss';
+import '../../styles/globals.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -15,6 +16,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
   const profilePicture = '/default-profile-picture.png';
+  const profileHeader = '/default-header.webp';
 
   return (
     <form
@@ -27,6 +29,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
             username,
             email,
             profilePicture,
+            profileHeader,
             role,
             password,
           }),

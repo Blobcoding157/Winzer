@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateUserPicture } from '../../../database/users';
+import { updateUserHeader } from '../../../../../database/users';
 
 export async function PUT(
   request: NextRequest,
@@ -9,7 +9,7 @@ export async function PUT(
 
   const body = await request.json();
 
-  const newPicture = updateUserPicture(body.id, body.profilePicture);
+  const newPicture = updateUserHeader(body.id, body.profileHeader);
 
   return NextResponse.json({ user: newPicture });
 }

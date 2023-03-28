@@ -53,23 +53,13 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background-image: linear-gradient(
-    to right top,
-    #006c5d,
-    #15705d,
-    #23745d,
-    #2e775c,
-    #387b5c,
-    #417e5c,
-    #4a825d,
-    #53855d,
-    #5d885e,
-    #678c5f,
-    #718f61,
-    #7a9263
-  );
+
+  background: rgba(255, 255, 255, 0.11);
   border-radius: 4rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.2px);
+  -webkit-backdrop-filter: blur(4.2px);
+  border: 1px solid rgba(255, 255, 255, 0.34);
 
   /* Small devices (landscape phones, 576px and up) */
 
@@ -86,6 +76,7 @@
 .winzer-user-container {
   display: flex;
   flex-direction: row;
+
   align-items: center;
   justify-content: center;
   font-style: normal;
@@ -100,20 +91,19 @@
   }
 }
 .winzer {
-  background: #dd4444;
+  background: #70051b;
+  font-family: 'Alata', sans-serif;
   border-radius: 10rem 0px 0px 10rem;
   margin: 2rem;
   font-size: 2.2rem;
   color: #fff;
   padding: 0.8rem;
   font-weight: 700;
-
   border: none;
-
   margin-right: 0;
   min-width: 13rem;
   &:hover {
-    background: #f48080;
+    background: #a00222;
   }
   &:active {
     box-shadow: inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
@@ -133,7 +123,8 @@
 }
 
 .user {
-  background: #dd4444;
+  background: #70051b;
+  font-family: 'Alata', sans-serif;
   border-radius: 0px 30px 30px 0px;
   margin: 2rem;
   font-weight: 700;
@@ -145,7 +136,7 @@
   min-width: 13rem;
 
   &:hover {
-    background: #f48080;
+    background: #a00222;
   }
   &:active {
     box-shadow: inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
@@ -166,6 +157,7 @@
 
 .input-container {
   display: flex;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -186,6 +178,7 @@
 .register-input {
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: 'Alata', sans-serif;
   border: none;
   border-radius: 30px;
   margin: 0.9rem;
@@ -199,32 +192,49 @@
 }
 
 .sign-up-button {
-  margin-top: 1rem;
-  font-size: 2rem;
-  width: 13rem;
-  height: 5rem;
-  justify-content: center;
-  color: white;
-  border-radius: 10rem;
-  padding: 10px 25px;
-  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 0.7rem;
+  width: 12rem;
+  font-family: 'Alata', sans-serif;
+  border-radius: 1.5rem;
+  background-color: #70051b;
+  color: #fafafa;
+  border: solid 1px rgba($color: #fafafa, $alpha: 0.3);
+  overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px #829b6b, 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  outline: none;
-  background: #a2c185;
-  border: none;
-  &:before {
-    height: 0%;
-    width: 2px;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); // easeOutQuart
+  -webkit-mask-image: -webkit-radial-gradient(
+    white,
+    black
+  ); // force safari to respect border radius
+
+  .button-text {
+    position: relative;
+    z-index: 2;
   }
-  &:active {
-    box-shadow: 4px 4px 6px 0 rgba(71, 71, 71, 0.5),
-      inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
-      inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
+
+  .fill-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    padding-bottom: 100%;
+    transform: translateY(-50%) rotate(180deg);
+
+    // collor filling
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      background-color: #a00222;
+      border-radius: 50%;
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); // easeOutQuart
+      transform: translateY(-100%);
+    }
   }
 }
 

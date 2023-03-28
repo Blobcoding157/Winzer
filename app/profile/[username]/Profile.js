@@ -3,7 +3,7 @@ import '../../styles/globals.scss';
 import '../../styles/profile.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function Profile({
   user,
@@ -14,44 +14,16 @@ export default function Profile({
   const [isUpdating, setIsUpdating] = useState(false);
   const [aboutMeUpdate, setAboutMeUpdate] = useState('');
   const [profilePictureUpdate, setProfilePictureUpdate] = useState(false);
+  const [profileHeaderUpdate, setProfileHeaderUpdate] = useState(false);
   const [imageSrc, setImageSrc] = useState();
+  const [headerImageSrc, setHeaderImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
-  const [eventData, setEventData] = useState([]);
+  const [uploadHeaderData, setUploadHeaderData] = useState();
   const [participationData, setParticipationData] = useState(participations);
   const [hostingData, setHostingData] = useState(hosting);
   const router = useRouter();
 
-  console.log('participationData: ', participationData);
-
-  const id = user.id;
-  const query = 'getParticipationsByUser';
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('api/participation', {
-        method: 'GET',
-        body: JSON.stringify({ query, id }),
-      });
-      const jsonData = await response.json();
-      setEventData(jsonData);
-    };
-    fetchData().catch((err) => console.log(err));
-  }, []);
-
-  async function handleOnSubmitInfo(event) {
-    event.preventDefault();
-
-    await fetch(`/api/profile/${user.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        id: user.id,
-        aboutMe: aboutMeUpdate,
-      }),
-    });
-    router.refresh();
-    setIsUpdating(!isUpdating);
-  }
-
-  async function handleOnSubmitPicture(event) {
+  async function handleOnSubmitProfilePicture(event) {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -75,7 +47,7 @@ export default function Profile({
       },
     ).then((r) => r.json());
 
-    await fetch('/api/picture', {
+    await fetch('/api/profile/picture/profilePicture', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -93,12 +65,64 @@ export default function Profile({
     setProfilePictureUpdate(!profilePictureUpdate);
   }
 
+  async function handleOnSubmitProfileHeader(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const fileInput = Array.from(form.elements).find(
+      ({ name }) => name === 'file',
+    );
+
+    const formData = new FormData();
+
+    for (const file of fileInput.files) {
+      formData.append('file', file);
+    }
+
+    formData.append('upload_preset', 'winzer-upload');
+
+    const data = await fetch(
+      'https://api.cloudinary.com/v1_1/winzer-images/image/upload',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then((r) => r.json());
+
+    await fetch('/api/profile/picture/header', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: user.id,
+        profileHeader: data.secure_url,
+      }),
+    });
+
+    setHeaderImageSrc(data.secure_url);
+    setUploadHeaderData(data);
+
+    router.refresh();
+    setProfileHeaderUpdate(!profileHeaderUpdate);
+  }
+
   function handleOnChange(changeEvent) {
     const reader = new FileReader();
 
     reader.onload = function (onLoadEvent) {
       setImageSrc(onLoadEvent.target.result);
       setUploadData(undefined);
+    };
+    reader.readAsDataURL(changeEvent.target.files[0]);
+  }
+
+  function handleOnChangeHeader(changeEvent) {
+    const reader = new FileReader();
+
+    reader.onload = function (onLoadEvent) {
+      setHeaderImageSrc(onLoadEvent.target.result);
+      setUploadHeaderData(undefined);
     };
     reader.readAsDataURL(changeEvent.target.files[0]);
   }
@@ -120,13 +144,39 @@ export default function Profile({
   }
 
   return (
-    <div className="page-container-container">
-      <div className="page-container">
+    <div className="profile-page-container-container">
+      <div className="profile-page-container">
         <img
           alt="header"
           className="owner-profile-header"
-          src="/gathering.jpeg"
+          src={user.profileHeader}
         />
+        {sessionUser && sessionUser.userId === user.id && (
+          <form
+            method="post"
+            onChange={handleOnChangeHeader}
+            onSubmit={handleOnSubmitProfileHeader}
+          >
+            <div className="header-image-upload">
+              <label htmlFor="header-file-input">
+                <img alt="Edit profile Header" src="/edit-button.png" />
+              </label>
+              <input
+                id="header-file-input"
+                className="header-file-input"
+                type="file"
+                name="file"
+              />
+            </div>
+            {headerImageSrc && !uploadHeaderData && (
+              <p>
+                <button className="header-file-button">
+                  Upload Profile Banner
+                </button>
+              </p>
+            )}
+          </form>
+        )}
         <img
           className="owner-profile-picture"
           alt="user"
@@ -136,25 +186,26 @@ export default function Profile({
           <form
             method="post"
             onChange={handleOnChange}
-            onSubmit={handleOnSubmitPicture}
+            onSubmit={handleOnSubmitProfilePicture}
           >
-            <input placeholder="upload here" type="file" name="file" />
-            {imageSrc && (
-              <img
-                className="profile-picture"
-                alt="new Profile Selection"
-                src={imageSrc}
+            <div className="profile-image-upload">
+              <label htmlFor="profile-file-input">
+                <img alt="Edit profilePicture" src="/edit-button.png" />
+              </label>
+              <input
+                id="profile-file-input"
+                className="profile-file-input"
+                type="file"
+                name="file"
               />
-            )}
-
+            </div>
             {imageSrc && !uploadData && (
               <p>
-                <button>Upload File</button>
+                <button>Upload Profile Picutre</button>
               </p>
             )}
           </form>
         )}
-
         <div className="profile-info-container">
           {/* <img className="profile-picture" alt="user" src={user.profilePicture} /> */}
           {/* <button onClick={() => setProfilePictureUpdate(true)}>
