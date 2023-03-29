@@ -70,26 +70,31 @@ export default async function Home() {
             <img
               className="info-box-image"
               alt="visibility"
-              src="/visibility.png"
+              src="/walk-to-your-wine.jpg"
             />
           </div>
-          <h3 className="info-box-header">Increased Visibility</h3>
+          <h3 className="info-box-header">Walk to your Adventure</h3>
           <div className="info-box-text">
-            your event will be listed on a platform that is specifically
-            designed for wine enthusiasts and to potential attendees who are
-            interested in wine and are actively looking for wine events to
-            attend.
+            What could be nicer than exploring the different wine-growing
+            regions on foot? Numerous hiking trails lead through the picturesque
+            wine landscape and thus provide a special insight and outlook on the
+            subject of wine.
           </div>
         </div>
         <div className="info-box-container">
           <div className="info-box-image-container">
             <img
               className="info-box-image"
-              alt="networking"
-              src="/networking.png"
+              alt="wine cellar"
+              src="/wine-cellar.jpg"
+            />
+            <img
+              className="info-box-image"
+              alt="wine cellar"
+              src="/wine-cellar2.jpg"
             />
           </div>
-          <h3 className="info-box-header">Networking Opportunity</h3>
+          <h3 className="info-box-header">Experience Wine at it's roots</h3>
           <div className="info-box-text">
             Winzer facilitates networking between attendees and exhibitors.This
             will help to create a more engaging and interactive experience for
@@ -99,7 +104,7 @@ export default async function Home() {
         </div>
         <div className="info-box-container">
           <div className="info-box-image-container">
-            <img className="info-box-image" alt="Access" src="/Access.png" />
+            <img className="info-box-image" alt="Access" src="/phone-out.jpg" />
           </div>
           <h3 className="info-box-header">Easy Access to Events near you</h3>
           <div className="info-box-text">
@@ -112,11 +117,16 @@ export default async function Home() {
           <div className="info-box-image-container">
             <img
               className="info-box-image"
-              alt="Personalize"
-              src="/personalize.png"
+              alt="a wine farmer with barrels"
+              src="/winzer-with-barrels.jpg"
+            />
+            <img
+              className="info-box-image"
+              alt="two people enjoying wine"
+              src="/two-people-with-wine.jpg"
             />
           </div>
-          <h3 className="info-box-header">Personalize</h3>
+          <h3 className="info-box-header">Find hidden Jems</h3>
           <div className="info-box-text">
             Profile personalization allows you to create a customized profile
             that reflects your personal preferences, interests, and tastes.This

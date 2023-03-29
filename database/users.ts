@@ -18,14 +18,16 @@ type UserWithPasswordHash = User & {
 
 export const getUsers = cache(async () => {
   const user = await sql<User[]>`
-      SELECT * FROM users
+      SELECT id,
+      username, email, profile_picture, profile_header, about_me, role_id FROM users
     `;
   return user;
 });
 
 export const getUsersById = cache(async (id: number) => {
   const user = await sql<User[]>`
-      SELECT * FROM user WHERE id = ${id}
+      SELECT id,
+      username, email, profile_picture, profile_header, about_me, role_id FROM user WHERE id = ${id}
     `;
   return user;
 });
@@ -86,7 +88,7 @@ export const getUserByUsername = cache(async (username: string) => {
   >`
     SELECT
       id,
-      username, email, profile_picture, profile_header, about_me, role_id, password_hash
+      username, email, profile_picture, profile_header, about_me, role_id
     FROM
       users
     WHERE

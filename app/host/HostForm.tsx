@@ -9,7 +9,6 @@ import 'leaflet-geosearch/dist/geosearch.css';
 import 'leaflet-geosearch/dist/geosearch.umd.js';
 import L from 'leaflet';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
@@ -203,12 +202,12 @@ export default function HostForm(props: any) {
             </div>
           )}
         </div>
-        <div className="map-container">
+        <div className="host-map-container">
           <MapContainer
             center={[center[0], center[1]]}
             zoom={26}
             scrollWheelZoom={true}
-            className="map"
+            className="host-map"
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

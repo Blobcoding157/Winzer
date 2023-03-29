@@ -1,9 +1,9 @@
 import './styles/globals.scss';
 import './styles/headBanner.scss';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 import { getUserBySessionToken } from '../database/users';
 import CookieBanner from './CookieBanner';
+import HeadBanner from './HeadBanner';
 
 export const metadata = {
   title: 'Winzer',
@@ -37,59 +37,7 @@ export default async function RootLayout(props: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body>
-        <header className="banner-container">
-          <Link href="/" className="headerTitle">
-            <img
-              className="headerLogo"
-              src="/winzer-icon.png"
-              alt="winzer-icon"
-            />
-            <h2>Winzer</h2>
-          </Link>
-
-          <nav className="bannerNavigation">
-            {user ? (
-              <>
-                {user.roleId > 1 ? (
-                  <Link
-                    href="/host"
-                    prefetch={false}
-                    className="navigationItem"
-                  >
-                    Host
-                  </Link>
-                ) : (
-                  <div></div>
-                )}
-
-                <Link
-                  href={`/profile/${user.username}`}
-                  className="navigationItem"
-                >
-                  {user.username}
-                  <img
-                    className="profile-picture"
-                    alt="User Profile"
-                    src={user.profilePicture}
-                  />
-                </Link>
-                <Link prefetch={false} href="/logout" className="logout">
-                  Log out
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href="/login" className="navigationItem">
-                  Log in
-                </Link>
-
-                <Link href="/register" className="navigationItem">
-                  Sign in
-                </Link>
-              </>
-            )}
-          </nav>
-        </header>
+        <HeadBanner user={user} />
         {props.children}
         <footer className="footer">
           <div className="footer-elements"> @Patrik Productions </div>

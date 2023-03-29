@@ -104,25 +104,17 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
   padding: 0.8rem;
 
   border-radius: 1.3rem;
 
-  background-image: linear-gradient(
-    to right top,
-    #006c5d,
-    #15705d,
-    #23745d,
-    #2e775c,
-    #387b5c,
-    #417e5c,
-    #4a825d,
-    #53855d,
-    #5d885e,
-    #678c5f,
-    #718f61,
-    #7a9263
-  );
+  background: rgba(130, 130, 130, 0.267);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(130, 130, 130, 0.47);
+
   @media (max-width: 1100px) {
     flex-direction: column-reverse;
     background-image: none;
@@ -322,19 +314,18 @@
   }
 }
 
-.map-container {
+.host-map-container {
   margin: 0;
   padding: 0;
 }
 
-.map {
+.host-map {
   max-height: 40rem;
   min-height: 40rem;
-  width: 60vw;
+  width: 50rem;
   border-radius: 0.3rem;
   @media (max-width: 1100px) {
     max-height: 50vh;
     min-height: 50vh;
-    width: 90vw;
   }
 }
