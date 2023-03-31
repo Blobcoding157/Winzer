@@ -13,7 +13,7 @@ const userSchema = z.object({
 });
 
 export type LoginResponseBodyPost =
-  | { error: { message: string }[] }
+  | { errors: { message: string }[] }
   | { user: { username: string } };
 
 export async function POST(

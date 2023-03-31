@@ -62,10 +62,18 @@ export default async function Home() {
       <div className="map-bg">
         <Map user={user} participations={participations} events={events} />
       </div>
+      <div className="under-map-bg">
+        <img
+          src="/Karte.jpg"
+          alt="drawing of a wine map"
+          className="under-map-image"
+        />
+      </div>
       <h2 className="info-header">Your Wine Journey Starts here</h2>
       <div className="info-slogan">grow your Passion and Returns</div>
+
       <div className="info-container">
-        <div className="info-box-container">
+        <div className="info-box-container-single">
           <div className="info-box-image-container">
             <img
               className="info-box-image"
@@ -73,65 +81,88 @@ export default async function Home() {
               src="/walk-to-your-wine.jpg"
             />
           </div>
-          <h3 className="info-box-header">Walk to your Adventure</h3>
-          <div className="info-box-text">
-            What could be nicer than exploring the different wine-growing
-            regions on foot? Numerous hiking trails lead through the picturesque
-            wine landscape and thus provide a special insight and outlook on the
-            subject of wine.
+          <div className="info-box-text-container">
+            <h3 className="info-box-header">Walk to your Adventure</h3>
+            <div className="info-box-text">
+              What could be nicer than exploring the different wine-growing
+              regions on foot? Numerous hiking trails lead through the
+              picturesque wine landscape and thus provide a special insight and
+              outlook on the subject of wine.
+            </div>
+          </div>
+        </div>
+
+        <div className="info-box-container">
+          <div className="info-box-image-container">
+            <div className="info-box-double-image-container">
+              <img
+                className="info-box-image-double-one"
+                alt="wine cellar"
+                src="/wine-cellar.jpg"
+              />
+              <img
+                className="info-box-image-double-two"
+                alt="wine cellar"
+                src="/wine-cellar2.jpg"
+              />
+            </div>
+            <div className="info-box-text-container">
+              <h3 className="info-box-header">Experience Wine at it's roots</h3>
+              <div className="info-box-text">
+                Winzer facilitates networking between attendees and
+                exhibitors.This will help to create a more engaging and
+                interactive experience for attendees, as well as provide
+                opportunities for hosts to connect with potential customers and
+                partners.
+              </div>
+            </div>
           </div>
         </div>
         <div className="info-box-container">
-          <div className="info-box-image-container">
-            <img
-              className="info-box-image"
-              alt="wine cellar"
-              src="/wine-cellar.jpg"
-            />
-            <img
-              className="info-box-image"
-              alt="wine cellar"
-              src="/wine-cellar2.jpg"
-            />
-          </div>
-          <h3 className="info-box-header">Experience Wine at it's roots</h3>
-          <div className="info-box-text">
-            Winzer facilitates networking between attendees and exhibitors.This
-            will help to create a more engaging and interactive experience for
-            attendees, as well as provide opportunities for hosts to connect
-            with potential customers and partners.
-          </div>
-        </div>
-        <div className="info-box-container">
-          <div className="info-box-image-container">
-            <img className="info-box-image" alt="Access" src="/phone-out.jpg" />
-          </div>
-          <h3 className="info-box-header">Easy Access to Events near you</h3>
-          <div className="info-box-text">
-            Winzer provides you with easy access to all the information you need
-            about your next event, including dates, times, location, and host
-            details.
+          <div className="info-box-container-single">
+            <div className="info-box-image-container">
+              <img
+                className="info-box-image"
+                alt="Access"
+                src="/phone-out.jpg"
+              />
+            </div>
+            <div className="info-box-text-container">
+              <h3 className="info-box-header">
+                Easy Access to Events near you
+              </h3>
+              <div className="info-box-text">
+                Winzer provides you with easy access to all the information you
+                need about your next event, including dates, times, location,
+                and host details.
+              </div>
+            </div>
           </div>
         </div>
+
         <div className="info-box-container">
           <div className="info-box-image-container">
-            <img
-              className="info-box-image"
-              alt="a wine farmer with barrels"
-              src="/winzer-with-barrels.jpg"
-            />
-            <img
-              className="info-box-image"
-              alt="two people enjoying wine"
-              src="/two-people-with-wine.jpg"
-            />
-          </div>
-          <h3 className="info-box-header">Find hidden Jems</h3>
-          <div className="info-box-text">
-            Profile personalization allows you to create a customized profile
-            that reflects your personal preferences, interests, and tastes.This
-            feature provides a more engaging and relevant experience for
-            everyone.
+            <div className="info-box-double-image-container">
+              <img
+                className="info-box-image-double-one"
+                alt="a wine farmer with barrels"
+                src="/winzer-with-barrels.jpg"
+              />
+              <img
+                className="info-box-image-double-two"
+                alt="two people enjoying wine"
+                src="/two-people-with-wine.jpg"
+              />
+            </div>
+            <div className="info-box-text-container">
+              <h3 className="info-box-header">Find hidden Jems</h3>
+              <div className="info-box-text">
+                Profile personalization allows you to create a customized
+                profile that reflects your personal preferences, interests, and
+                tastes.This feature provides a more engaging and relevant
+                experience for everyone.
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -49,10 +49,11 @@
 
 .register-container {
   display: flex;
-  color: white;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  color: #fff;
+  text-shadow: #70051b 0.2rem 0.2rem 0.2rem;
 
   border-radius: 4rem;
   background: rgba(130, 130, 130, 0.2);
@@ -163,7 +164,6 @@
   justify-content: center;
   text-align: center;
 
-  color: #fff;
   @media (max-width: 576px) {
     max-width: 100%;
     font-size: 1.5;

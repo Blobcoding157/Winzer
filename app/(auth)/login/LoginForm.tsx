@@ -25,8 +25,6 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
 
         const data: LoginResponseBodyPost = await response.json();
 
-        console.log(data);
-
         if ('errors' in data) {
           setErrors(data.errors);
           return;

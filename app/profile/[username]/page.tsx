@@ -21,9 +21,14 @@ export default async function ProfilePage(props) {
 
   const user = await getUserByUsername(props.params.username);
 
-  const participations = await getParticipationsByUser(user.id);
+  let participations: any = [];
+  let hosting: any = [];
 
-  const hosting = await getEventsByUser(user.id);
+  if (user) {
+    participations = await getParticipationsByUser(user.id);
+
+    hosting = await getEventsByUser(user.id);
+  }
 
   if (!user) {
     return notFound();

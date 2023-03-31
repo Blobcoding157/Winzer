@@ -8,14 +8,23 @@ export default function HeadBanner({ user }) {
   const [navColor, setnavColor] = useState('#311930');
   const [navLogo, setnavLogo] = useState('/winzer-icon.png');
   const [color, setColor] = useState('white');
+  const [blur, setBlur] = useState('0px');
+  const [titleShadow, setTitleShadow] = useState(
+    '#70051b 0.2rem 0.2rem 0.2rem',
+  );
 
   const listenScrollEvent = () => {
-    window.scrollY > 50 ? setnavColor('#31193000') : setnavColor('#311930');
+    window.scrollY > 50 ? setnavColor('#69376727') : setnavColor('#311930');
     window.scrollY > 50 ? setnavSize('4rem') : setnavSize('5rem');
     window.scrollY > 50
       ? setnavLogo('/winzer-icon-white.png')
       : setnavLogo('/winzer-icon.png');
+
     window.scrollY > 50 ? setColor('black') : setColor('white');
+    window.scrollY > 50 ? setBlur('2px') : setBlur('0px');
+    window.scrollY > 50
+      ? setTitleShadow('none')
+      : setTitleShadow('#70051b 0.2rem 0.2rem 0.2rem');
   };
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent);
@@ -30,10 +39,15 @@ export default function HeadBanner({ user }) {
         backgroundColor: navColor,
         height: navSize,
         transition: 'all 1s',
+        backdropFilter: `blur(${blur})`,
       }}
       className="banner-container"
     >
-      <Link href="/" style={{ color: color }} className="headerTitle">
+      <Link
+        href="/"
+        style={{ color: color, textShadow: titleShadow }}
+        className="headerTitle"
+      >
         <img className="headerLogo" src={navLogo} alt="winzer-icon" />
         <h2>Winzer</h2>
       </Link>
