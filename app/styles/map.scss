@@ -33,6 +33,7 @@
   display: inline-block;
   margin: 0;
   padding: 0;
+  margin-bottom: 1rem;
 
   .leaflet-popup-content-wrapper {
     background-color: transparent;
@@ -49,6 +50,7 @@
   }
   .leaflet-popup-tip {
     background: #15705d;
+    margin-bottom: 1rem;
   }
 }
 .popup-content-container {
