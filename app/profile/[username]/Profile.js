@@ -201,33 +201,38 @@ export default function Profile({
             </div>
             {imageSrc && !uploadData && (
               <p>
-                <button>Upload Profile Picutre</button>
+                <button className="profile-upload-profile-picture-button">
+                  Upload Profile Picutre
+                </button>
               </p>
             )}
           </form>
         )}
         <div className="profile-info-container">
-          {/* <img className="profile-picture" alt="user" src={user.profilePicture} /> */}
-          {/* <button onClick={() => setProfilePictureUpdate(true)}>
-          edit profile Picture
-        </button> */}
-          <h1>{user.username}</h1>
+          <h1 className="profile-username">{user.username}</h1>
           {sessionUser && sessionUser.userId === user.id && (
             <form method="put" onSubmit={handleAboutMeChange}>
               <input
-                placeholder="about me"
+                className="profile-about-me-input"
+                placeholder="update your about me"
                 value={aboutMeUpdate}
                 onChange={(event) => {
                   setAboutMeUpdate(event.target.value);
                 }}
               />
-              <button>Submit</button>
+              <button className="profile-submit-button">Submit</button>
             </form>
           )}
 
-          {user.aboutMe ? <div>AboutMe: {user.aboutMe}</div> : null}
+          {user.aboutMe ? (
+            <div className="profile-about-me-container">
+              AboutMe: <div className="profile-about-me">{user.aboutMe}</div>{' '}
+            </div>
+          ) : null}
 
-          {hostingData ? <div> hosting events: </div> : null}
+          {hostingData ? (
+            <h3 className="profile-hosting-participating"> hosting events: </h3>
+          ) : null}
 
           <div className="profile-events-container">
             {hostingData.map((event) => {
@@ -267,7 +272,12 @@ export default function Profile({
             })}
           </div>
 
-          {hostingData ? <div> participating events: </div> : null}
+          {hostingData ? (
+            <h3 className="profile-hosting-participating">
+              {' '}
+              participating events:{' '}
+            </h3>
+          ) : null}
 
           <div className="profile-events-container">
             {participationData.map((event) => {
