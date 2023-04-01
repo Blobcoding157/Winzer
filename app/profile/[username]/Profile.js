@@ -225,9 +225,9 @@ export default function Profile({
             </form>
           )}
 
-          <div>AboutMe: {user.aboutMe}</div>
+          {user.aboutMe ? <div>AboutMe: {user.aboutMe}</div> : null}
 
-          <div>hosting events: </div>
+          {hostingData ? <div> hosting events: </div> : null}
 
           <div className="profile-events-container">
             {hostingData.map((event) => {
@@ -238,13 +238,13 @@ export default function Profile({
                   </div>
                   <div className="profile-event-host-picture-name-container">
                     <div className="profile-event-host-picture">
-                      <img alt="" src={event.hostProfilePicture} />
+                      <img alt="" src={event.profilePicture} />
                     </div>
                     <Link
-                      href={`/profile/${event.hostUsername}`}
+                      href={`/profile/${event.username}`}
                       className="profile-event-host-name"
                     >
-                      @{event.hostUsername}
+                      @{event.username}
                     </Link>
                   </div>
                   <div className="profile-event-info-container">
@@ -267,7 +267,7 @@ export default function Profile({
             })}
           </div>
 
-          <div>participating events: </div>
+          {hostingData ? <div> participating events: </div> : null}
 
           <div className="profile-events-container">
             {participationData.map((event) => {
@@ -278,13 +278,13 @@ export default function Profile({
                   </div>
                   <div className="profile-event-host-picture-name-container">
                     <div className="profile-event-host-picture">
-                      <img alt="" src={event.profilePicture} />
+                      <img alt="" src={event.hostProfilePicture} />
                     </div>
                     <Link
-                      href={`/profile/${event.username}`}
+                      href={`/profile/${event.hostUsername}`}
                       className="profile-event-host-name"
                     >
-                      @{event.username}
+                      @{event.hostUsername}
                     </Link>
                   </div>
                   <div className="profile-event-info-container">

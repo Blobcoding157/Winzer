@@ -152,7 +152,6 @@ export default function Map({ user, participations, events }) {
                       <div className="popup-attending-pictures">
                         {mapParticipations.map((participation) => {
                           if (participation.eventId === eventMarker.id) {
-                            count = count + 1;
                             return (
                               <div
                                 className="popup-attending-picture"
@@ -163,10 +162,6 @@ export default function Map({ user, participations, events }) {
                                   alt="attending user"
                                   src={participation.profilePicture}
                                 />
-
-                                <div className="popup-attending-count">
-                                  {count}
-                                </div>
                               </div>
                             );
                           } else {
@@ -180,28 +175,38 @@ export default function Map({ user, participations, events }) {
 
                           const userId = user.id;
                           const eventId = eventMarker.id;
+                          if (
+                            !mapParticipations.find(
+                              (participation) =>
+                                participation ===
+                                {
+                                  eventId: eventId,
+                                  profilePicture: user.profilePicture,
+                                },
+                            )
+                          ) {
+                            const response = await fetch('/api/participation', {
+                              method: 'POST',
+                              body: JSON.stringify({
+                                userId,
+                                eventId,
+                              }),
+                            });
 
-                          const response = await fetch('/api/participation', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                              userId,
-                              eventId,
-                            }),
-                          });
+                            const responseData = await response.json();
+                            if ('error' in responseData) {
+                              setErrors(responseData.error);
+                              return;
+                            }
 
-                          const responseData = await response.json();
-                          if ('error' in responseData) {
-                            setErrors(responseData.error);
-                            return;
+                            // setMapParticipations([
+                            //   ...mapParticipations,
+                            //   {
+                            //     eventId: eventId,
+                            //     profilePicture: user.profilePicture,
+                            //   },
+                            // ]);
                           }
-
-                          setMapParticipations([
-                            ...mapParticipations,
-                            {
-                              eventId: eventId,
-                              profilePicture: user.profilePicture,
-                            },
-                          ]);
 
                           router.refresh();
                         }}

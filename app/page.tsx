@@ -157,10 +157,11 @@ export default async function Home() {
             <div className="info-box-text-container">
               <h3 className="info-box-header">Find hidden Jems</h3>
               <div className="info-box-text">
-                Profile personalization allows you to create a customized
-                profile that reflects your personal preferences, interests, and
-                tastes.This feature provides a more engaging and relevant
-                experience for everyone.
+                Winzer allows you to find hidden gems in your area. You can find
+                events that are not advertised on other platforms and get to
+                know the local wine scene from a different perspective. This is
+                a great way to discover new wine experiences and wineries that
+                you might not known existed.
               </div>
             </div>
           </div>

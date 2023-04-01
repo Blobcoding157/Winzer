@@ -1,41 +1,35 @@
-# Install dependencies only when needed
-FROM node:16-alpine AS builder
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+# Initialize builder layer
+FROM node:18-alpine AS builder
+ENV NODE_ENV production
+# Install necessary tools
+RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 WORKDIR /app
+# Copy the content of the project to the machine
 COPY . .
+RUN yq --inplace --output-format=json '.dependencies = .dependencies * (.devDependencies | to_entries | map(select(.key | test("^(typescript|@types/*|@upleveled/)"))) | from_entries)' package.json
 RUN yarn install --frozen-lockfile
-
-# If using npm with a `package-lock.json` comment out above and use below instead
-# RUN npm ci
-
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Add `ARG` instructions below if you need `NEXT_PUBLIC_` variables
-# then put the value on your fly.toml
-# Example:
-# ARG NEXT_PUBLIC_EXAMPLE="value here"
-
 RUN yarn build
 
-# If using npm comment out above and use below instead
-# RUN npm run build
-
-# Production image, copy all the files and run next
-FROM node:16-alpine AS runner
+# Initialize runner layer
+FROM node:18-alpine AS runner
+ENV NODE_ENV production
+# Install necessary tools
+RUN apk add bash postgresql
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+# Copy built app
+COPY --from=builder /app/.next ./.next
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Copy only necessary files to run the app (minimize production app size, improve performance)
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/migrations ./migrations
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/.env.production ./
+COPY --from=builder /app/next.config.js ./
 
-COPY --from=builder /app ./
+# Copy start script and make it executable
+COPY --from=builder /app/scripts ./scripts
+RUN chmod +x /app/scripts/fly-io-start.sh
 
-USER nextjs
-
-CMD ["yarn", "start"]
-
-# If using npm comment out above and use below instead
-# CMD ["npm", "run", "start"]
+CMD ["./scripts/fly-io-start.sh"]
