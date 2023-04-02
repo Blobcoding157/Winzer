@@ -3,7 +3,14 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function HeadBanner({ user }) {
+type User = {
+  id: number;
+  username: string;
+  profilePicture: string;
+  roleId: number;
+};
+
+export default function HeadBanner({ user }: { user: User }) {
   const [navSize, setnavSize] = useState('5rem');
   const [navColor, setnavColor] = useState('#311930');
   const [navLogo, setnavLogo] = useState('/winzer-icon.png');
@@ -65,7 +72,7 @@ export default function HeadBanner({ user }) {
                 Host
               </Link>
             ) : (
-              <div></div>
+              <div />
             )}
 
             <Link
