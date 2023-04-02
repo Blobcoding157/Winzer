@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createEvent, deleteEvent, getEvents } from '../../../database/events';
+import {
+  createEvent,
+  deleteEvent,
+  Event,
+  getEvents,
+} from '../../../database/events';
 
 const eventSchema = z.object({
   title: z.string(),
@@ -17,6 +22,8 @@ const eventSchema = z.object({
 const eventSchemaDelete = z.object({
   id: z.number(),
 });
+
+export type EventResponseBodyGet = { error: string } | { event: Event[] };
 
 export type EventResponseBodyPost =
   | { errors: { message: string }[] }
@@ -36,8 +43,11 @@ export type EventResponseBodyPost =
 
 export type EventResponseBodyDelete =
   | { errors: { message: string }[] }
-  | { event: { id: number } };
-
+  | {
+      event: {
+        id: number;
+      };
+    };
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<EventResponseBodyPost>> {
@@ -99,12 +109,14 @@ export async function POST(
   });
 }
 
-export async function GET() {
+export async function GET(): Promise<NextResponse<EventResponseBodyGet>> {
   const events = await getEvents();
-  return NextResponse.json(events);
+  return NextResponse.json({ event: events });
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE(
+  request: NextRequest,
+): Promise<NextResponse<EventResponseBodyDelete>> {
   const body = await request.json();
 
   const result = eventSchemaDelete.safeParse(body);
@@ -114,4 +126,6 @@ export async function DELETE(request: NextRequest) {
   }
 
   await deleteEvent(result.data.id);
+
+  return NextResponse.json({ event: { id: result.data.id } });
 }

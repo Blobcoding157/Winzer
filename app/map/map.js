@@ -198,8 +198,20 @@ export default function Map({ user, participations, events }) {
                               return;
                             }
                           }
-
-                          router.refresh();
+                          if (
+                            !mapParticipations.find(
+                              (participation) =>
+                                participation.eventId === eventId,
+                            )
+                          ) {
+                            setMapParticipations([
+                              ...mapParticipations,
+                              {
+                                eventId: eventId,
+                                profilePicture: user.profilePicture,
+                              },
+                            ]);
+                          }
                         }}
                         className="popup-join-button"
                       >

@@ -2,7 +2,12 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { getUserBySessionToken, updateUser } from '../../../../database/users';
 
-export async function GET() {
+// change as soon as possible
+export type ProfileResponseBodyGet = { error: string } | { user: any };
+
+export type ProfileResponseBodyPut = { error: string } | { user: any };
+
+export async function GET(): Promise<NextResponse<ProfileResponseBodyGet>> {
   // this is a protected Route Handler
   // 1. get the session token from the cookie
   const cookieStore = cookies();
@@ -23,7 +28,7 @@ export async function GET() {
 export async function PUT(
   request: NextRequest,
   { params }: { params: Record<string, string[]> },
-) {
+): Promise<NextResponse<ProfileResponseBodyPut>> {
   const userId = Number(params.userId);
   if (!userId) {
     return NextResponse.json({ error: 'No user id' }, { status: 400 });
