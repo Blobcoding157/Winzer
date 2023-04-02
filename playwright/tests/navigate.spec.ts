@@ -1,0 +1,13 @@
+import { expect, test } from '@playwright/test';
+
+test('navigation test', async ({ page }) => {
+  await page.goto('http://localhost:3000/');
+
+  await expect(page.getByRole('heading', { name: 'Winzer' })).toBeVisible();
+
+  await expect(page.locator('h2')).toHaveText('Winzer');
+
+  await expect(page).toHaveURL('http://localhost:3000/login');
+  await expect(page).toHaveURL('http://localhost:3000/register');
+  await expect(page).toHaveURL('http://localhost:3000/host');
+});
