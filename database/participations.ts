@@ -102,8 +102,9 @@ export const createParticipation = cache(
 );
 
 export const deleteParticipation = cache(async (id: number) => {
-  const [participations] = await sql<any>`
+  const [participations] = await sql<Participation[]>`
       DELETE FROM participations WHERE id = ${id}
+      RETURNING *
     `;
   return participations;
 });
