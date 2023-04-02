@@ -11,9 +11,9 @@ type User = {
 };
 
 export default function HeadBanner({ user }: { user: User }) {
-  const [navSize, setnavSize] = useState('5rem');
-  const [navColor, setnavColor] = useState('#311930');
-  const [navLogo, setnavLogo] = useState('/winzer-icon.png');
+  const [navSize, setNavSize] = useState('5rem');
+  const [navColor, setNavColor] = useState('#311930');
+  const [navLogo, setNavLogo] = useState('/winzer-icon.png');
   const [color, setColor] = useState('white');
   const [blur, setBlur] = useState('0px');
   const [titleShadow, setTitleShadow] = useState(
@@ -21,11 +21,11 @@ export default function HeadBanner({ user }: { user: User }) {
   );
 
   const listenScrollEvent = () => {
-    window.scrollY > 50 ? setnavColor('#69376727') : setnavColor('#311930');
-    window.scrollY > 50 ? setnavSize('4rem') : setnavSize('5rem');
+    window.scrollY > 50 ? setNavColor('#69376727') : setNavColor('#311930');
+    window.scrollY > 50 ? setNavSize('4rem') : setNavSize('5rem');
     window.scrollY > 50
-      ? setnavLogo('/winzer-icon-white.png')
-      : setnavLogo('/winzer-icon.png');
+      ? setNavLogo('/winzer-icon-white.png')
+      : setNavLogo('/winzer-icon.png');
 
     window.scrollY > 50 ? setColor('black') : setColor('white');
     window.scrollY > 50 ? setBlur('2px') : setBlur('0px');

@@ -274,8 +274,7 @@ export default function Profile({
 
           {hostingData ? (
             <h3 className="profile-hosting-participating">
-              {' '}
-              participating events:{' '}
+              participating events:
             </h3>
           ) : null}
 

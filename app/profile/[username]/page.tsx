@@ -7,7 +7,7 @@ import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByUsername } from '../../../database/users';
 import Profile from './Profile';
 
-export default async function ProfilePage(props) {
+export default async function ProfilePage(props: any) {
   // check if there is a valid session
   const sessionTokenCookie = cookies().get('sessionToken');
   const session =

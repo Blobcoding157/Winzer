@@ -155,7 +155,7 @@ export default async function Home() {
               />
             </div>
             <div className="info-box-text-container">
-              <h3 className="info-box-header">Find hidden Jems</h3>
+              <h3 className="info-box-header">Find hidden Gems</h3>
               <div className="info-box-text">
                 Winzer allows you to find hidden gems in your area. You can find
                 events that are not advertised on other platforms and get to

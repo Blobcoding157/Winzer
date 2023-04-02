@@ -34,6 +34,10 @@ export type EventResponseBodyPost =
       };
     };
 
+export type EventResponseBodyDelete =
+  | { errors: { message: string }[] }
+  | { event: { id: number } };
+
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<EventResponseBodyPost>> {
@@ -101,13 +105,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(events);
 }
 
-export type EventResponseBodyDelete =
-  | { errors: { message: string }[] }
-  | { event: { id: number } };
-
-export async function DELETE(
-  request: NextRequest,
-): Promise<NextResponse<EventResponseBodyDelete>> {
+export async function DELETE(request: NextRequest) {
   const body = await request.json();
 
   const result = eventSchemaDelete.safeParse(body);

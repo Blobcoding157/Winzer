@@ -9,8 +9,8 @@ import 'leaflet-geosearch/dist/geosearch.css';
 import 'leaflet-geosearch/dist/geosearch.umd.js';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useMemo, useRef, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { useRef, useState } from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
 import icon from './icon';
 import LocationMarker from './LocationMarker';
@@ -19,36 +19,35 @@ import SearchControl from './SearchControl';
 const center = [48.1931, 16.31222];
 
 export default function Map({ user, participations, events }) {
-  const [draggable, setDraggable] = useState(false);
-  const [position, setPosition] = useState(center);
-  const [errors, setErrors] = useState([]);
+  // const [draggable, setDraggable] = useState(false);
+  // const [position, setPosition] = useState(center);
   const markerRef = useRef(null);
   const [mapData, setMapData] = useState(events);
   const [mapParticipations, setMapParticipations] = useState(participations);
   const router = useRouter();
   const [error, setError] = useState(null);
-  const [atendingCount, setAtendingCount] = useState(0);
-  let count = 0;
 
   const prov = OpenStreetMapProvider();
 
-  // draggable isn't working. next idea is to update the actual position in the database on eventhandler
+  // draggable isn't working. next idea is to update the actual position in the database on event handler
+  // draggable is way to inefficient for the database and on hold for now
 
-  const eventHandlers = useMemo(
-    () => ({
-      dragend() {
-        const marker = markerRef.current;
-        if (marker !== null) {
-          // instead of useState, update via api call
-          setPosition(marker.getLatLng());
-        }
-      },
-    }),
-    [],
-  );
+  // const eventHandlers = useMemo(
+  //   () => ({
+  //     dragend() {
+  //       const marker = markerRef.current;
+  //       if (marker !== null) {
+  //         // instead of useState, update via api call
+  //         setPosition(marker.getLatLng());
+  //       }
+  //     },
+  //   }),
+  //   [],
+  // );
 
   return (
     <div className="container">
+      <div>{error}</div>
       <MapContainer
         center={center}
         zoom={26}
@@ -63,12 +62,12 @@ export default function Map({ user, participations, events }) {
           provider={prov}
           showMarker={true}
           showPopup={false}
-          popupFormat={({ query, result }) => result.label}
+          popupFormat={({ result }) => result.label}
           maxMarkers={3}
           retainZoomLevel={false}
           animateZoom={true}
           autoClose={false}
-          searchLabel={'Enter address'}
+          searchLabel="Enter address"
           keepResult={true}
         />
 
@@ -76,8 +75,8 @@ export default function Map({ user, participations, events }) {
           return (
             <Marker
               icon={icon}
-              draggable={draggable}
-              eventHandlers={eventHandlers}
+              // draggable={draggable}
+              // eventHandlers={eventHandlers}
               ref={markerRef}
               key={`event-${eventMarker.id}`}
               position={[eventMarker.latitude, eventMarker.longitude]}
@@ -109,6 +108,8 @@ export default function Map({ user, participations, events }) {
                           onClick={async () => {
                             const id = eventMarker.id;
 
+                            setMapData(mapData.filter((map) => map.id !== id));
+
                             const response = await fetch('/api/events', {
                               method: 'DELETE',
                               body: JSON.stringify({
@@ -122,9 +123,6 @@ export default function Map({ user, participations, events }) {
                               setError(data.error);
                               return;
                             }
-                            setMapData(
-                              mapData.filter((map) => map.id !== data.event.id),
-                            );
                           }}
                           className="event-delete-button"
                         />
@@ -185,6 +183,14 @@ export default function Map({ user, participations, events }) {
                                 },
                             )
                           ) {
+                            setMapParticipations([
+                              ...mapParticipations,
+                              {
+                                eventId: eventId,
+                                profilePicture: user.profilePicture,
+                              },
+                            ]);
+
                             const response = await fetch('/api/participation', {
                               method: 'POST',
                               body: JSON.stringify({
@@ -195,17 +201,9 @@ export default function Map({ user, participations, events }) {
 
                             const responseData = await response.json();
                             if ('error' in responseData) {
-                              setErrors(responseData.error);
+                              setError(responseData.error);
                               return;
                             }
-
-                            // setMapParticipations([
-                            //   ...mapParticipations,
-                            //   {
-                            //     eventId: eventId,
-                            //     profilePicture: user.profilePicture,
-                            //   },
-                            // ]);
                           }
 
                           router.refresh();
