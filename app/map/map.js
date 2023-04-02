@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import '../styles/map.scss';
@@ -183,14 +184,6 @@ export default function Map({ user, participations, events }) {
                                 },
                             )
                           ) {
-                            setMapParticipations([
-                              ...mapParticipations,
-                              {
-                                eventId: eventId,
-                                profilePicture: user.profilePicture,
-                              },
-                            ]);
-
                             const response = await fetch('/api/participation', {
                               method: 'POST',
                               body: JSON.stringify({
