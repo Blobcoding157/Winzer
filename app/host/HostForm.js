@@ -13,23 +13,21 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
-import { EventResponseBodyPost } from '../api/events/route';
 import icon from '../map/icon';
-import LocationMarker from '../map/LocationMarker';
 import SearchControl from '../map/SearchControl';
 
-export default function HostForm(props: any) {
+export default function HostForm(props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventStart, setEventStart] = useState('');
   const [eventEnd, setEventEnd] = useState('');
-  const [marker, setMarker] = useState<any>([]);
-  const [coordinates, setCoordinates] = useState<number[]>([]);
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [marker, setMarker] = useState([]);
+  const [coordinates, setCoordinates] = useState([]);
+  const [errors, setErrors] = useState([]);
   const router = useRouter();
 
-  const center: any = [48.1931, 16.31222];
+  const center = [48.1931, 16.31222];
 
   const prov = OpenStreetMapProvider();
 
@@ -48,7 +46,7 @@ export default function HostForm(props: any) {
     return null;
   }
 
-  async function handleOnSubmitHeader(event: any) {
+  async function handleOnSubmitHeader(event) {
     event.preventDefault();
 
     const latitude = coordinates[0];
@@ -93,7 +91,7 @@ export default function HostForm(props: any) {
       }),
     });
 
-    const responseData: EventResponseBodyPost = await response.json();
+    const responseData = await response.json();
 
     if ('errors' in responseData) {
       setErrors(responseData.errors);
@@ -217,7 +215,7 @@ export default function HostForm(props: any) {
               provider={prov}
               showMarker={true}
               showPopup={false}
-              popupFormat={({ query, result }) => result.label}
+              popupFormat={({ result }) => result.label}
               maxMarkers={3}
               retainZoomLevel={false}
               animateZoom={true}

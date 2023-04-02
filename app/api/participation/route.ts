@@ -12,10 +12,10 @@ const participationSchema = z.object({
   eventId: z.number(),
 });
 
-const participationSchemaGet = z.object({
-  id: z.number(),
-  query: z.string(),
-});
+// const participationSchemaGet = z.object({
+//   id: z.number(),
+//   query: z.string(),
+// });
 
 export type ParticipationResponseBodyPost =
   | { errors: { message: string }[] }
@@ -88,35 +88,35 @@ export async function POST(
   });
 }
 
-export async function GET(
-  request: NextRequest,
-): Promise<NextResponse<ParticipationResponseBodyGet>> {
-  let participations = null;
-  const body = await request.json();
-  const result = participationSchemaGet.safeParse(body);
+// export async function GET(
+//   request: NextRequest,
+// ): Promise<NextResponse<ParticipationResponseBodyGet>> {
+//   let participations = null;
+//   const body = await request.json();
+//   const result = participationSchemaGet.safeParse(body);
 
-  if (!result.success) {
-    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
-  }
+//   if (!result.success) {
+//     return NextResponse.json({ errors: result.error.issues }, { status: 400 });
+//   }
 
-  if (result.data.query === 'getParticipationsByUser') {
-    participations = await getParticipationsByUser(result.data.id);
-  } else if (result.data.query === 'getAttendingUserProfilePictures') {
-    participations = await getAllAttendingUserProfilePictures();
-  } else {
-    return NextResponse.json(
-      { errors: [{ message: 'Invalid query!' }] },
-      { status: 400 },
-    );
-  }
+//   if (result.data.query === 'getParticipationsByUser') {
+//     participations = await getParticipationsByUser(result.data.id);
+//   } else if (result.data.query === 'getAttendingUserProfilePictures') {
+//     participations = await getAllAttendingUserProfilePictures();
+//   } else {
+//     return NextResponse.json(
+//       { errors: [{ message: 'Invalid query!' }] },
+//       { status: 400 },
+//     );
+//   }
 
-  console.log('participations: ', participations);
+//   console.log('participations: ', participations);
 
-  if (!participations) {
-    return NextResponse.json(
-      { errors: [{ message: 'Participation Failed!' }] },
-      { status: 400 },
-    );
-  }
-  return NextResponse.json(participations);
-}
+//   if (!participations) {
+//     return NextResponse.json(
+//       { errors: [{ message: 'Participation Failed!' }] },
+//       { status: 400 },
+//     );
+//   }
+//   return NextResponse.json(participations);
+// }

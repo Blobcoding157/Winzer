@@ -37,7 +37,7 @@ export async function POST(
   const result = userSchema.safeParse(body);
 
   if (!result.success) {
-    return NextResponse.json({ error: result.error.issues }, { status: 400 });
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
   }
 
   if (
@@ -114,6 +114,7 @@ export async function POST(
         email: newUser.email,
         profilePicture: newUser.profilePicture,
         profileHeader: newUser.profileHeader,
+        role: newUser.role_id,
       },
     },
     {

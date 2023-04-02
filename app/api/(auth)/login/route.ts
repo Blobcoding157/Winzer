@@ -25,7 +25,7 @@ export async function POST(
 
   if (!result.success) {
     // Inside of result.error.issues you are going to have more granular information about what is failing allowing you to create more specific error massages
-    return NextResponse.json({ error: result.error.issues }, { status: 400 });
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
   }
 
   // check if the string is empty
