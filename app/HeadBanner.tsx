@@ -3,12 +3,15 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-type User = {
-  id: number;
-  username: string;
-  profilePicture: string;
-  roleId: number;
-};
+type User =
+  | {
+      id: number;
+      username: string;
+      roleId: number;
+      profilePicture: string;
+      csrfSecret: string;
+    }
+  | undefined;
 
 export default function HeadBanner({ user }: { user: User }) {
   const [navSize, setNavSize] = useState('5rem');
