@@ -134,9 +134,12 @@
 .get-started-button {
   font-size: 1.5rem;
   padding: 0.7rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
   width: 12rem;
   font-family: 'Alata', sans-serif;
-  border-radius: 1.5rem;
+  border-radius: 1.8rem;
   background-color: #70051b;
   color: #fafafa;
   border: solid 1px rgba($color: #fafafa, $alpha: 0.3);
@@ -150,6 +153,7 @@
 
   .button-text {
     position: relative;
+
     z-index: 2;
   }
 

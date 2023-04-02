@@ -49,11 +49,9 @@ export default async function Home() {
               uncork your passion for wine with Winzer!
             </div>
             <div className="hero-button-container">
-              <Link href="/register">
-                <button className="get-started-button">
-                  <div className="button-text">Get Started</div>
-                  <div className="fill-container" />
-                </button>
+              <Link className="get-started-button" href="/register">
+                <div className="button-text">Get Started</div>
+                <div className="fill-container" />
               </Link>
             </div>
           </div>
