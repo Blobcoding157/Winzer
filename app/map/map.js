@@ -132,7 +132,7 @@ export default function Map({ user, participations, events }) {
                     </div>
                   </div>
                   <div className="popup-info-container">
-                    <h1 className="popup-title">{eventMarker.title}</h1>
+                    <h2 className="popup-title">{eventMarker.title}</h2>
                     <div className="popup-date-time-container">
                       <div className="popup-date">{eventMarker.eventDate}</div>
                       <div className="popup-time">

@@ -5,7 +5,7 @@ test('navigation test', async ({ page }) => {
 
   await expect(page.getByRole('heading', { name: 'Winzer' })).toBeVisible();
 
-  await expect(page.locator('h2')).toHaveText('Winzer');
+  await expect(page.locator('h1')).toHaveText('Winzer');
 
   await expect(page).toHaveURL('http://localhost:3000/login');
   await expect(page).toHaveURL('http://localhost:3000/register');

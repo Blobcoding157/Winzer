@@ -47,7 +47,7 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
       <div className="input-container">
-        <h1>Welcome Back</h1>
+        <h2>Welcome Back</h2>
         <input
           value={username}
           onChange={(event) => setUsername(event.currentTarget.value)}

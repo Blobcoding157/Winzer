@@ -35,9 +35,9 @@ export default async function Home() {
           />
         </div>
         <div className="hero-text-container">
-          <h1 className="hero-text-header">
+          <h2 className="hero-text-header">
             Win<div className="hero-text-header2">zer</div>
-          </h1>
+          </h2>
           <h2 className="hero-text-slogan">
             Find your next wine tasting event
           </h2>

@@ -59,7 +59,7 @@ export default function HeadBanner({ user }: { user: User }) {
         className="headerTitle"
       >
         <img className="headerLogo" src={navLogo} alt="winzer-icon" />
-        <h2>Winzer</h2>
+        <h1>Winzer</h1>
       </Link>
 
       <nav className="bannerNavigation">

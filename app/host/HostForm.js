@@ -122,7 +122,7 @@ export default function HostForm(props) {
               onSubmit={handleOnSubmitHeader}
             >
               <div className="host-form-contents">
-                <h1>LETS START A PARTY</h1>
+                <h2>LETS START A PARTY</h2>
                 <input
                   className="host-form-title"
                   placeholder="Title"

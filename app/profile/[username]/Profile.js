@@ -210,7 +210,7 @@ export default function Profile({
           </form>
         )}
         <div className="profile-info-container">
-          <h1 className="profile-username">{user.username}</h1>
+          <h2 className="profile-username">{user.username}</h2>
           {sessionUser && sessionUser.userId === user.id && (
             <form method="put" onSubmit={handleAboutMeChange}>
               <input
