@@ -99,9 +99,8 @@ export async function POST(
   });
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const events = await getEvents();
-  const { searchParams } = new URL(request.url);
   return NextResponse.json(events);
 }
 

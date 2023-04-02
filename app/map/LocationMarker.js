@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import React, { useEffect, useState } from 'react';

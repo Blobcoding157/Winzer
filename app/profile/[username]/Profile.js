@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import '../../styles/globals.scss';
 import '../../styles/profile.scss';
@@ -11,7 +13,6 @@ export default function Profile({
   participations,
   sessionUser,
 }) {
-  const [isUpdating, setIsUpdating] = useState(false);
   const [aboutMeUpdate, setAboutMeUpdate] = useState('');
   const [profilePictureUpdate, setProfilePictureUpdate] = useState(false);
   const [profileHeaderUpdate, setProfileHeaderUpdate] = useState(false);
@@ -202,7 +203,7 @@ export default function Profile({
             {imageSrc && !uploadData && (
               <p>
                 <button className="profile-upload-profile-picture-button">
-                  Upload Profile Picutre
+                  Upload Profile Picture
                 </button>
               </p>
             )}

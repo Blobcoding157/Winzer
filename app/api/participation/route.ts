@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
   createParticipation,
-  getAllAttendingUserProfilePictures,
   getParticipations,
-  getParticipationsByUser,
 } from '../../../database/participations';
 
 const participationSchema = z.object({

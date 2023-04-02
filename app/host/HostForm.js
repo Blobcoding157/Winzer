@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 'use client';
 
 import '../styles/globals.scss';
@@ -138,7 +139,7 @@ export default function HostForm(props) {
                   }
                 />
                 <div
-                  data-text={'Choose a banner-picture'}
+                  data-text="Choose a banner-picture"
                   className="host-form-image-container"
                 >
                   <input
@@ -177,7 +178,7 @@ export default function HostForm(props) {
                   />
                 </div>
 
-                <button type="submit" className="host-form-confirm-button">
+                <button className="host-form-confirm-button">
                   Lets do it!
                 </button>
                 <div>{errors.toString()}</div>
@@ -190,7 +191,7 @@ export default function HostForm(props) {
                 .map((char, index) => {
                   return (
                     <div
-                      key={`indexkey-${(index, char)}`}
+                      key={`indexKey-${(index, char)}`}
                       className="wrong-login"
                     >
                       {char}
@@ -220,7 +221,7 @@ export default function HostForm(props) {
               retainZoomLevel={false}
               animateZoom={true}
               autoClose={false}
-              searchLabel={'Enter address'}
+              searchLabel="Enter address"
               keepResult={true}
             />
 

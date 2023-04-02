@@ -7,9 +7,12 @@
       "default",
       {
         "ignore": [
-          "-webkit-mask-image"
+          "-webkit-mask-image",
+          "backdrop-filter",
+          "rotate"
         ]
       }
-    ]
+    ],
+    "no-inline-styles": "off"
   }
 }
