@@ -12,8 +12,38 @@ export type Event = {
   eventEnd: string;
   latitude: number;
   longitude: number;
-  imgUrl: string;
+  imgUrl: string | null;
   userId: number;
+};
+
+export type EventWithHostData = {
+  id: number;
+  title: string;
+  description: string;
+  eventDate: string;
+  eventStart: string;
+  eventEnd: string;
+  latitude: number;
+  longitude: number;
+  imgUrl: string | null;
+  userId: number;
+  profilePicture: string;
+  username: string;
+};
+
+export type EventWithUser = {
+  id: number;
+  title: string;
+  description: string;
+  eventDate: string;
+  eventStart: string;
+  eventEnd: string;
+  latitude: number;
+  longitude: number;
+  imgUrl: string | null;
+  userId: number;
+  username: string;
+  profilePicture: string;
 };
 
 export const getEvents = cache(async () => {
@@ -24,7 +54,7 @@ export const getEvents = cache(async () => {
 });
 
 export const getEventsWithHostData = cache(async () => {
-  const events = await sql<Event[]>`
+  const events = await sql<EventWithHostData[]>`
       SELECT events.*, users.profile_picture, users.username
 FROM events
 JOIN users ON events.user_id = users.id;`;
@@ -39,7 +69,7 @@ export const getEventsById = cache(async (id: number) => {
 });
 
 export const getEventsByUser = cache(async (id: number) => {
-  const events = await sql<Event[]>`
+  const events = await sql<EventWithUser[]>`
   SELECT events.*, users.username, users.profile_picture FROM events INNER jOIN users ON events.user_id = users.id WHERE events.user_id = ${id};
     `;
   return events;

@@ -1,5 +1,5 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": ["Alata", "bbox", "locationfound", "translatey"]
+  "cSpell.words": ["Alata", "bbox", "conect", "locationfound", "translatey"]
 }

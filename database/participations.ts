@@ -7,6 +7,36 @@ export type Participation = {
   eventId: number;
 };
 
+export type ParticipationByUser = {
+  id: number;
+  title: string;
+  description: string;
+  eventDate: string;
+  eventStart: string;
+  eventEnd: string;
+  latitude: number;
+  longitude: number;
+  imgUrl: string | null;
+  userId: number;
+  hostUsername: string;
+  hostProfilePicture: string;
+};
+
+export type ParticipationsByEvent = {
+  id: number;
+  username: string;
+  email: string;
+  profilePicture: string;
+  profileHeader: string;
+  aboutMe: string | null;
+  roleId: number;
+};
+
+export type ParticipationWithAttendingUserProfilePictures = {
+  eventId: number;
+  profilePicture: string;
+};
+
 export const getParticipations = cache(async () => {
   const participations = await sql<Participation[]>`
       SELECT * FROM participations
@@ -23,7 +53,7 @@ export const getParticipationsById = cache(async (id: number) => {
 
 // returns all data from all attending events of a specific user
 export const getParticipationsByUser = cache(async (id: number) => {
-  const participations = await sql<Participation[]>`
+  const participations = await sql<ParticipationByUser[]>`
   SELECT events.*, u.username AS host_username,
        u.profile_picture AS host_profile_picture
 FROM events
@@ -36,7 +66,9 @@ WHERE p.user_id = ${id};`;
 
 // returns all profile pictures from all attending users of a specific event
 export const getAllAttendingUserProfilePictures = cache(async () => {
-  const participations = await sql<Participation[]>`
+  const participations = await sql<
+    ParticipationWithAttendingUserProfilePictures[]
+  >`
      SELECT participations.event_id, users.profile_picture FROM users
      INNER JOIN participations ON users.id = participations.user_id
     `;
@@ -45,16 +77,15 @@ export const getAllAttendingUserProfilePictures = cache(async () => {
 
 export const getParticipationsByUserAndEvent = cache(async () => {
   const participations = await sql<Participation[]>`
-      FROM participations INNER jOIN users ON participations.id = users.id
+      Select * FROM participations INNER jOIN users ON participations.id = users.id
       INNER jOIN events ON participations.id = events.id
-
     `;
   return participations;
 });
 
 // returns all attending userData from an event
 export const getParticipationsByEvent = cache(async (id: number) => {
-  const participations = await sql<Participation[]>`
+  const participations = await sql<ParticipationsByEvent[]>`
       SELECT
       users.id,
       users.username, users.email, users.profile_picture, users.profile_header, users.about_me, users.role_id

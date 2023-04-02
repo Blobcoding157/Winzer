@@ -29,7 +29,7 @@ export type EventResponseBodyPost =
         eventEnd: string;
         latitude: number;
         longitude: number;
-        imgUrl: string;
+        imgUrl: string | null;
         userId: number;
       };
     };

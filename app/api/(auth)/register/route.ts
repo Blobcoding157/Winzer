@@ -114,7 +114,7 @@ export async function POST(
         email: newUser.email,
         profilePicture: newUser.profilePicture,
         profileHeader: newUser.profileHeader,
-        role: newUser.role_id,
+        role: newUser.roleId,
       },
     },
     {

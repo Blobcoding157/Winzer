@@ -8,8 +8,7 @@ export type User = {
   profilePicture: string;
   profileHeader: string;
   aboutMe: string | null;
-  role_id: number;
-  passwordHash: string;
+  roleId: number;
 };
 
 type UserWithPasswordHash = User & {
@@ -83,7 +82,7 @@ export const getUserByUsername = cache(async (username: string) => {
       profileHeader: string;
       email: string;
       about_me: string | null;
-      role_id: number;
+      roleId: number;
     }[]
   >`
     SELECT
@@ -99,7 +98,7 @@ export const getUserByUsername = cache(async (username: string) => {
 
 export const updateUserPicture = cache(
   async (id: number, profilePicture: string) => {
-    const [user] = await sql<{ id: number; username: string }[]>`
+    const [user] = await sql<{ id: number; profilePicture: string }[]>`
     UPDATE users
     SET profile_picture = ${profilePicture}
     WHERE id = ${id}
@@ -111,7 +110,7 @@ export const updateUserPicture = cache(
 
 export const updateUserHeader = cache(
   async (id: number, profileHeader: string) => {
-    const [user] = await sql<{ id: number; username: string }[]>`
+    const [user] = await sql<{ id: number; profileHeader: string }[]>`
     UPDATE users
     SET profile_header = ${profileHeader}
     WHERE id = ${id}
@@ -137,7 +136,7 @@ export const createUser = cache(
     email: string,
     profilePicture: string,
     profileHeader: string,
-    role_id: number,
+    roleId: number,
     passwordHash: string,
   ) => {
     const [user] = await sql<
@@ -147,15 +146,15 @@ export const createUser = cache(
         email: any;
         profilePicture: string;
         profileHeader: string;
-        role_id: number;
+        roleId: number;
       }[]
     >`
       INSERT INTO users
         (username, email, profile_picture, profile_header, role_id, password_hash)
       VALUES
-        (${username}, ${email}, ${profilePicture}, ${profileHeader}, ${role_id}, ${passwordHash})
+        (${username}, ${email}, ${profilePicture}, ${profileHeader}, ${roleId}, ${passwordHash})
       RETURNING
-        id, username
+        id, username, email, profile_picture, profile_header, role_id
     `;
     return user;
   },
