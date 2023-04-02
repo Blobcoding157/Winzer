@@ -84,10 +84,10 @@ export const getUserByUsername = cache(async (username: string) => {
     {
       id: number;
       username: string;
+      email: string;
       profilePicture: string;
       profileHeader: string;
-      email: string;
-      about_me: string | null;
+      aboutMe: string | null;
       roleId: number;
     }[]
   >`
