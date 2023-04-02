@@ -75,14 +75,6 @@ export const getAllAttendingUserProfilePictures = cache(async () => {
   return participations;
 });
 
-export const getParticipationsByUserAndEvent = cache(async () => {
-  const participations = await sql<Participation[]>`
-      Select * FROM participations INNER jOIN users ON participations.id = users.id
-      INNER jOIN events ON participations.id = events.id
-    `;
-  return participations;
-});
-
 // returns all attending userData from an event
 export const getParticipationsByEvent = cache(async (id: number) => {
   const participations = await sql<ParticipationsByEvent[]>`
@@ -110,7 +102,7 @@ export const createParticipation = cache(
 );
 
 export const deleteParticipation = cache(async (id: number) => {
-  const [participations] = await sql<Participation[]>`
+  const [participations] = await sql`
       DELETE FROM participations WHERE id = ${id}
     `;
   return participations;

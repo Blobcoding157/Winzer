@@ -11,8 +11,15 @@ export type User = {
   roleId: number;
 };
 
-type UserWithPasswordHash = User & {
+type UserWithPasswordHash = {
+  id: number;
+  username: string;
+  email: string;
   passwordHash: string;
+  aboutMe: string | null;
+  profilePicture: string;
+  profileHeader: string;
+  roleId: number;
 };
 
 export const getUsers = cache(async () => {
@@ -25,8 +32,7 @@ export const getUsers = cache(async () => {
 
 export const getUsersById = cache(async (id: number) => {
   const user = await sql<User[]>`
-      SELECT id,
-      username, email, profile_picture, profile_header, about_me, role_id FROM user WHERE id = ${id}
+      SELECT id, username, email, profile_picture, profile_header, about_me, role_id FROM users WHERE id = ${id}
     `;
   return user;
 });
@@ -102,7 +108,7 @@ export const updateUserPicture = cache(
     UPDATE users
     SET profile_picture = ${profilePicture}
     WHERE id = ${id}
-    RETURNING id, username;
+    RETURNING id, profile_picture;
   `;
     return user;
   },
@@ -114,7 +120,7 @@ export const updateUserHeader = cache(
     UPDATE users
     SET profile_header = ${profileHeader}
     WHERE id = ${id}
-    RETURNING id, username;
+    RETURNING id, profile_header;
   `;
     return user;
   },
@@ -143,7 +149,7 @@ export const createUser = cache(
       {
         id: number;
         username: string;
-        email: any;
+        email: string;
         profilePicture: string;
         profileHeader: string;
         roleId: number;
