@@ -7,6 +7,10 @@
   margin-right: 10vw;
   background-color: #fff;
   min-height: 90vh;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .header-image-upload > input {
@@ -118,6 +122,13 @@
   margin-left: 15rem;
   margin-top: -6rem;
   color: #70051b;
+  @media screen and (max-width: 768px) {
+    text-align: center;
+    font-size: 2rem;
+    margin-left: 4rem;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
 }
 .profile-about-me-container {
   font-size: 1.6rem;
@@ -146,6 +157,9 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   &:focus {
     outline: none;
+  }
+  @media screen and (max-width: 768px) {
+    min-width: 15rem;
   }
 }
 .profile-submit-button {

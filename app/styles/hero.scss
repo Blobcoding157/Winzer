@@ -9,21 +9,6 @@
   align-items: center;
 
   @media screen and (max-width: 768px) {
-    background-image: linear-gradient(
-      to right top,
-      #006c5d,
-      #15705d,
-      #23745d,
-      #2e775c,
-      #387b5c,
-      #417e5c,
-      #4a825d,
-      #53855d,
-      #5d885e,
-      #678c5f,
-      #718f61,
-      #7a9263
-    );
     margin: 0;
     padding: 0;
   }
@@ -58,12 +43,6 @@
   height: 47rem;
   justify-content: center;
   align-items: center;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-    top: 0;
-    position: absolute;
-  }
 }
 
 .hero-text-container {
@@ -234,6 +213,10 @@
   padding: 5.5rem;
   overflow: hidden;
   background-color: #fff;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+  }
 }
 .info-box-container-single {
   display: flex;
@@ -244,6 +227,13 @@
   height: 100%;
   margin: 1rem;
   padding: 1rem;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin: 0;
+    align-items: center;
+    margin-bottom: 5rem;
+    padding: 0;
+  }
 }
 .info-box-container {
   display: flex;
@@ -256,10 +246,20 @@
   padding: 1rem;
   background-color: #fff;
   border-radius: 0.5rem;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .info-box-image-container {
   display: flex;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin: 1rem;
+    padding: 1rem;
+  }
 }
 .info-box-double.hero-image-container {
   display: flex;
@@ -290,6 +290,10 @@
   height: 20rem;
   border-radius: 0.2rem;
   margin: 1rem;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .info-box-header {
@@ -297,6 +301,11 @@
   font-weight: 700;
   margin: 1;
   padding: 1;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+  }
 }
 .info-box-text-container {
   display: flex;
@@ -307,9 +316,19 @@
   height: 100%;
   margin: 5rem;
   padding: 1rem;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+    width: 80%;
+  }
 }
 .info-box-text {
   font-size: 1.2rem;
   margin: 1;
   padding: 1;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+  }
 }

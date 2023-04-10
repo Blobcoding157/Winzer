@@ -100,7 +100,10 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
           placeholder="password"
         />
       </div>
-      <button className="sign-up-button">Sign up</button>
+      <button className="sign-up-button">
+        <div className="button-text">Sign Up</div>
+        <div className="fill-container" />
+      </button>
       <Link className="bottom-redirect" href="/login">
         got an account already?
       </Link>

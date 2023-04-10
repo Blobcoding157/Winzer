@@ -21,24 +21,6 @@
   justify-content: center;
   align-items: center;
   min-height: 91vh;
-
-  @media (max-width: 1100px) {
-    background-image: linear-gradient(
-      to right top,
-      #006c5d,
-      #15705d,
-      #23745d,
-      #2e775c,
-      #387b5c,
-      #417e5c,
-      #4a825d,
-      #53855d,
-      #5d885e,
-      #678c5f,
-      #718f61,
-      #7a9263
-    );
-  }
 }
 
 .background-image {
@@ -53,8 +35,9 @@
   border: none;
   align-items: center;
   z-index: 0;
-  @media (max-width: 1100px) {
-    display: none;
+  @media (max-width: 768px) {
+    overflow: hidden;
+    object-fit: cover;
   }
 }
 
@@ -115,12 +98,17 @@
   backdrop-filter: blur(5px);
   border: 1px solid rgba(130, 130, 130, 0.47);
 
-  @media (max-width: 1100px) {
+  @media (max-width: 768px) {
     flex-direction: column-reverse;
-    background-image: none;
+
     padding: 0;
     margin: 0;
     border-radius: 0;
+    background: none;
+    box-shadow: none;
+
+    backdrop-filter: none;
+    border: none;
   }
 }
 
@@ -135,7 +123,7 @@
   flex-direction: column;
 
   justify-content: center;
-  @media (max-width: 1200px) {
+  @media (max-width: 768px) {
     display: grid;
     padding: 0;
     margin-bottom: 3rem;
@@ -152,7 +140,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media (max-width: 1100px) {
+  @media (max-width: 768px) {
     padding: 0;
     margin: 0;
     border-radius: 0;
@@ -360,8 +348,9 @@
   min-height: 40rem;
   width: 50rem;
   border-radius: 0.3rem;
-  @media (max-width: 1100px) {
-    max-height: 50vh;
-    min-height: 50vh;
+  @media (max-width: 768px) {
+    max-height: 45vh;
+    min-height: 45vh;
+    width: 90vw;
   }
 }
