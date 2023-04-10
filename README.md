@@ -1,38 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🍷 Winzer
 
-## Getting Started
+## Winzer connects wine enthusiasts with farmers through their events, promoting a social and human alternative to buying their wine third party. 
 
-First, run the development server:
+## Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Create and costomize your profile to upload and/or participate in events. Use geo-location to find your position or search directly via leaflet-geo-search. If you like an event, you can join it and check out the party. If you decide to host, there are plenty of options to advertize your event. Chose a position on the map, title, description, a header image and a time frame. The events are also displayed on the profiles, so you know, if your favorite host has currently more events planned.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Functionalities
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- A landing page with a map, filled with dynamic event-markers.
+- User Registration, Login. Logout, user Edit.
+- Event upload with images and text.
+- Event participation and manual deletion option for the host.
+- Customizable profile pages, that display the users activities.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Technologies
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Next.js
+- TypeScript
+- JavaScript
+- PostgreSQL
+- playwright E2E tests
+- FIGMA https://www.figma.com/file/D5MASQAAnqATj34yv7PAMN/Winzer?node-id=0-1&t=L5jAt6Tp3pVQ9NQy-0
+- DrawSQL https://drawsql.app/teams/patrikn/diagrams/winzer
 
-## Learn More
+## Setup instructions
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Clone the repository with `git clone <repo>`
+- Setup the database by downloading and installing PostgreSQL
+- Create a user and a database
+- Create a new file `.env`
+- Copy the environment variables from `.env-example` into `.env`
+- Replace the placeholders xxxxx with your username, password and name of database
+- Install dotenv-cli with `yarn add dotenv-cli`
+- Run `yarn install` in your command line
+- Run the migrations with `yarn migrate up`
+- Start the server by running `yarn dev`
