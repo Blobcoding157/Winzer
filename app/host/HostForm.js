@@ -17,7 +17,7 @@ import { OpenStreetMapProvider } from 'react-leaflet-geosearch';
 import icon from '../map/icon';
 import SearchControl from '../map/SearchControl';
 
-export default function HostForm(props) {
+export default function HostForm({ user }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
@@ -52,7 +52,8 @@ export default function HostForm(props) {
 
     const latitude = coordinates[0];
     const longitude = coordinates[1];
-    const userId = props.user.id;
+
+    const userId = user ? user.id : undefined;
 
     const form = event.currentTarget;
     const fileInput = Array.from(form.elements).find(
@@ -114,8 +115,7 @@ export default function HostForm(props) {
       />
       <div className="host-form-map-container">
         <div className="host-form-container">
-          {props.user &&
-          (props.user.roleId === 2 || props.user.roleId === 3) ? (
+          {user && (user.roleId === 2 || user.roleId === 3) ? (
             <form
               className="host-form"
               method="POST"

@@ -7,26 +7,26 @@ import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByUsername } from '../../../database/users';
 import Profile from './Profile';
 
-export default async function ProfilePage(props: any) {
+export default async function ProfilePage({ params }: any) {
   // check if there is a valid session
   const sessionTokenCookie = cookies().get('sessionToken');
   const session =
     sessionTokenCookie &&
     (await getValidSessionByToken(sessionTokenCookie.value));
   // if there is, redirect to home page
+
   if (!session) {
     redirect('/');
   }
   // if not, render login form
 
-  const user = await getUserByUsername(props.params.username);
+  const user = await getUserByUsername(params.username);
 
   let participations: any = [];
   let hosting: any = [];
 
   if (user) {
     participations = await getParticipationsByUser(user.id);
-
     hosting = await getEventsByUser(user.id);
   }
 
