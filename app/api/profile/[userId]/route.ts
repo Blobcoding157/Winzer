@@ -3,9 +3,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUserBySessionToken, updateUser } from '../../../../database/users';
 
 // change as soon as possible
-export type ProfileResponseBodyGet = { error: string } | { user: any };
+export type ProfileResponseBodyGet =
+  | { error: string }
+  | {
+      user: { id: number; username: string } | undefined;
+    };
 
-export type ProfileResponseBodyPut = { error: string } | { user: any };
+export type ProfileResponseBodyPut =
+  | { error: string }
+  | {
+      user: { id: number; username: string } | undefined;
+    };
 
 export async function GET(): Promise<NextResponse<ProfileResponseBodyGet>> {
   // this is a protected Route Handler

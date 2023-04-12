@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateUserPicture } from '../../../../../database/users';
 
-export type ProfilePictureResponseBodyPut = { error: string } | { user: any };
+export type ProfilePictureResponseBodyPut =
+  | { error: string }
+  | { user: Promise<{ id: number; profilePicture: string } | undefined> };
 
 export async function PUT(
   request: NextRequest,
