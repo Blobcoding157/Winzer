@@ -1643,13 +1643,13 @@
     tiny-glob "^0.2.9"
     tslib "^2.4.0"
 
-"@playwright/test@^1.32.1":
-  version "1.32.1"
-  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.32.1.tgz#749c9791adb048c266277a39ba0f7e33fe593ffe"
-  integrity sha512-FTwjCuhlm1qHUGf4hWjfr64UMJD/z0hXYbk+O387Ioe6WdyZQ+0TBDAc6P+pHjx2xCv1VYNgrKbYrNixFWy4Dg==
+"@playwright/test@^1.32.3":
+  version "1.32.3"
+  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.32.3.tgz#75be8346d4ef289896835e1d2a86fdbe3d9be92a"
+  integrity sha512-BvWNvK0RfBriindxhLVabi8BRe3X0J9EVjKlcmhxjg4giWBD/xleLcg2dz7Tx0agu28rczjNIPQWznwzDwVsZQ==
   dependencies:
     "@types/node" "*"
-    playwright-core "1.32.1"
+    playwright-core "1.32.3"
   optionalDependencies:
     fsevents "2.3.2"
 
@@ -2952,6 +2952,11 @@ emoji-regex@^9.2.2:
   version "9.2.2"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.2.tgz#840c8803b0d8047f4ff0cf963176b32d4ef3ed72"
   integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
+
+empty-dir@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/empty-dir/-/empty-dir-0.1.0.tgz#4915bd8b63773c3f458b2dc50339c908849c84f0"
+  integrity sha512-EatTcJH5cVS/NXEpy7IWBSpH0WxvJdBnmRkz8Gqr2Jn4GmSqc4Q4E81SmVGOrHHHtCys1SsFKmAoHlhaFkRlmg==
 
 encodeurl@~1.0.2:
   version "1.0.2"
@@ -5020,6 +5025,11 @@ playwright-core@1.32.1:
   resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.32.1.tgz#5a10c32403323b07d75ea428ebeed866a80b76a1"
   integrity sha512-KZYUQC10mXD2Am1rGlidaalNGYk3LU1vZqqNk0gT4XPty1jOqgup8KDP8l2CUlqoNKhXM5IfGjWgW37xvGllBA==
 
+playwright-core@1.32.3:
+  version "1.32.3"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.32.3.tgz#e6dc7db0b49e9b6c0b8073c4a2d789a96f519c48"
+  integrity sha512-SB+cdrnu74ZIn5Ogh/8278ngEh9NEEV0vR4sJFmK04h2iZpybfbqBY0bX6+BLYWVdV12JLLI+JEFtSnYgR+mWg==
+
 playwright@^1.32.1:
   version "1.32.1"
   resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.32.1.tgz#c48195850740fbdbd7702f37e5a891b13259f689"
@@ -5095,6 +5105,13 @@ postgres@^3.3.3:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/postgres/-/postgres-3.3.4.tgz#09635eb9fae26dd449db9b1bd3956ef56c5b78fa"
   integrity sha512-XVu0+d/Y56pl2lSaf0c7V19AhAEfpVrhID1IENWN8nf0xch6hFq6dAov5dtUX6ZD46wfr1TxvLhxLtV8WnNsOg==
+
+postgresql@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/postgresql/-/postgresql-0.0.1.tgz#f07c179d937e0c54ee735a15eb2e462b1967ab70"
+  integrity sha512-qtBS+u3m4UxCVTTQBm58IR4TJWZKYVRa/egONxzkQtqEYhFc9HVno4S7//ABFRJR5LeCcrZtcBpZJ5SJkJkGEA==
+  dependencies:
+    empty-dir "^0.1.0"
 
 prebuild-install@^7.1.1:
   version "7.1.1"

@@ -62,7 +62,10 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
           placeholder="password"
         />
       </div>
-      <button className="sign-up-button">Log in</button>
+      <button className="sign-up-button">
+        <div className="button-text">Sign In</div>
+        <div className="fill-container" />
+      </button>
       <Link className="bottom-redirect" href="/register">
         don't have an account?
       </Link>
