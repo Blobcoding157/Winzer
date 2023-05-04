@@ -22,11 +22,6 @@ export default async function ProfilePage({
     (await getValidSessionByToken(sessionTokenCookie.value));
   // if there is, redirect to home page
 
-  if (!session) {
-    redirect('/');
-  }
-  // if not, render login form
-
   const user = await getUserByUsername(params.username);
 
   let participations: ParticipationByUser[] | undefined = [];

@@ -144,15 +144,15 @@
   justify-content: center;
   text-align: center;
 
-  h2 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin: 0.5rem;
-  }
-
   @media (max-width: 768px) {
     max-width: 100%;
   }
+}
+
+.input-welcome-message {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem;
 }
 
 .register-input {
