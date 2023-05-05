@@ -1,6 +1,6 @@
 import '../../styles/globals.scss';
 import { cookies } from 'next/headers';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { EventWithUser, getEventsByUser } from '../../../database/events';
 import {
   getParticipationsByUser,
