@@ -15,6 +15,7 @@
     "@cloudinary/react": "^1.11.1",
     "@cloudinary/url-gen": "^1.9.2",
     "@playwright/test": "^1.32.3",
+    "@ts-safeql/eslint-plugin": "^1.0.2",
     "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "18.14.1",
