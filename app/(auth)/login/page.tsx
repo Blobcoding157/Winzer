@@ -22,7 +22,7 @@ export default async function LoginPage(props: Props) {
   }
 
   return (
-    <>
+    <main>
       <Image
         src="/wine-scenery.gif"
         alt="Artistic Background Image"
@@ -34,6 +34,6 @@ export default async function LoginPage(props: Props) {
       <div className="page-container">
         <LoginForm returnTo={props.searchParams.returnTo} />
       </div>
-    </>
+    </main>
   );
 }

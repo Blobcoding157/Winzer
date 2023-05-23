@@ -145,7 +145,7 @@ export default function Profile({
   }
 
   return (
-    <div className="profile-page-container-container">
+    <main className="profile-page-container-container">
       <div className="profile-page-container">
         <img
           alt="header"
@@ -318,6 +318,6 @@ export default function Profile({
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

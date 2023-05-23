@@ -21,7 +21,7 @@ export default async function Home() {
   const events = await getEventsWithHostData();
 
   return (
-    <div className="hero-background">
+    <main className="hero-background">
       <div className="hero-container">
         <div className="hero-image-container">
           <Image
@@ -165,6 +165,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -22,7 +22,7 @@ export default async function RegisterPage(props: Props) {
   }
 
   return (
-    <>
+    <main>
       <Image
         src="/wine-scenery.gif"
         alt="Artistic Background Image"
@@ -34,6 +34,6 @@ export default async function RegisterPage(props: Props) {
       <div className="page-container">
         <RegisterForm returnTo={props.searchParams.returnTo} />
       </div>
-    </>
+    </main>
   );
 }

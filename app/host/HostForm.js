@@ -105,7 +105,7 @@ export default function HostForm({ user }) {
   }
 
   return (
-    <div className="host-container">
+    <main className="host-container">
       <Image
         priority
         src="/wine-scenery.gif"
@@ -230,6 +230,6 @@ export default function HostForm({ user }) {
           </MapContainer>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
