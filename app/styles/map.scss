@@ -55,7 +55,7 @@
   }
 }
 .popup-content-container {
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 0.5rem;
 }
 .popup-header {
@@ -161,7 +161,7 @@
   }
 
   &:active {
-    --ico-color: #fff;
+    --ico-color: #ffffff;
     transition: all 0.5s ease 0s;
   }
 
@@ -172,7 +172,7 @@
   &:active:after {
     background-position: 60% 0;
 
-    color: #fff;
+    color: #ffffff;
   }
 }
 
@@ -200,7 +200,7 @@
   width: 4rem;
   height: 4rem;
 
-  border: 0.2rem solid #fff;
+  border: 0.2rem solid #ffffff;
 }
 
 .popup-creator-name {
@@ -321,7 +321,7 @@
 
   img {
     display: block;
-    border: 0.1rem solid #fff;
+    border: 0.1rem solid #ffffff;
     transform: scale(-1, 1);
     width: 2rem;
     height: 2rem;
